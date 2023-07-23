@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "compose": "docker-compose up -d --build",
+    "compose:prod": "docker compose -f \"docker-compose.prod.yml\" up -d --build",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
