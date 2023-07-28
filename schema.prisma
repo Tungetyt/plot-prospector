@@ -53,3 +53,8 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Car {
+  id     String @id @default(cuid())
+  engine String
+}

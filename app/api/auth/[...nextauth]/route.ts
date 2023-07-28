@@ -24,17 +24,7 @@ type GoogleProfile = Omit<
   'image'
 >
 
-const prisma = new PrismaClient(
-//     {
-//     datasources: {
-//         db: {
-//             url: process.env.DATABASE_URL, // Use the DATABASE_URL environment variable from Docker Compose
-//         },
-//     },
-// }
-)
-
-
+export const prisma = new PrismaClient()
 
 const authOptions = {
   debug: true,

@@ -5,7 +5,7 @@ services:
       context: . #if your Dockerfile is not at the same level change the path here (./frontend)
       target: dev
     restart: always
-    command: sh -c "npx prisma db push && yarn dev"
+    command: sh -c "npx prisma db push && pnpm dev"
     environment:
       - NODE_ENV=development
     volumes:
