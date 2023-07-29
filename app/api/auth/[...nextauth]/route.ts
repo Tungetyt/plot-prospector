@@ -1,8 +1,9 @@
-import NextAuth, {AuthOptions, Profile} from 'next-auth'
+import NextAuth, { AuthOptions, Profile } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 
-import {PrismaAdapter} from '@next-auth/prisma-adapter'
-import {PrismaClient} from '@prisma/client'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/app/prismaClient'
 
 type GoogleProfile = Omit<
   {
@@ -24,9 +25,7 @@ type GoogleProfile = Omit<
   'image'
 >
 
-export const prisma = new PrismaClient()
-
-const authOptions = {
+const authOptions: AuthOptions = {
   debug: true,
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -43,9 +42,9 @@ const authOptions = {
       },
     }),
   ],
-    session: {
-        strategy: "jwt", // See https://next-auth.js.org/configuration/nextjs#caveats, middleware (currently) doesn't support the "database" strategy which is used by default when using an adapter (https://next-auth.js.org/configuration/options#session)
-    },
+  session: {
+    strategy: 'jwt', // See https://next-auth.js.org/configuration/nextjs#caveats, middleware (currently) doesn't support the "database" strategy which is used by default when using an adapter (https://next-auth.js.org/configuration/options#session)
+  },
   callbacks: {
     async signIn({ account, profile }) {
       if (account?.provider === 'google')
@@ -54,7 +53,7 @@ const authOptions = {
       return true // Do different verification for other providers that don't have `email_verified`
     },
   },
-} satisfies AuthOptions
+}
 
 const handler = NextAuth(authOptions)
 

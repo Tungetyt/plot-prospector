@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+tsc --noEmit || { echo "Error! TypeScript compilation failed"; exit 42; }
+pnpm run test || { echo "Error! Tests failed"; exit 43; }
+npx lint-staged || { echo "Error! Code formatting or linting failed"; exit 44; }
+
+# Sync gitignore and eslintignore with prettierignore
+echo "# WARNING: Do not modify this file manually. It is auto-generated from .gitignore and .eslintignore during commit phase." > .prettierignore
+cat .gitignore .eslintignore >> .prettierignore || { echo "Error! Failed to update .prettierignore"; exit 45; }
