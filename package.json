@@ -8,7 +8,7 @@
     "docker:prune": "docker system prune -a",
     "docker:kill-em-all": "docker rm -f $(docker ps -a -q); docker rmi -f $(docker images -a -q); docker volume rm $(docker volume ls -q)",
     "prisma:migrate": "docker-compose exec next-js npx prisma migrate dev && npx prisma generate",
-    "prisma:studio": "npx prisma studio",
+    "prisma:studio": "docker-compose exec next-js npx prisma studio",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
