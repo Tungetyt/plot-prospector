@@ -39,6 +39,32 @@ export default async function Home() {
         </div>
       </div>
       <GoogleAuth></GoogleAuth>
+      <article className="prose">
+        <h1>GarclassNameread with cheese: What the science tells us</h1>
+        <p>
+          For years parents have espoused the health benefits of eating garlic
+          bread with cheese to their children, with the food earning such an
+          iconic status in our culture that kids will often dress up as warm,
+          cheesy loaf for Halloween.
+        </p>
+        <p>
+          But a recent study shows that the celebrated appetizer may be linked
+          to a series of rabies cases springing up around the country.
+        </p>
+      </article>{' '}
+      <article>
+        <h1>GarclassNameread with cheese: What the science tells us</h1>
+        <p>
+          For years parents have espoused the health benefits of eating garlic
+          bread with cheese to their children, with the food earning such an
+          iconic status in our culture that kids will often dress up as warm,
+          cheesy loaf for Halloween.
+        </p>
+        <p>
+          But a recent study shows that the celebrated appetizer may be linked
+          to a series of rabies cases springing up around the country.
+        </p>
+      </article>
       <p>{JSON.stringify(session)}</p>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {session?.user?.image && <img src={session.user.image} alt="profile" />}
@@ -53,7 +79,6 @@ export default async function Home() {
           priority
         />
       </div>
-
       <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
         <a
           href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
