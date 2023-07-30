@@ -1,7 +1,6 @@
-import { render, fireEvent } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { GoogleAuth } from './GoogleAuth'
-import { signIn, signOut } from 'next-auth/react'
-import { describe, it, beforeEach, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 describe('GoogleAuth', () => {
   // beforeEach(() => {
@@ -11,7 +10,7 @@ describe('GoogleAuth', () => {
   // });
 
   it('renders and calls signIn function on button click', () => {
-    const { getByText } = render(<GoogleAuth />)
+    render(<GoogleAuth />)
     // const signInButton = getByText('signIn');
     // fireEvent.click(signInButton);
     // expect(signIn).toHaveBeenCalledWith("google");
