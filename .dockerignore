@@ -1,34 +1,63 @@
-# Include any files or directories that you don't want to be copied to your
+# WARNING: Do not modify this file manually. It is auto-generated during commit phase.
+
 # container here (e.g., local build artifacts, temporary files, etc.).
-#
+# debug
+# dependencies
 # For more help, visit the .dockerignore file reference guide at
 # https://docs.docker.com/engine/reference/builder/#dockerignore-file
-
+# Include any files or directories that you don't want to be copied to your
+# local env files
+# misc
+# next.js
+# production
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# testing
+# typescript
+# vercel
+#
+#IDE
+**/*.*proj.user
+**/*.dbmdl
+**/*.jfm
+**/.cache
 **/.classpath
 **/.dockerignore
 **/.env
 **/.git
 **/.gitignore
+**/.next
 **/.project
 **/.settings
 **/.toolstarget
 **/.vs
 **/.vscode
-**/.next
-**/.cache
-**/*.*proj.user
-**/*.dbmdl
-**/*.jfm
+**/build
 **/charts
+**/dist
 **/docker-compose*
-docker-compose.yml
 **/Dockerfile*
 **/node_modules
 **/npm-debug.log
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
-**/build
-**/dist
+*.pem
+*.tsbuildinfo
+.DS_Store
+.env
+.idea
+.pnp.js
+.vercel
+/.next/
+/.pnp
+/build
+/coverage
+/node_modules
+/out/
+docker-compose.yml
 LICENSE
+next-env.d.ts
+npm-debug.log*
 README.md
+yarn-debug.log*
+yarn-error.log*
