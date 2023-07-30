@@ -1,6 +1,3 @@
-# WARNING: Do not modify this file manually. It is auto-generated from .gitignore and .eslintignore during commit phase.
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp

@@ -6,5 +6,5 @@ tsc --noEmit || { echo "Error! TypeScript compilation failed"; exit 43; }
 pnpm exec test run || { echo "Error! Tests failed"; exit 44; }
 
 # Sync gitignore and eslintignore with prettierignore
-echo "# WARNING: Do not modify this file manually. It is auto-generated from .gitignore and .eslintignore during commit phase." > .prettierignore
-cat .gitignore .eslintignore >> .prettierignore || { echo "Error! Failed to update .prettierignore"; exit 45; }
+echo "# WARNING: Do not modify this file manually. It is auto-generated during commit phase." > .prettierignore
+cat .gitignore >> .prettierignore || { echo "Error! Failed to update .prettierignore"; exit 45; }
