@@ -1,10 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx lint-staged || { echo "Error! Code formatting or linting failed"; exit 42; }
-tsc --noEmit || { echo "Error! TypeScript compilation failed"; exit 43; }
-pnpm exec test run || { echo "Error! Tests failed"; exit 44; }
-
 generate_ignore() {
   echo "# WARNING: Do not modify this file manually. It is auto-generated during commit phase." > "$1"
   cat "$2" "$3" | sort | uniq >> "$1" || { echo "Error! Failed to update $1"; exit 1; }
@@ -17,3 +13,7 @@ PRETTIERIGNORE=".prettierignore"
 generate_ignore ".dockerignore" ".dockerignore.specific" "$GITIGNORE"
 generate_ignore "$PRETTIERIGNORE" ".prettierignore.specific" "$GITIGNORE"
 generate_ignore ".eslintignore" ".eslintignore.specific" "$PRETTIERIGNORE"
+
+npx lint-staged || { echo "Error! Code formatting or linting failed"; exit 42; }
+tsc --noEmit || { echo "Error! TypeScript compilation failed"; exit 43; }
+pnpm exec test run || { echo "Error! Tests failed"; exit 44; }

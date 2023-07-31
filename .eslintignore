@@ -12,6 +12,8 @@
 # vercel
 # WARNING: Do not modify this file manually. It is auto-generated during commit phase.
 #IDE
+*.css
+*.ico
 *.pem
 *.tsbuildinfo
 *.yml
