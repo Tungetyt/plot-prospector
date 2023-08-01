@@ -14,6 +14,7 @@
 #IDE
 *.css
 *.ico
+*.md
 *.pem
 *.tsbuildinfo
 *.yml
