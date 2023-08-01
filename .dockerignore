@@ -58,6 +58,7 @@ docker-compose.yml
 LICENSE
 next-env.d.ts
 npm-debug.log*
+qodana.yaml
 README.md
 yarn-debug.log*
 yarn-error.log*

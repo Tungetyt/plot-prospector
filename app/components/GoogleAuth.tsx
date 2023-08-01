@@ -2,15 +2,17 @@
 
 import { signIn, signOut } from 'next-auth/react'
 import { Session } from 'next-auth'
-import { MouseEventHandler } from 'react'
+import { ComponentProps } from 'react'
+
+type ButtonProps = ComponentProps<'button'>
 
 export const GoogleAuth = ({ session }: { session: Session | null }) => {
   const {
     label,
     onClick,
   }: {
-    label: string
-    onClick: MouseEventHandler<HTMLButtonElement>
+    label: ButtonProps['children']
+    onClick: ButtonProps['onClick']
   } = session
     ? {
         label: 'signOut',
