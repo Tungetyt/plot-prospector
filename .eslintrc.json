@@ -7,7 +7,8 @@
     "prettier"
   ],
   "rules": {
-    "@typescript-eslint/no-inferrable-types": "error"
+    "@typescript-eslint/no-inferrable-types": "error",
+    "@typescript-eslint/no-namespace": "off"
   },
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],

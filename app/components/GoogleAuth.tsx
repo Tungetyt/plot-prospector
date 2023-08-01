@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { signIn, signOut } from "next-auth/react"
-import { Session } from "next-auth"
-import { MouseEventHandler } from "react"
+import { signIn, signOut } from 'next-auth/react'
+import { Session } from 'next-auth'
+import { MouseEventHandler } from 'react'
 
 export const GoogleAuth = ({ session }: { session: Session | null }) => {
   const {
@@ -13,14 +13,13 @@ export const GoogleAuth = ({ session }: { session: Session | null }) => {
     onClick: MouseEventHandler<HTMLButtonElement>
   } = session
     ? {
-        label: "signOut",
+        label: 'signOut',
         onClick: () => signOut(),
       }
     : {
-        label: "signIn",
-        onClick: () => signIn("google"),
+        label: 'signIn',
+        onClick: () => signIn('google'),
       }
 
   return <button onClick={onClick}>{label}</button>
 }
-// test

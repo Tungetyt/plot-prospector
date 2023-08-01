@@ -1,9 +1,9 @@
-import dynamic from "next/dynamic"
-import { getServerSession } from "next-auth"
-import { GoogleAuth } from "@/app/components/GoogleAuth"
-import { Drawer } from "@/app/components/Drawer"
+import dynamic from 'next/dynamic'
+import { getServerSession } from 'next-auth'
+import { GoogleAuth } from '@/app/components/GoogleAuth'
+import { Drawer } from '@/app/components/Drawer'
 
-const Map = dynamic(() => import("@/app/components/Map"), { ssr: false })
+const Map = dynamic(() => import('@/app/components/Map'), { ssr: false })
 
 export default async function Home() {
   const session = await getServerSession()
