@@ -24,7 +24,17 @@
     "noUncheckedIndexedAccess": true,
     "noErrorTruncation": true,
     "checkJs": true,
-
+    "removeComments": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedParameters": true,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
     "plugins": [
       {
         "name": "next"
