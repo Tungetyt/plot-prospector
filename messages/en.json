@@ -1,5 +1,7 @@
 {
   "Index": {
-    "title": "Hello world!"
+    "Open_navigation": "Open navigation",
+    "Sign_in": "Sign in",
+    "Sign_out": "Sign out"
   }
 }

@@ -21,29 +21,13 @@ export const Drawer = ({
           htmlFor={drawerId}
           className="btn btn-primary drawer-button lg:hidden"
         >
-          Open drawer
+          {t('Open_navigation')}
         </label>
       </div>
       <div className="drawer-side z-1000">
         <label htmlFor={drawerId} className="drawer-overlay"></label>
         <ul className="menu p-4 w-40 h-full bg-base-200 text-base-content">
-          {sidebar} {t('title')}
-          {t('title')}
-          {t('title')}
-          {t('title')}
-          {t('title')}
-          {t('title')}
-          {t('title')}
-          {t('title')}
-          {t('title')}
-          {t('title')}
-          {t('title')}
-          {t('title')}
-          {t('title')}
-          {t('title')}
-          {t('title')}
-          {t('title')}
-          {t('title')}
+          {sidebar}
         </ul>
       </div>
     </div>

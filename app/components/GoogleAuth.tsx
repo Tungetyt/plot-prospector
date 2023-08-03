@@ -3,10 +3,12 @@
 import { signIn, signOut } from 'next-auth/react'
 import { Session } from 'next-auth'
 import { ComponentProps } from 'react'
+import { useTranslations } from 'next-intl'
 
 type ButtonProps = ComponentProps<'button'>
 
 export const GoogleAuth = ({ session }: { session: Session | null }) => {
+  const t = useTranslations('Index')
   const {
     label,
     onClick,
@@ -15,11 +17,11 @@ export const GoogleAuth = ({ session }: { session: Session | null }) => {
     onClick: ButtonProps['onClick']
   } = session
     ? {
-        label: 'signOut',
+        label: t('Sign_out'),
         onClick: () => signOut(),
       }
     : {
-        label: 'signIn',
+        label: t('Sign_in'),
         onClick: () => signIn('google'),
       }
 

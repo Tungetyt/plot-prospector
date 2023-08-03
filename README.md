@@ -22,15 +22,11 @@
    POSTGRES_DB=plot_prospector
    POSTGRES_PORT=5432
    DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:${POSTGRES_PORT}/${POSTGRES_DB}
-
-   #Public
-   NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    ```
 
    XXXXXXXXXXXXXXXXXXXXXXXXXXXXX - specific secret key\
    xxxxxxxxxxxxxxxxxxxxxxxxxxxxx - whatever secret key\
-   Get GOOGLE_CLIENT from https://console.cloud.google.com/apis/credentials \
-   Get NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN from https://account.mapbox.com/
+   Get GOOGLE_CLIENT from https://console.cloud.google.com/apis/credentials
 
 2. Run `docker:build`
 3. Open up http://localhost:3000/ in a web browser
@@ -66,6 +62,8 @@ Note: Do not modify these auto-generated ignore files manually. Update the respe
 - Error in running container, or in "Install dependencies based on the preferred package manager" step:\
   `Error: request to https://binaries.prisma.sh/all_commits/6b0aef69b7cdfc787f822ecd7cdc76d5f1991584/linux-musl-openssl-3.0.x/libquery_engine.so.node.sha256 failed, reason: write EPROTO 58CB15ADDF7F0000:error:0A000152:SSL routines:final_renegotiate:unsafe legacy renegotiation disabled:../deps/openssl/openssl/ssl/statem/extensions.c:921:`\
   Solution: Disable VPN
+- Errors in running container: `Error: P1001: Can't reach database server at db:5432`, or `/bin/sh: pnpm: not found`\
+  Solution: It looks like these errors can be ignored
 
 # Setting up in Production
 
