@@ -12,6 +12,7 @@
 # vercel
 # WARNING: Do not modify this file manually. It is auto-generated during commit phase.
 #IDE
+#Lighthouse
 *.css
 *.ico
 *.md
@@ -30,6 +31,7 @@
 /coverage
 /node_modules
 /out/
+localhost_*.report.html
 next-env.d.ts
 npm-debug.log*
 package-lock.json

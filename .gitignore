@@ -37,3 +37,6 @@ next-env.d.ts
 #IDE
 .idea
 qodana.yaml
+
+#Lighthouse
+localhost_*.report.html

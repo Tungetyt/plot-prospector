@@ -16,6 +16,7 @@
 # vercel
 #
 #IDE
+#Lighthouse
 **/*.*proj.user
 **/*.dbmdl
 **/*.jfm
@@ -56,6 +57,7 @@
 /out/
 docker-compose.yml
 LICENSE
+localhost_*.report.html
 next-env.d.ts
 npm-debug.log*
 qodana.yaml
