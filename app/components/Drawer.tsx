@@ -1,4 +1,5 @@
 import { ReactNode, useId } from 'react'
+import { useTranslations } from 'next-intl'
 
 export const Drawer = ({
   children,
@@ -8,6 +9,7 @@ export const Drawer = ({
   sidebar: ReactNode
 }) => {
   const drawerId = useId()
+  const t = useTranslations('Index')
 
   return (
     <div className="drawer lg:drawer-open">
@@ -25,7 +27,23 @@ export const Drawer = ({
       <div className="drawer-side z-1000">
         <label htmlFor={drawerId} className="drawer-overlay"></label>
         <ul className="menu p-4 w-40 h-full bg-base-200 text-base-content">
-          {sidebar}
+          {sidebar} {t('title')}
+          {t('title')}
+          {t('title')}
+          {t('title')}
+          {t('title')}
+          {t('title')}
+          {t('title')}
+          {t('title')}
+          {t('title')}
+          {t('title')}
+          {t('title')}
+          {t('title')}
+          {t('title')}
+          {t('title')}
+          {t('title')}
+          {t('title')}
+          {t('title')}
         </ul>
       </div>
     </div>

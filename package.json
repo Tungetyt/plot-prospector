@@ -26,6 +26,7 @@
     "leaflet-geosearch": "^3.8.0",
     "next": "13.4.12",
     "next-auth": "^4.22.3",
+    "next-intl": "3.0.0-beta.9",
     "postcss": "8.4.27",
     "prisma": "^5.0.0",
     "react": "18.2.0",

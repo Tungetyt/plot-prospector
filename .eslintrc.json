@@ -8,7 +8,8 @@
   ],
   "rules": {
     "@typescript-eslint/no-inferrable-types": "error",
-    "@typescript-eslint/no-namespace": "off"
+    "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/no-var-requires": "off"
   },
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
