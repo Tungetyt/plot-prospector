@@ -2,6 +2,12 @@
   "Index": {
     "Open_navigation": "Open navigation",
     "Sign_in": "Sign in",
-    "Sign_out": "Sign out"
+    "Sign_out": "Sign out",
+    "Create_Plot": "Create Plot",
+    "Cancel_Plot": "Cancel Plot",
+    "Next": "Next",
+    "Longitude": "Longitude",
+    "Latitude": "Latitude",
+    "Confirm_point": "Confirm point"
   }
 }

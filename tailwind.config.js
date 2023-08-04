@@ -13,7 +13,7 @@ module.exports = {
     },
   },
   daisyui: {
-    themes: ['forest'],
+    themes: ['synthwave'],
   },
   plugins: [require('@tailwindcss/typography'), require('daisyui')],
 }

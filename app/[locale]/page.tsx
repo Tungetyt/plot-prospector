@@ -1,7 +1,9 @@
 import dynamic from 'next/dynamic'
 import { getServerSession } from 'next-auth'
-import { GoogleAuth } from '@/app/components/GoogleAuth'
+import { SignIn } from '@/app/components/SignIn'
 import { Drawer } from '@/app/components/Drawer'
+import { SignOut } from '@/app/components/SignOut'
+import PlotCreationController from '@/app/components/PlotCreationController'
 
 const Map = dynamic(() => import('@/app/components/Map'), { ssr: false })
 
@@ -12,15 +14,18 @@ export default async function Home() {
       <Drawer
         sidebar={
           <>
-            <li>
-              <a>Map</a>
-            </li>
-            <li>
-              <a>Table</a>
-            </li>
-            <li>
-              <GoogleAuth session={session}></GoogleAuth>
-            </li>
+            {session ? (
+              <>
+                <PlotCreationController />
+                <li className="mt-auto">
+                  <SignOut />
+                </li>
+              </>
+            ) : (
+              <li>
+                <SignIn />
+              </li>
+            )}
           </>
         }
       >

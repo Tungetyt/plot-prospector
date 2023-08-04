@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { GoogleAuth } from './GoogleAuth'
+import { SignIn } from './SignIn'
 import { describe, expect, it } from 'vitest'
 
 describe('GoogleAuth', () => {
@@ -10,7 +10,7 @@ describe('GoogleAuth', () => {
   // });
 
   it('renders and calls signIn function on button click', () => {
-    render(<GoogleAuth session={null} />)
+    render(<SignIn />)
     // const signInButton = getByText('signIn');
     // fireEvent.click(signInButton);
     // expect(signIn).toHaveBeenCalledWith("google");

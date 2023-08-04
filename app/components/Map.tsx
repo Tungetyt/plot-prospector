@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import 'leaflet/dist/leaflet.css'
@@ -39,11 +40,17 @@ const multiPolyline: Point[][] = [
   ],
 ]
 
-const polygon: Point[] = [
-  [51.515, -0.09],
-  [51.52, -0.1],
-  [51.52, -0.12],
-]
+const polygon: {
+  points: Point[]
+  id: string
+} = {
+  id: 'abc',
+  points: [
+    [51.515599, -0.09],
+    [51.52, -0.1],
+    [51.52, -0.12],
+  ],
+}
 
 const multiPolygon: Point[][] = [
   [
@@ -78,22 +85,46 @@ export default function Map() {
       zoom={13}
       className="flex-1"
       attributionControl={false}
+      zoomControl={false}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      <Marker position={center} />
-      <Circle center={center} pathOptions={fillBlueOptions} radius={200} />
-      <CircleMarker
-        center={[51.51, -0.12]}
-        pathOptions={redOptions}
-        radius={20}
-      >
-        <Popup>Popup in CircleMarker</Popup>
-      </CircleMarker>
-      <Polyline pathOptions={limeOptions} positions={polyline} />
-      <Polyline pathOptions={orangeOptions} positions={multiPolyline} />
-      <Polygon pathOptions={purpleOptions} positions={polygon} />
-      <Polygon pathOptions={yellowOptions} positions={multiPolygon} />
-      <Rectangle bounds={rectangle} pathOptions={blackOptions} />
+      {/*<Marker position={center} />*/}
+      {/*<Circle center={center} pathOptions={fillBlueOptions} radius={200} />*/}
+      {/*<CircleMarker*/}
+      {/*  center={[51.51, -0.12]}*/}
+      {/*  pathOptions={redOptions}*/}
+      {/*  radius={20}*/}
+      {/*>*/}
+      {/*  <Popup>Popup in CircleMarker</Popup>*/}
+      {/*</CircleMarker>*/}
+      {/*<Polyline pathOptions={limeOptions} positions={polyline} />*/}
+      {/*<Polyline pathOptions={orangeOptions} positions={multiPolyline} />*/}
+      <Polygon
+        pathOptions={purpleOptions}
+        positions={polygon.points}
+        eventHandlers={{
+          add: (e) => {
+            const layer = e.target
+            // Directly manipulate the DOM to set a custom data attribute
+            layer._path.setAttribute('data-id', polygon.id)
+          },
+          // mouseover: (e) => {
+          //   console.log(e);
+          //   const layer = e.target;
+          //   layer.setStyle({
+          //     color: "black",
+          //     fillColor: "black"
+          //   });
+          // },
+          click: (e) => {
+            // Access the custom data attribute from the SVG element
+            const id = e.target._path.getAttribute('data-id')
+            console.log('Polygon with id: ', id, ' clicked')
+          },
+        }}
+      />
+      {/*<Polygon pathOptions={yellowOptions} positions={multiPolygon} />*/}
+      {/*<Rectangle bounds={rectangle} pathOptions={blackOptions} />*/}
     </MapContainer>
   )
 }

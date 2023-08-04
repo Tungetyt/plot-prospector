@@ -16,7 +16,6 @@ export const Drawer = ({
       <input id={drawerId} type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col justify-center">
         {children}
-
         <label
           htmlFor={drawerId}
           className="btn btn-primary drawer-button lg:hidden"
@@ -26,7 +25,7 @@ export const Drawer = ({
       </div>
       <div className="drawer-side z-1000">
         <label htmlFor={drawerId} className="drawer-overlay"></label>
-        <ul className="menu p-4 w-40 h-full bg-base-200 text-base-content">
+        <ul className="menu p-4 w-56 h-full bg-base-200 text-base-content">
           {sidebar}
         </ul>
       </div>
