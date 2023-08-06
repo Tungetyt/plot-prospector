@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 import { storeActionsSelector } from '@/app/utils/zustand'
 import {
   changePointReducer,

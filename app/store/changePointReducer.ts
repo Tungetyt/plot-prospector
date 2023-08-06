@@ -75,17 +75,19 @@ const tryConvertToNum = (input: string | number) => {
   return result
 }
 
-const removeTrailingPoints = (updatedPlot: Point[]) => {
+const removeEmptyPoints = (updatedPlot: Point[]) => {
   const idsToRemove: string[] = []
   for (let i = updatedPlot.length - 1; i >= 0; i--) {
     const currentPoint = updatedPlot[i]
 
-    if (!currentPoint?.point.every((coord) => coord === '')) break
+    if (!currentPoint?.point.every((coord) => coord === '')) {
+      if (currentPoint?.point.every((coord) => coord)) idsToRemove.pop()
+
+      break
+    }
 
     idsToRemove.push(currentPoint.id)
   }
-
-  idsToRemove.pop()
 
   updatedPlot.splice(
     updatedPlot.length - idsToRemove.length,
@@ -142,7 +144,7 @@ export const changePointReducer = (updatedPoint: Point) => {
 
     const updatedPlot = updatePoints(state.plot, updatedPoint)
 
-    if (removeTrailingPoints(updatedPlot)) return { plot: updatedPlot }
+    if (removeEmptyPoints(updatedPlot)) return { plot: updatedPlot }
 
     return { plot: plotWithMaybeNewPoint(updatedPlot) }
   }
