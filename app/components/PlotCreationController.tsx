@@ -1,21 +1,10 @@
 'use client'
 
-import { Dispatch, Reducer, SetStateAction, useReducer, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useDraftPlot, useDraftPlotActions } from '@/app/store/draftPlot'
 
 type State = '' | 'PLOT_CREATION' | 'INFORMATION_FORM'
-
-const draftPointReducer: Reducer<
-  [number | '', number | ''],
-  {
-    newValue: number
-    kind: 'longitude' | 'latitude'
-  }
-> = (prev, { newValue, kind }) => {
-  if (Number.isNaN(newValue)) return prev
-  return kind === 'longitude' ? [newValue, prev[1]] : [prev[0], newValue]
-}
 
 const CancelBtn = ({
   setState,
@@ -44,13 +33,6 @@ const PlotCreationController = () => {
   const { changePoint } = useDraftPlotActions()
   const createdPointsCount = 0
 
-  const [draftPoint, setDraftPoint] = useReducer(draftPointReducer, ['', ''])
-
-  // const points = [...draftPlot, {
-  //   id: crypto.randomUUID(),
-  //   point: ["", ""]
-  // }]
-
   if (state === 'PLOT_CREATION')
     return (
       <>
@@ -70,7 +52,7 @@ const PlotCreationController = () => {
             <thead>
               <tr>
                 <th>{t('Longitude')}</th>
-                <th className="w-1"></th>
+                <th className="w-1 px-0"></th>
                 <th>{t('Latitude')}</th>
               </tr>
             </thead>
@@ -83,7 +65,7 @@ const PlotCreationController = () => {
                       onChange={({ target }) =>
                         changePoint({
                           id,
-                          point: [+target.value, point[1]],
+                          point: [target.value, point[1]],
                         })
                       }
                       type="text"
@@ -98,7 +80,7 @@ const PlotCreationController = () => {
                         // TODO: Refactor this to accept kind: 'latitude' | 'longitude' and use the same reducer
                         changePoint({
                           id,
-                          point: [point[0], +target.value],
+                          point: [point[0], target.value],
                         })
                       }
                       className="input input-bordered input-xs w-full max-w-xs"
@@ -106,33 +88,33 @@ const PlotCreationController = () => {
                   </td>
                 </tr>
               ))}
-              <tr>
-                <td className="px-0">
-                  <input
-                    value={draftPoint[0]}
-                    onChange={({ target }) =>
-                      setDraftPoint({
-                        newValue: +target.value,
-                        kind: 'longitude',
-                      })
-                    }
-                    className="input input-bordered input-xs w-full max-w-xs"
-                  />
-                </td>
-                <td className="w-1"></td>
-                <td className="px-0">
-                  <input
-                    value={draftPoint[1]}
-                    onChange={({ target }) =>
-                      setDraftPoint({
-                        newValue: +target.value,
-                        kind: 'latitude',
-                      })
-                    }
-                    className="input input-bordered input-xs w-full max-w-xs"
-                  />
-                </td>
-              </tr>
+              {/*<tr>*/}
+              {/*  <td className="px-0">*/}
+              {/*    <input*/}
+              {/*      value={draftPoint[0]}*/}
+              {/*      onChange={({ target }) =>*/}
+              {/*        setDraftPoint({*/}
+              {/*          newValue: +target.value,*/}
+              {/*          kind: 'longitude',*/}
+              {/*        })*/}
+              {/*      }*/}
+              {/*      className="input input-bordered input-xs w-full max-w-xs"*/}
+              {/*    />*/}
+              {/*  </td>*/}
+              {/*  <td className="w-1"></td>*/}
+              {/*  <td className="px-0">*/}
+              {/*    <input*/}
+              {/*      value={draftPoint[1]}*/}
+              {/*      onChange={({ target }) =>*/}
+              {/*        setDraftPoint({*/}
+              {/*          newValue: +target.value,*/}
+              {/*          kind: 'latitude',*/}
+              {/*        })*/}
+              {/*      }*/}
+              {/*      className="input input-bordered input-xs w-full max-w-xs"*/}
+              {/*    />*/}
+              {/*  </td>*/}
+              {/*</tr>*/}
             </tbody>
           </table>
         </li>

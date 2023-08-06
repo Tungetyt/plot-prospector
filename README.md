@@ -64,6 +64,10 @@ Note: Do not modify these auto-generated ignore files manually. Update the respe
   Solution: Disable VPN
 - Errors in running container: `Error: P1001: Can't reach database server at db:5432`, or `/bin/sh: pnpm: not found`\
   Solution: It looks like these errors can be ignored
+- Errors in UI: `Unhandled Runtime Error
+ChunkLoadError: Loading chunk app/[locale]/page failed.
+(missing: http://localhost:3000/_next/static/chunks/app/%5Blocale%5D/page.js)`\
+  Solution: Refresh the page
 
 # Setting up in Production
 
