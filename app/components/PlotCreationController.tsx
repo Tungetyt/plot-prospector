@@ -51,15 +51,14 @@ const PlotCreationController = () => {
           <table className="table table-xs table-fixed table-pin-rows">
             <thead>
               <tr>
-                <th>{t('Longitude')}</th>
-                <th className="w-1 px-0"></th>
-                <th>{t('Latitude')}</th>
+                <th className="pl-4">{t('Longitude')}</th>
+                <th className="pl-4">{t('Latitude')}</th>
               </tr>
             </thead>
             <tbody>
               {draftPlot.map(({ id, point }) => (
                 <tr key={id}>
-                  <td className="px-0">
+                  <td>
                     <input
                       value={point[0]}
                       onChange={({ target }) =>
@@ -72,8 +71,7 @@ const PlotCreationController = () => {
                       className="input input-bordered input-xs w-full max-w-xs"
                     />
                   </td>
-                  <td className="w-1"></td>
-                  <td className="px-0">
+                  <td>
                     <input
                       value={point[1]}
                       onChange={({ target }) =>
@@ -88,33 +86,6 @@ const PlotCreationController = () => {
                   </td>
                 </tr>
               ))}
-              {/*<tr>*/}
-              {/*  <td className="px-0">*/}
-              {/*    <input*/}
-              {/*      value={draftPoint[0]}*/}
-              {/*      onChange={({ target }) =>*/}
-              {/*        setDraftPoint({*/}
-              {/*          newValue: +target.value,*/}
-              {/*          kind: 'longitude',*/}
-              {/*        })*/}
-              {/*      }*/}
-              {/*      className="input input-bordered input-xs w-full max-w-xs"*/}
-              {/*    />*/}
-              {/*  </td>*/}
-              {/*  <td className="w-1"></td>*/}
-              {/*  <td className="px-0">*/}
-              {/*    <input*/}
-              {/*      value={draftPoint[1]}*/}
-              {/*      onChange={({ target }) =>*/}
-              {/*        setDraftPoint({*/}
-              {/*          newValue: +target.value,*/}
-              {/*          kind: 'latitude',*/}
-              {/*        })*/}
-              {/*      }*/}
-              {/*      className="input input-bordered input-xs w-full max-w-xs"*/}
-              {/*    />*/}
-              {/*  </td>*/}
-              {/*</tr>*/}
             </tbody>
           </table>
         </li>
