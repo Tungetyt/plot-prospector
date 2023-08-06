@@ -6,7 +6,7 @@ interface Point {
   point: Readonly<[number | string, number | string]>
 }
 
-interface IStore {
+interface Store {
   plot: ReadonlyArray<Point>
   actions: {
     changePoint: (updatedPoint: Point) => void
@@ -14,10 +14,12 @@ interface IStore {
   }
 }
 
+type State = Readonly<Omit<Store, 'actions'>>
+
 const initialCoord = ''
 const initialPoint = [initialCoord, initialCoord] as const
 
-const initialState: Readonly<Omit<IStore, 'actions'>> = {
+const initialState: State = {
   plot: [
     {
       id: crypto.randomUUID(),
@@ -140,24 +142,28 @@ const isValidPoint = (updatedPoint: Point) => {
   return isValidLatitude && isValidLongitude
 }
 
-const useDraftPlotStore = create<IStore>((set) => ({
+const changePointReducer = (updatedPoint: Point) => {
+  return (state: State) => {
+    if (!isValidPoint(updatedPoint)) return state
+
+    const updatedPlot = updatePoints(state.plot, updatedPoint)
+
+    if (removeTrailingPoints(updatedPlot)) return { plot: updatedPlot }
+
+    return { plot: plotWithMaybeNewPoint(updatedPlot) }
+  }
+}
+
+const useDraftPlotStore = create<Store>((set) => ({
   ...initialState,
   actions: {
     changePoint: (updatedPoint: Point) => {
-      set((state) => {
-        if (!isValidPoint(updatedPoint)) return state
-
-        const updatedPlot = updatePoints(state.plot, updatedPoint)
-
-        if (removeTrailingPoints(updatedPlot)) return { plot: updatedPlot }
-
-        return { plot: plotWithMaybeNewPoint(updatedPlot) }
-      })
+      set(changePointReducer(updatedPoint))
     },
     confirmPlot: () => set(() => initialState),
   },
 }))
 
-const draftPlotSelector = ({ plot }: IStore) => plot
+const draftPlotSelector = ({ plot }: Store) => plot
 export const useDraftPlot = () => useDraftPlotStore(draftPlotSelector)
 export const useDraftPlotActions = () => useDraftPlotStore(storeActionsSelector)
