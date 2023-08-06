@@ -80,8 +80,10 @@ const removeEmptyPoints = (updatedPlot: Point[]) => {
   for (let i = updatedPlot.length - 1; i >= 0; i--) {
     const currentPoint = updatedPlot[i]
 
-    if (!currentPoint?.point.every((coord) => coord === '')) {
-      if (currentPoint?.point.every((coord) => coord)) idsToRemove.pop()
+    if (!currentPoint) throw new Error('Expected currentPoint to be present')
+
+    if (!currentPoint.point.every((coord) => coord === '')) {
+      if (currentPoint.point.every((coord) => coord)) idsToRemove.pop()
 
       break
     }

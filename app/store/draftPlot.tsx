@@ -10,9 +10,7 @@ import {
 const useDraftPlotStore = create<Store>((set) => ({
   ...initialState,
   actions: {
-    changePoint: (updatedPoint: Point) => {
-      set(changePointReducer(updatedPoint))
-    },
+    changePoint: (updatedPoint: Point) => set(changePointReducer(updatedPoint)),
     confirmPlot: () => set(() => initialState),
   },
 }))
