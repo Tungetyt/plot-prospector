@@ -9,15 +9,15 @@ const PlotCreatorRows = () => {
 
   return (
     <>
-      {draftPlot.map(({ id, coords }) => (
-        <tr key={id}>
+      {draftPlot.map((point) => (
+        <tr key={point.id}>
           <td>
             <input
-              value={coords[0]}
+              value={point.x}
               onChange={({ target }) =>
                 changePoint({
-                  id,
-                  coords: [target.value, coords[1]],
+                  ...point,
+                  x: target.value,
                 })
               }
               type="text"
@@ -26,12 +26,12 @@ const PlotCreatorRows = () => {
           </td>
           <td>
             <input
-              value={coords[1]}
+              value={point.y}
               onChange={({ target }) =>
                 // TODO: Refactor this to accept kind: 'latitude' | 'longitude' and use the same reducer
                 changePoint({
-                  id,
-                  coords: [coords[0], target.value],
+                  ...point,
+                  y: target.value,
                 })
               }
               className="input input-bordered input-xs w-full max-w-xs"

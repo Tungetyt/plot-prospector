@@ -2,12 +2,13 @@ type Coord = number | '' | `${number}.`
 
 export interface Point {
   id: string
-  coords: Readonly<[Coord, Coord]>
+  x: Coord
+  y: Coord
 }
 
-export interface PointFromTextInput {
-  id: Point['id']
-  coords: Readonly<[number | string, number | string]>
+export type PointFromTextInput = Pick<Point, 'id'> & {
+  x: number | string
+  y: number | string
 }
 
 export interface Store {
@@ -21,13 +22,13 @@ export interface Store {
 type State = Readonly<Omit<Store, 'actions'>>
 
 const initialCoord = ''
-const initialCoords = [initialCoord, initialCoord] as const
 
 export const initialState: State = {
   plot: [
     {
       id: crypto.randomUUID(),
-      coords: initialCoords,
+      x: initialCoord,
+      y: initialCoord,
     },
   ],
 } as const
@@ -76,9 +77,12 @@ const isValidCoordinate = (
   return true
 }
 
+const endsWithDecimal = (input: string | number): input is `${number}.` =>
+  input.toString().at(-1) === '.'
+
 const tryConvertToNum = (input: string | number) => {
-  if (input.toString().at(-1) === '.') return input
-  if (Number.isNaN(+input) || input === '') return input
+  if (endsWithDecimal(input)) return input
+  if (Number.isNaN(+input) || input === '') return ''
   return +input
 }
 
@@ -89,8 +93,12 @@ const removeEmptyPoints = (updatedPlot: Point[]) => {
 
     if (!currentPoint) throw new Error('Expected currentPoint to be present')
 
-    if (!currentPoint.coords.every((c) => c === '') || i === 0) {
-      if (currentPoint.coords.every((c) => c)) idsToRemove.pop()
+    const isOneCoordPresent = currentPoint.x !== '' || currentPoint.y !== ''
+    const areBothCoordsPresent = currentPoint.x !== '' && currentPoint.y !== ''
+    const isFirstRow = i === 0
+
+    if (isOneCoordPresent || isFirstRow) {
+      if (areBothCoordsPresent) idsToRemove.pop()
 
       break
     }
@@ -109,19 +117,16 @@ const removeEmptyPoints = (updatedPlot: Point[]) => {
 const updatePoints = (
   plot: ReadonlyArray<Point>,
   updatedPoint: PointFromTextInput,
-): Point[] => {
-  return plot.map((point) =>
+): Point[] =>
+  plot.map((point) =>
     point.id === updatedPoint.id
       ? {
           ...updatedPoint,
-          coords: [
-            tryConvertToNum(updatedPoint.coords[0]),
-            tryConvertToNum(updatedPoint.coords[1]),
-          ] as [number, number],
+          x: tryConvertToNum(updatedPoint.x),
+          y: tryConvertToNum(updatedPoint.y),
         }
       : point,
   )
-}
 
 const plotWithMaybeNewPoint = (plot: Point[]): Point[] => {
   const lastPoint = plot.at(-1)
@@ -130,23 +135,22 @@ const plotWithMaybeNewPoint = (plot: Point[]): Point[] => {
     return plot
   }
 
-  if (lastPoint.coords.some((c) => typeof c !== 'number')) return plot
+  if (typeof lastPoint.x !== 'number' || typeof lastPoint.y !== 'number')
+    return plot
 
   return [
     ...plot,
     {
       id: crypto.randomUUID(),
-      coords: initialCoords,
+      x: initialCoord,
+      y: initialCoord,
     },
   ]
 }
 
-const isValidPoint = (updatedPoint: PointFromTextInput) => {
-  const isValidLatitude = isValidCoordinate(updatedPoint.coords[0], 'latitude')
-  const isValidLongitude = isValidCoordinate(
-    updatedPoint.coords[1],
-    'longitude',
-  )
+const isValidPoint = ({ x, y }: PointFromTextInput) => {
+  const isValidLatitude = isValidCoordinate(x, 'latitude')
+  const isValidLongitude = isValidCoordinate(y, 'longitude')
   return isValidLatitude && isValidLongitude
 }
 
