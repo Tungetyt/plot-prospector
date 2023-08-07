@@ -33,7 +33,7 @@ export const initialState: State = {
   ],
 } as const
 
-const isValidCoordinate = (
+export const isValidCoordinate = (
   value: string | number,
   type: 'latitude' | 'longitude',
 ): boolean => {
