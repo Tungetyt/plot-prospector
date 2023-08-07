@@ -1,4 +1,3 @@
-import { describe, expect, it } from 'vitest'
 import {
   changePointReducer,
   Point,
@@ -90,68 +89,68 @@ describe('changePointReducer', () => {
     })
   })
 
-  it('bad input', () => {
-    const badInputs: ReadonlyArray<{
-      updatedPoint: Pick<PointFromTextInput, 'lat' | 'lng'>
-      currentAndExpectedPoint: Pick<Point, 'lat' | 'lng'>
-    }> = [
-      {
-        updatedPoint: { lat: '90.', lng: '' },
-        currentAndExpectedPoint: { lat: 90, lng: '' },
-      },
-      {
-        updatedPoint: { lat: '91', lng: '' },
-        currentAndExpectedPoint: { lat: 9, lng: '' },
-      },
-      {
-        updatedPoint: { lat: '', lng: '180.' },
-        currentAndExpectedPoint: { lat: '', lng: 180 },
-      },
-      {
-        updatedPoint: { lat: '', lng: '181' },
-        currentAndExpectedPoint: { lat: '', lng: 18 },
-      },
-      {
-        updatedPoint: { lat: '-91', lng: '' },
-        currentAndExpectedPoint: { lat: -9, lng: '' },
-      },
-      {
-        updatedPoint: { lat: '', lng: '-181' },
-        currentAndExpectedPoint: { lat: '', lng: -18 },
-      },
-      {
-        updatedPoint: { lat: '45.1234567', lng: '' },
-        currentAndExpectedPoint: { lat: 45.123456, lng: '' },
-      },
-      {
-        updatedPoint: { lat: '', lng: '-45.1234567' },
-        currentAndExpectedPoint: { lat: '', lng: -45.123456 },
-      },
-      {
-        updatedPoint: { lat: '45.123.', lng: '' },
-        currentAndExpectedPoint: { lat: 45.123, lng: '' },
-      },
-      {
-        updatedPoint: { lat: '', lng: '-45.123.' },
-        currentAndExpectedPoint: { lat: '', lng: -45.123 },
-      },
-      {
-        updatedPoint: { lat: '33 ', lng: '' },
-        currentAndExpectedPoint: { lat: 33, lng: '' },
-      },
-      {
-        updatedPoint: { lat: '', lng: '49e' },
-        currentAndExpectedPoint: { lat: '', lng: 49 },
-      },
-      {
-        updatedPoint: { lat: '9abc9def9', lng: '' },
-        currentAndExpectedPoint: { lat: '', lng: '' },
-      },
-    ] as const
+  const badInputs: ReadonlyArray<{
+    updatedPoint: Pick<PointFromTextInput, 'lat' | 'lng'>
+    currentAndExpectedPoint: Pick<Point, 'lat' | 'lng'>
+  }> = [
+    {
+      updatedPoint: { lat: '90.', lng: '' },
+      currentAndExpectedPoint: { lat: 90, lng: '' },
+    },
+    {
+      updatedPoint: { lat: '91', lng: '' },
+      currentAndExpectedPoint: { lat: 9, lng: '' },
+    },
+    {
+      updatedPoint: { lat: '', lng: '180.' },
+      currentAndExpectedPoint: { lat: '', lng: 180 },
+    },
+    {
+      updatedPoint: { lat: '', lng: '181' },
+      currentAndExpectedPoint: { lat: '', lng: 18 },
+    },
+    {
+      updatedPoint: { lat: '-91', lng: '' },
+      currentAndExpectedPoint: { lat: -9, lng: '' },
+    },
+    {
+      updatedPoint: { lat: '', lng: '-181' },
+      currentAndExpectedPoint: { lat: '', lng: -18 },
+    },
+    {
+      updatedPoint: { lat: '45.1234567', lng: '' },
+      currentAndExpectedPoint: { lat: 45.123456, lng: '' },
+    },
+    {
+      updatedPoint: { lat: '', lng: '-45.1234567' },
+      currentAndExpectedPoint: { lat: '', lng: -45.123456 },
+    },
+    {
+      updatedPoint: { lat: '45.123.', lng: '' },
+      currentAndExpectedPoint: { lat: 45.123, lng: '' },
+    },
+    {
+      updatedPoint: { lat: '', lng: '-45.123.' },
+      currentAndExpectedPoint: { lat: '', lng: -45.123 },
+    },
+    {
+      updatedPoint: { lat: '33 ', lng: '' },
+      currentAndExpectedPoint: { lat: 33, lng: '' },
+    },
+    {
+      updatedPoint: { lat: '', lng: '49e' },
+      currentAndExpectedPoint: { lat: '', lng: 49 },
+    },
+    {
+      updatedPoint: { lat: '9abc9def9', lng: '' },
+      currentAndExpectedPoint: { lat: '', lng: '' },
+    },
+  ] as const
 
-    const id = 'initial'
+  const id = 'initial'
 
-    badInputs.forEach(({ updatedPoint, currentAndExpectedPoint }) => {
+  badInputs.forEach(({ updatedPoint, currentAndExpectedPoint }) => {
+    it(`bad input ${JSON.stringify(updatedPoint)}`, () => {
       const { lng, lat } = changePointReducer({
         id,
         lat: updatedPoint.lat,
