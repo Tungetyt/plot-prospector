@@ -16,4 +16,4 @@ generate_ignore ".eslintignore" ".eslintignore.specific" "$PRETTIERIGNORE"
 
 npx lint-staged || { echo "Error! Code formatting or linting failed"; exit 42; }
 tsc --noEmit || { echo "Error! TypeScript compilation failed"; exit 43; }
-pnpm exec test run || { echo "Error! Tests failed"; exit 44; }
+pnpm exec vitest run || { echo "Error! Tests failed"; exit 44; }
