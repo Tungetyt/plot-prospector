@@ -8,54 +8,54 @@ import {
 describe('changePointReducer', () => {
   describe('isValidPoint', () => {
     const okInputs: ReadonlyArray<{
-      currentPoint: Pick<Point, 'x' | 'y'>
-      updatedPoint: Pick<PointFromTextInput, 'x' | 'y'>
-      expectedPoint: Pick<Point, 'x' | 'y'>
+      currentPoint: Pick<Point, 'lat' | 'lng'>
+      updatedPoint: Pick<PointFromTextInput, 'lat' | 'lng'>
+      expectedPoint: Pick<Point, 'lat' | 'lng'>
     }> = [
       {
-        currentPoint: { x: 9, y: '' },
-        updatedPoint: { x: '90', y: '' },
-        expectedPoint: { x: 90, y: '' },
+        currentPoint: { lat: 9, lng: '' },
+        updatedPoint: { lat: '90', lng: '' },
+        expectedPoint: { lat: 90, lng: '' },
       },
       {
-        currentPoint: { x: '', y: 18 },
-        updatedPoint: { x: '', y: '180' },
-        expectedPoint: { x: '', y: 180 },
+        currentPoint: { lat: '', lng: 18 },
+        updatedPoint: { lat: '', lng: '180' },
+        expectedPoint: { lat: '', lng: 180 },
       },
       {
-        currentPoint: { x: 90, y: 18 },
-        updatedPoint: { x: '90', y: '180' },
-        expectedPoint: { x: 90, y: 180 },
+        currentPoint: { lat: 90, lng: 18 },
+        updatedPoint: { lat: '90', lng: '180' },
+        expectedPoint: { lat: 90, lng: 180 },
       },
       {
-        currentPoint: { x: 0, y: '' },
-        updatedPoint: { x: '0', y: '0' },
-        expectedPoint: { x: 0, y: 0 },
+        currentPoint: { lat: 0, lng: '' },
+        updatedPoint: { lat: '0', lng: '0' },
+        expectedPoint: { lat: 0, lng: 0 },
       },
       {
-        currentPoint: { x: -9, y: -180 },
-        updatedPoint: { x: '-90', y: '-180' },
-        expectedPoint: { x: -90, y: -180 },
+        currentPoint: { lat: -9, lng: -180 },
+        updatedPoint: { lat: '-90', lng: '-180' },
+        expectedPoint: { lat: -90, lng: -180 },
       },
       {
-        currentPoint: { x: 89.12345, y: 179.123456 },
-        updatedPoint: { x: '89.123456', y: '179.123456' },
-        expectedPoint: { x: 89.123456, y: 179.123456 },
+        currentPoint: { lat: 89.12345, lng: 179.123456 },
+        updatedPoint: { lat: '89.123456', lng: '179.123456' },
+        expectedPoint: { lat: 89.123456, lng: 179.123456 },
       },
       {
-        currentPoint: { x: -89.123456, y: -179.12345 },
-        updatedPoint: { x: '-89.123456', y: '-179.123456' },
-        expectedPoint: { x: -89.123456, y: -179.123456 },
+        currentPoint: { lat: -89.123456, lng: -179.12345 },
+        updatedPoint: { lat: '-89.123456', lng: '-179.123456' },
+        expectedPoint: { lat: -89.123456, lng: -179.123456 },
       },
       {
-        currentPoint: { x: 89, y: '' },
-        updatedPoint: { x: '89.', y: '' },
-        expectedPoint: { x: '89.', y: '' },
+        currentPoint: { lat: 89, lng: '' },
+        updatedPoint: { lat: '89.', lng: '' },
+        expectedPoint: { lat: '89.', lng: '' },
       },
       {
-        currentPoint: { x: '', y: 179 },
-        updatedPoint: { x: '', y: '179.' },
-        expectedPoint: { x: '', y: '179.' },
+        currentPoint: { lat: '', lng: 179 },
+        updatedPoint: { lat: '', lng: '179.' },
+        expectedPoint: { lat: '', lng: '179.' },
       },
     ] as const
 
@@ -63,96 +63,96 @@ describe('changePointReducer', () => {
       it(`ok input ${JSON.stringify(updatedPoint)}`, () => {
         const id = 'initial'
 
-        const { x, y } = changePointReducer({
+        const { lng, lat } = changePointReducer({
           id,
-          x: updatedPoint.x,
-          y: updatedPoint.y,
+          lat: updatedPoint.lat,
+          lng: updatedPoint.lng,
         })({
           plot: [
             {
               id,
-              x: currentPoint.x,
-              y: currentPoint.y,
+              lat: currentPoint.lat,
+              lng: currentPoint.lng,
             },
           ],
         }).plot[0]!
 
-        expect({ x, y }).toEqual(expectedPoint)
+        expect({ lng, lat }).toEqual(expectedPoint)
       })
     })
 
     it('bad input', () => {
       const badInputs: ReadonlyArray<{
-        updatedPoint: Pick<PointFromTextInput, 'x' | 'y'>
-        currentAndExpectedPoint: Pick<Point, 'x' | 'y'>
+        updatedPoint: Pick<PointFromTextInput, 'lat' | 'lng'>
+        currentAndExpectedPoint: Pick<Point, 'lat' | 'lng'>
       }> = [
         {
-          updatedPoint: { x: '90.', y: '' },
-          currentAndExpectedPoint: { x: 90, y: '' },
+          updatedPoint: { lat: '90.', lng: '' },
+          currentAndExpectedPoint: { lat: 90, lng: '' },
         },
         {
-          updatedPoint: { x: '91', y: '' },
-          currentAndExpectedPoint: { x: 9, y: '' },
+          updatedPoint: { lat: '91', lng: '' },
+          currentAndExpectedPoint: { lat: 9, lng: '' },
         },
         {
-          updatedPoint: { x: '', y: '180.' },
-          currentAndExpectedPoint: { x: '', y: 180 },
+          updatedPoint: { lat: '', lng: '180.' },
+          currentAndExpectedPoint: { lat: '', lng: 180 },
         },
         {
-          updatedPoint: { x: '', y: '181' },
-          currentAndExpectedPoint: { x: '', y: 18 },
+          updatedPoint: { lat: '', lng: '181' },
+          currentAndExpectedPoint: { lat: '', lng: 18 },
         },
         {
-          updatedPoint: { x: '-91', y: '' },
-          currentAndExpectedPoint: { x: -9, y: '' },
+          updatedPoint: { lat: '-91', lng: '' },
+          currentAndExpectedPoint: { lat: -9, lng: '' },
         },
         {
-          updatedPoint: { x: '', y: '-181' },
-          currentAndExpectedPoint: { x: '', y: -18 },
+          updatedPoint: { lat: '', lng: '-181' },
+          currentAndExpectedPoint: { lat: '', lng: -18 },
         },
         {
-          updatedPoint: { x: '45.1234567', y: '' },
-          currentAndExpectedPoint: { x: 45.123456, y: '' },
+          updatedPoint: { lat: '45.1234567', lng: '' },
+          currentAndExpectedPoint: { lat: 45.123456, lng: '' },
         },
         {
-          updatedPoint: { x: '', y: '-45.1234567' },
-          currentAndExpectedPoint: { x: '', y: -45.123456 },
+          updatedPoint: { lat: '', lng: '-45.1234567' },
+          currentAndExpectedPoint: { lat: '', lng: -45.123456 },
         },
         {
-          updatedPoint: { x: '45.123.', y: '' },
-          currentAndExpectedPoint: { x: 45.123, y: '' },
+          updatedPoint: { lat: '45.123.', lng: '' },
+          currentAndExpectedPoint: { lat: 45.123, lng: '' },
         },
         {
-          updatedPoint: { x: '', y: '-45.123.' },
-          currentAndExpectedPoint: { x: '', y: -45.123 },
+          updatedPoint: { lat: '', lng: '-45.123.' },
+          currentAndExpectedPoint: { lat: '', lng: -45.123 },
         },
         {
-          updatedPoint: { x: '33 ', y: '' },
-          currentAndExpectedPoint: { x: 33, y: '' },
+          updatedPoint: { lat: '33 ', lng: '' },
+          currentAndExpectedPoint: { lat: 33, lng: '' },
         },
         {
-          updatedPoint: { x: '', y: '49e' },
-          currentAndExpectedPoint: { x: '', y: 49 },
+          updatedPoint: { lat: '', lng: '49e' },
+          currentAndExpectedPoint: { lat: '', lng: 49 },
         },
       ] as const
 
       const id = 'initial'
 
       badInputs.forEach(({ updatedPoint, currentAndExpectedPoint }) => {
-        const { x, y } = changePointReducer({
+        const { lng, lat } = changePointReducer({
           id,
-          x: updatedPoint.x,
-          y: updatedPoint.y,
+          lat: updatedPoint.lat,
+          lng: updatedPoint.lng,
         })({
           plot: [
             {
               id,
-              x: currentAndExpectedPoint.x,
-              y: currentAndExpectedPoint.y,
+              lat: currentAndExpectedPoint.lat,
+              lng: currentAndExpectedPoint.lng,
             },
           ],
         }).plot[0]!
-        expect({ x, y }).toEqual(currentAndExpectedPoint)
+        expect({ lng, lat }).toEqual(currentAndExpectedPoint)
       })
     })
 

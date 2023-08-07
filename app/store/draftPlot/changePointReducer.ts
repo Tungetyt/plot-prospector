@@ -2,13 +2,13 @@ type Coord = number | '' | `${number}.`
 
 export interface Point {
   id: string
-  x: Coord
-  y: Coord
+  lat: Coord
+  lng: Coord
 }
 
 export type PointFromTextInput = Pick<Point, 'id'> & {
-  x: number | string
-  y: number | string
+  lat: number | string
+  lng: number | string
 }
 
 export interface Store {
@@ -27,15 +27,15 @@ export const initialState: State = {
   plot: [
     {
       id: crypto.randomUUID(),
-      x: initialCoord,
-      y: initialCoord,
+      lat: initialCoord,
+      lng: initialCoord,
     },
   ],
 } as const
 
 export const isValidCoordinate = (
   value: string | number,
-  type: 'latitude' | 'longitude',
+  type: 'lat' | 'lng',
 ): boolean => {
   const stringValue = typeof value === 'number' ? value.toString() : value
 
@@ -65,14 +65,14 @@ export const isValidCoordinate = (
   if (isNaN(numValue)) return false
 
   // Special checks for exact 90 or 180
-  if (numValue === 90 && type === 'latitude' && stringValue.endsWith('.'))
+  if (numValue === 90 && type === 'lat' && stringValue.endsWith('.'))
     return false
-  if (numValue === 180 && type === 'longitude' && stringValue.endsWith('.'))
+  if (numValue === 180 && type === 'lng' && stringValue.endsWith('.'))
     return false
 
   // Range Restrictions
-  if (type === 'longitude' && (numValue < -180 || numValue > 180)) return false
-  if (type === 'latitude' && (numValue < -90 || numValue > 90)) return false
+  if (type === 'lng' && (numValue < -180 || numValue > 180)) return false
+  if (type === 'lat' && (numValue < -90 || numValue > 90)) return false
 
   return true
 }
@@ -93,8 +93,9 @@ const removeEmptyPoints = (updatedPlot: Point[]) => {
 
     if (!currentPoint) throw new Error('Expected currentPoint to be present')
 
-    const isOneCoordPresent = currentPoint.x !== '' || currentPoint.y !== ''
-    const areBothCoordsPresent = currentPoint.x !== '' && currentPoint.y !== ''
+    const isOneCoordPresent = currentPoint.lat !== '' || currentPoint.lng !== ''
+    const areBothCoordsPresent =
+      currentPoint.lat !== '' && currentPoint.lng !== ''
     const isFirstRow = i === 0
 
     if (isOneCoordPresent || isFirstRow) {
@@ -122,8 +123,8 @@ const updatePoints = (
     point.id === updatedPoint.id
       ? {
           ...updatedPoint,
-          x: tryConvertToNum(updatedPoint.x),
-          y: tryConvertToNum(updatedPoint.y),
+          lat: tryConvertToNum(updatedPoint.lat),
+          lng: tryConvertToNum(updatedPoint.lng),
         }
       : point,
   )
@@ -135,22 +136,22 @@ const plotWithMaybeNewPoint = (plot: Point[]): Point[] => {
     return plot
   }
 
-  if (typeof lastPoint.x !== 'number' || typeof lastPoint.y !== 'number')
+  if (typeof lastPoint.lat !== 'number' || typeof lastPoint.lng !== 'number')
     return plot
 
   return [
     ...plot,
     {
       id: crypto.randomUUID(),
-      x: initialCoord,
-      y: initialCoord,
+      lat: initialCoord,
+      lng: initialCoord,
     },
   ]
 }
 
-const isValidPoint = ({ x, y }: PointFromTextInput) => {
-  const isValidLatitude = isValidCoordinate(x, 'latitude')
-  const isValidLongitude = isValidCoordinate(y, 'longitude')
+const isValidPoint = ({ lat, lng }: PointFromTextInput) => {
+  const isValidLatitude = isValidCoordinate(lat, 'lat')
+  const isValidLongitude = isValidCoordinate(lng, 'lng')
   return isValidLatitude && isValidLongitude
 }
 
