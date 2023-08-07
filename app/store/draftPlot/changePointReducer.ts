@@ -1,4 +1,4 @@
-type Coord = number | '' | `${number}.`
+type Coord = number | '' | `${number}.` | '-'
 
 export interface Point {
   id: string
@@ -82,7 +82,8 @@ const endsWithDecimal = (input: string | number): input is `${number}.` =>
 
 const tryConvertToNum = (input: string | number) => {
   if (endsWithDecimal(input)) return input
-  if (Number.isNaN(+input) || input === '') return ''
+  if (input === '-') return '-'
+  if (input === '') return ''
   return +input
 }
 
@@ -93,13 +94,12 @@ const removeEmptyPoints = (updatedPlot: Point[]) => {
 
     if (!currentPoint) throw new Error('Expected currentPoint to be present')
 
-    const isOneCoordPresent = currentPoint.lat !== '' || currentPoint.lng !== ''
-    const areBothCoordsPresent =
-      currentPoint.lat !== '' && currentPoint.lng !== ''
+    const isLatNumeric = typeof currentPoint.lat === 'number'
+    const isLngNumeric = typeof currentPoint.lng === 'number'
     const isFirstRow = i === 0
 
-    if (isOneCoordPresent || isFirstRow) {
-      if (areBothCoordsPresent) idsToRemove.pop()
+    if (isLatNumeric || isLngNumeric || isFirstRow) {
+      if (isLatNumeric && isLngNumeric) idsToRemove.pop()
 
       break
     }

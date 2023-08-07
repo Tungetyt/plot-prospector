@@ -57,6 +57,16 @@ describe('changePointReducer', () => {
         updatedPoint: { lat: '', lng: '179.' },
         expectedPoint: { lat: '', lng: '179.' },
       },
+      {
+        currentPoint: { lat: '', lng: 179 },
+        updatedPoint: { lat: '', lng: '-179.123456' },
+        expectedPoint: { lat: '', lng: -179.123456 },
+      },
+      {
+        currentPoint: { lat: '', lng: 179 },
+        updatedPoint: { lat: '', lng: '-0' },
+        expectedPoint: { lat: '', lng: -0 },
+      },
     ] as const
 
     okInputs.forEach(({ currentPoint, updatedPoint, expectedPoint }) => {
@@ -133,6 +143,10 @@ describe('changePointReducer', () => {
         {
           updatedPoint: { lat: '', lng: '49e' },
           currentAndExpectedPoint: { lat: '', lng: 49 },
+        },
+        {
+          updatedPoint: { lat: '9abc9def9', lng: '' },
+          currentAndExpectedPoint: { lat: '', lng: '' },
         },
       ] as const
 
