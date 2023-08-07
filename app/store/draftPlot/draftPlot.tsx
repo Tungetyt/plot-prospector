@@ -3,14 +3,15 @@ import { storeActionsSelector } from '@/app/utils/zustand'
 import {
   changePointReducer,
   initialState,
-  Point,
+  PointFromTextInput,
   Store,
-} from '@/app/store/changePointReducer'
+} from '@/app/store/draftPlot/changePointReducer'
 
 const useDraftPlotStore = create<Store>((set) => ({
   ...initialState,
   actions: {
-    changePoint: (updatedPoint: Point) => set(changePointReducer(updatedPoint)),
+    changePoint: (updatedPoint: PointFromTextInput) =>
+      set(changePointReducer(updatedPoint)),
     confirmPlot: () => set(() => initialState),
   },
 }))

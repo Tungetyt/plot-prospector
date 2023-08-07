@@ -1,12 +1,16 @@
 import { describe, expect, it } from 'vitest'
-import { changePointReducer, Point } from './changePointReducer'
+import {
+  changePointReducer,
+  Point,
+  PointFromTextInput,
+} from './changePointReducer'
 
 describe('changePointReducer', () => {
   describe('isValidPoint', () => {
     it('ok input', () => {
       const okInputs: ReadonlyArray<{
         currentPoint: Point['point']
-        updatedPoint: Point['point']
+        updatedPoint: PointFromTextInput['point']
         expectedPoint: Point['point']
       }> = [
         {
@@ -72,7 +76,7 @@ describe('changePointReducer', () => {
 
     it('bad input', () => {
       const badInputs: ReadonlyArray<{
-        updatedPoint: Point['point']
+        updatedPoint: PointFromTextInput['point']
         currentAndExpectedPoint: Point['point']
       }> = [
         {
@@ -143,7 +147,36 @@ describe('changePointReducer', () => {
       })
     })
 
-    describe.todo('adding points', () => {})
+    describe.todo('adding points', () => {
+      // const okInputs: ReadonlyArray<{
+      //     currentPlot: ReadonlyArray<Point>
+      //     updatedPoint: Point
+      //     expectedPlot: ReadonlyArray<Point>
+      // }> = [
+      //     {
+      //         currentPlot: [[9, '']],
+      //         updatedPoint: ['90', ''],
+      //         expectedPlot: [90, ''],
+      //     },
+      // ] as const
+      //
+      // const id = 'initial'
+      //
+      // okInputs.forEach(({ currentPlot, updatedPoint, expectedPlot }) => {
+      //     const result = changePointReducer({
+      //         id,
+      //         point: updatedPoint,
+      //     })({
+      //         plot: [
+      //             {
+      //                 id,
+      //                 point: currentPlot,
+      //             },
+      //         ],
+      //     }).plot[0]!.point
+      //     expect(result).toEqual(expectedPlot)
+      // })
+    })
 
     describe.todo('removing points', () => {})
   })

@@ -1,12 +1,20 @@
 export interface Point {
   id: string
+  point: Readonly<[number | '', number | '']>
+}
+
+export interface PointFromTextInput {
+  id: Point['id']
   point: Readonly<[number | string, number | string]>
 }
 
 export interface Store {
   plot: ReadonlyArray<Point>
   actions: {
-    changePoint: (updatedPoint: Point) => void
+    changePoint: (updatedPoint: {
+      id: Point['id']
+      point: [number | string, number | string]
+    }) => void
     confirmPlot: () => void
   }
 }
@@ -101,7 +109,7 @@ const removeEmptyPoints = (updatedPlot: Point[]) => {
 
 const updatePoints = (
   plot: ReadonlyArray<Point>,
-  updatedPoint: Point,
+  updatedPoint: PointFromTextInput,
 ): Point[] => {
   return plot.map((point) =>
     point.id === updatedPoint.id
@@ -134,13 +142,13 @@ const plotWithMaybeNewPoint = (plot: Point[]): Point[] => {
   ]
 }
 
-const isValidPoint = (updatedPoint: Point) => {
+const isValidPoint = (updatedPoint: PointFromTextInput) => {
   const isValidLatitude = isValidCoordinate(updatedPoint.point[0], 'latitude')
   const isValidLongitude = isValidCoordinate(updatedPoint.point[1], 'longitude')
   return isValidLatitude && isValidLongitude
 }
 
-export const changePointReducer = (updatedPoint: Point) => {
+export const changePointReducer = (updatedPoint: PointFromTextInput) => {
   return (state: State) => {
     if (!isValidPoint(updatedPoint)) return state
 

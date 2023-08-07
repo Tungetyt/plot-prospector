@@ -2,7 +2,10 @@
 
 import { Dispatch, SetStateAction, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { useDraftPlot, useDraftPlotActions } from '@/app/store/draftPlot'
+import {
+  useDraftPlot,
+  useDraftPlotActions,
+} from '@/app/store/draftPlot/draftPlot'
 
 type State = '' | 'PLOT_CREATION' | 'INFORMATION_FORM'
 
