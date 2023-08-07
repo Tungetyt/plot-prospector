@@ -2,7 +2,10 @@ import {
   useDraftPlot,
   useDraftPlotActions,
 } from '@/app/store/draftPlot/draftPlot'
-import { isValidCoordinate } from '@/app/store/draftPlot/changePointReducer'
+import {
+  isValidCoordinate,
+  Point,
+} from '@/app/store/draftPlot/changePointReducer'
 
 const stopCaretJumpingToTheEnd = (
   target: EventTarget & HTMLInputElement,
@@ -13,71 +16,43 @@ const stopCaretJumpingToTheEnd = (
       ? target.selectionStart - 1
       : target.selectionStart
 
-  const element = target
   window.requestAnimationFrame(() => {
-    element.selectionStart = caret
-    element.selectionEnd = caret
+    target.selectionStart = caret
+    target.selectionEnd = caret
   })
 }
 
-// const PointInput = ({point, type}: {point: Point, type: 'lat' | 'lng'}) => {
-//   const { changePoint } = useDraftPlotActions()
-//
-// return   <td>
-//     <input
-//         value={point.lat}
-//         onChange={({ target }) => {
-//           changePoint({
-//             ...point,
-//             lat: target.value,
-//           })
-//
-//           stopCaretJumpingToTheEnd(target, type)
-//         }}
-//         type="text"
-//         className="input input-bordered input-xs w-full max-w-xs"
-//     />
-//   </td>
-// }
+const PointInput = ({ point, type }: { point: Point; type: 'lat' | 'lng' }) => {
+  const { changePoint } = useDraftPlotActions()
+
+  return (
+    <td>
+      <input
+        value={point[type]}
+        onChange={({ target }) => {
+          changePoint({
+            ...point,
+            [type]: target.value,
+          })
+
+          stopCaretJumpingToTheEnd(target, type)
+        }}
+        type="text"
+        className="input input-bordered input-xs w-full max-w-xs"
+      />
+    </td>
+  )
+}
 
 const PlotCreatorRows = () => {
   const draftPlot = useDraftPlot()
-  const { changePoint } = useDraftPlotActions()
 
   return (
     <>
       {draftPlot.map((point) => (
         <tr key={point.id}>
-          <td>
-            <input
-              value={point.lng}
-              onChange={({ target }) => {
-                // TODO: Refactor this to accept kind: 'latitude' | 'longitude' and use the same reducer
-                changePoint({
-                  ...point,
-                  lng: target.value,
-                })
-
-                stopCaretJumpingToTheEnd(target, 'lng')
-              }}
-              className="input input-bordered input-xs w-full max-w-xs"
-            />
-          </td>
-          <td>
-            <input
-              value={point.lat}
-              onChange={({ target }) => {
-                changePoint({
-                  ...point,
-                  lat: target.value,
-                })
-
-                stopCaretJumpingToTheEnd(target, 'lat')
-              }}
-              type="text"
-              className="input input-bordered input-xs w-full max-w-xs"
-            />
-          </td>
+          <PointInput point={point} type="lng" />
+          <PointInput point={point} type="lat" />
         </tr>
       ))}
     </>

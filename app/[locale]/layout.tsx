@@ -2,7 +2,7 @@ import '../globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { validateEnvVars } from '@/app/env'
-import { NextIntlClientProvider } from 'next-intl'
+import { AbstractIntlMessages, NextIntlClientProvider } from 'next-intl'
 import { notFound } from 'next/navigation'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -21,7 +21,7 @@ export default async function RootLayout({
   children: React.ReactNode
   params: { [key: string]: string | string[] | undefined } & { locale: string }
 }) {
-  let messages
+  let messages: AbstractIntlMessages
   try {
     messages = (await import(`../../messages/${params.locale}.json`)).default
   } catch (error) {
@@ -31,7 +31,6 @@ export default async function RootLayout({
   return (
     <html lang={params.locale} suppressHydrationWarning>
       <body className={inter.className}>
-        {' '}
         <NextIntlClientProvider locale={params.locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
