@@ -1,11 +1,11 @@
 export interface Point {
   id: string
-  point: Readonly<[number | '', number | '']>
+  coords: Readonly<[number | '', number | '']>
 }
 
 export interface PointFromTextInput {
   id: Point['id']
-  point: Readonly<[number | string, number | string]>
+  coords: Readonly<[number | string, number | string]>
 }
 
 export interface Store {
@@ -13,7 +13,7 @@ export interface Store {
   actions: {
     changePoint: (updatedPoint: {
       id: Point['id']
-      point: [number | string, number | string]
+      coords: [number | string, number | string]
     }) => void
     confirmPlot: () => void
   }
@@ -22,13 +22,13 @@ export interface Store {
 type State = Readonly<Omit<Store, 'actions'>>
 
 const initialCoord = ''
-const initialPoint = [initialCoord, initialCoord] as const
+const initialCoords = [initialCoord, initialCoord] as const
 
 export const initialState: State = {
   plot: [
     {
       id: crypto.randomUUID(),
-      point: initialPoint,
+      coords: initialCoords,
     },
   ],
 } as const
@@ -90,8 +90,8 @@ const removeEmptyPoints = (updatedPlot: Point[]) => {
 
     if (!currentPoint) throw new Error('Expected currentPoint to be present')
 
-    if (!currentPoint.point.every((coord) => coord === '')) {
-      if (currentPoint.point.every((coord) => coord)) idsToRemove.pop()
+    if (!currentPoint.coords.every((c) => c === '')) {
+      if (currentPoint.coords.every((c) => c)) idsToRemove.pop()
 
       break
     }
@@ -115,9 +115,9 @@ const updatePoints = (
     point.id === updatedPoint.id
       ? {
           ...updatedPoint,
-          point: [
-            tryConvertToNum(updatedPoint.point[0]),
-            tryConvertToNum(updatedPoint.point[1]),
+          coords: [
+            tryConvertToNum(updatedPoint.coords[0]),
+            tryConvertToNum(updatedPoint.coords[1]),
           ] as [number, number],
         }
       : point,
@@ -131,20 +131,23 @@ const plotWithMaybeNewPoint = (plot: Point[]): Point[] => {
     return plot
   }
 
-  if (lastPoint.point.some((coord) => typeof coord !== 'number')) return plot
+  if (lastPoint.coords.some((c) => typeof c !== 'number')) return plot
 
   return [
     ...plot,
     {
       id: crypto.randomUUID(),
-      point: initialPoint,
+      coords: initialCoords,
     },
   ]
 }
 
 const isValidPoint = (updatedPoint: PointFromTextInput) => {
-  const isValidLatitude = isValidCoordinate(updatedPoint.point[0], 'latitude')
-  const isValidLongitude = isValidCoordinate(updatedPoint.point[1], 'longitude')
+  const isValidLatitude = isValidCoordinate(updatedPoint.coords[0], 'latitude')
+  const isValidLongitude = isValidCoordinate(
+    updatedPoint.coords[1],
+    'longitude',
+  )
   return isValidLatitude && isValidLongitude
 }
 

@@ -59,15 +59,15 @@ const PlotCreationController = () => {
               </tr>
             </thead>
             <tbody>
-              {draftPlot.map(({ id, point }) => (
+              {draftPlot.map(({ id, coords }) => (
                 <tr key={id}>
                   <td>
                     <input
-                      value={point[0]}
+                      value={coords[0]}
                       onChange={({ target }) =>
                         changePoint({
                           id,
-                          point: [target.value, point[1]],
+                          coords: [target.value, coords[1]],
                         })
                       }
                       type="text"
@@ -76,12 +76,12 @@ const PlotCreationController = () => {
                   </td>
                   <td>
                     <input
-                      value={point[1]}
+                      value={coords[1]}
                       onChange={({ target }) =>
                         // TODO: Refactor this to accept kind: 'latitude' | 'longitude' and use the same reducer
                         changePoint({
                           id,
-                          point: [point[0], target.value],
+                          coords: [coords[0], target.value],
                         })
                       }
                       className="input input-bordered input-xs w-full max-w-xs"

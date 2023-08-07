@@ -9,9 +9,9 @@ describe('changePointReducer', () => {
   describe('isValidPoint', () => {
     it('ok input', () => {
       const okInputs: ReadonlyArray<{
-        currentPoint: Point['point']
-        updatedPoint: PointFromTextInput['point']
-        expectedPoint: Point['point']
+        currentPoint: Point['coords']
+        updatedPoint: PointFromTextInput['coords']
+        expectedPoint: Point['coords']
       }> = [
         {
           currentPoint: [9, ''],
@@ -61,23 +61,23 @@ describe('changePointReducer', () => {
       okInputs.forEach(({ currentPoint, updatedPoint, expectedPoint }) => {
         const result = changePointReducer({
           id,
-          point: updatedPoint,
+          coords: updatedPoint,
         })({
           plot: [
             {
               id,
-              point: currentPoint,
+              coords: currentPoint,
             },
           ],
-        }).plot[0]!.point
+        }).plot[0]!.coords
         expect(result).toEqual(expectedPoint)
       })
     })
 
     it('bad input', () => {
       const badInputs: ReadonlyArray<{
-        updatedPoint: PointFromTextInput['point']
-        currentAndExpectedPoint: Point['point']
+        updatedPoint: PointFromTextInput['coords']
+        currentAndExpectedPoint: Point['coords']
       }> = [
         {
           updatedPoint: ['90.', ''],
@@ -134,15 +134,15 @@ describe('changePointReducer', () => {
       badInputs.forEach(({ updatedPoint, currentAndExpectedPoint }) => {
         const result = changePointReducer({
           id,
-          point: updatedPoint,
+          coords: updatedPoint,
         })({
           plot: [
             {
               id,
-              point: currentAndExpectedPoint,
+              coords: currentAndExpectedPoint,
             },
           ],
-        }).plot[0]!.point
+        }).plot[0]!.coords
         expect(result).toEqual(currentAndExpectedPoint)
       })
     })
