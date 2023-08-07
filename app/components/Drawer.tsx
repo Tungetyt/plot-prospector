@@ -25,7 +25,7 @@ export const Drawer = ({
       </div>
       <div className="drawer-side z-1000">
         <label htmlFor={drawerId} className="drawer-overlay"></label>
-        <ul className="menu w-56 h-full bg-base-200 text-base-content">
+        <ul className="menu w-60 h-full bg-base-200 text-base-content">
           {sidebar}
         </ul>
       </div>

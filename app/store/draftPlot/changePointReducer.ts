@@ -11,10 +11,7 @@ export interface PointFromTextInput {
 export interface Store {
   plot: ReadonlyArray<Point>
   actions: {
-    changePoint: (updatedPoint: {
-      id: Point['id']
-      coords: [number | string, number | string]
-    }) => void
+    changePoint: (updatedPoint: PointFromTextInput) => void
     confirmPlot: () => void
   }
 }
