@@ -7,58 +7,62 @@ import {
 
 describe('changePointReducer', () => {
   describe('isValidPoint', () => {
-    it('ok input', () => {
-      const okInputs: ReadonlyArray<{
-        currentPoint: Point['coords']
-        updatedPoint: PointFromTextInput['coords']
-        expectedPoint: Point['coords']
-      }> = [
-        {
-          currentPoint: [9, ''],
-          updatedPoint: ['90', ''],
-          expectedPoint: [90, ''],
-        },
-        {
-          currentPoint: ['', 18],
-          updatedPoint: ['', '180'],
-          expectedPoint: ['', 180],
-        },
-        {
-          currentPoint: ['', 179],
-          updatedPoint: ['', '179.'],
-          expectedPoint: ['', 179],
-        },
-        {
-          currentPoint: [90, 18],
-          updatedPoint: ['90', '180'],
-          expectedPoint: [90, 180],
-        },
-        {
-          currentPoint: [0, ''],
-          updatedPoint: ['0', '0'],
-          expectedPoint: [0, 0],
-        },
-        {
-          currentPoint: [-9, -180],
-          updatedPoint: ['-90', '-180'],
-          expectedPoint: [-90, -180],
-        },
-        {
-          currentPoint: [89.12345, 179.123456],
-          updatedPoint: ['89.123456', '179.123456'],
-          expectedPoint: [89.123456, 179.123456],
-        },
+    const okInputs: ReadonlyArray<{
+      currentPoint: Point['coords']
+      updatedPoint: PointFromTextInput['coords']
+      expectedPoint: Point['coords']
+    }> = [
+      {
+        currentPoint: [9, ''],
+        updatedPoint: ['90', ''],
+        expectedPoint: [90, ''],
+      },
+      {
+        currentPoint: ['', 18],
+        updatedPoint: ['', '180'],
+        expectedPoint: ['', 180],
+      },
+      {
+        currentPoint: [90, 18],
+        updatedPoint: ['90', '180'],
+        expectedPoint: [90, 180],
+      },
+      {
+        currentPoint: [0, ''],
+        updatedPoint: ['0', '0'],
+        expectedPoint: [0, 0],
+      },
+      {
+        currentPoint: [-9, -180],
+        updatedPoint: ['-90', '-180'],
+        expectedPoint: [-90, -180],
+      },
+      {
+        currentPoint: [89.12345, 179.123456],
+        updatedPoint: ['89.123456', '179.123456'],
+        expectedPoint: [89.123456, 179.123456],
+      },
+      {
+        currentPoint: [-89.123456, -179.12345],
+        updatedPoint: ['-89.123456', '-179.123456'],
+        expectedPoint: [-89.123456, -179.123456],
+      },
+      {
+        currentPoint: [89, ''],
+        updatedPoint: ['89.', ''],
+        expectedPoint: ['89.', ''],
+      },
+      {
+        currentPoint: ['', 179],
+        updatedPoint: ['', '179.'],
+        expectedPoint: ['', '179.'],
+      },
+    ] as const
 
-        {
-          currentPoint: [-89.123456, -179.12345],
-          updatedPoint: ['-89.123456', '-179.123456'],
-          expectedPoint: [-89.123456, -179.123456],
-        },
-      ] as const
+    okInputs.forEach(({ currentPoint, updatedPoint, expectedPoint }) => {
+      it('ok input', () => {
+        const id = 'initial'
 
-      const id = 'initial'
-
-      okInputs.forEach(({ currentPoint, updatedPoint, expectedPoint }) => {
         const result = changePointReducer({
           id,
           coords: updatedPoint,

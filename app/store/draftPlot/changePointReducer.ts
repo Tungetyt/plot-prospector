@@ -1,6 +1,8 @@
+type Coord = number | '' | `${number}.`
+
 export interface Point {
   id: string
-  coords: Readonly<[number | '', number | '']>
+  coords: Readonly<[Coord, Coord]>
 }
 
 export interface PointFromTextInput {
@@ -75,9 +77,9 @@ const isValidCoordinate = (
 }
 
 const tryConvertToNum = (input: string | number) => {
-  const result = input.toString().at(-1) === '.' ? +`${input}0` : +input
-  if (Number.isNaN(result) || input === '') return input
-  return result
+  if (input.toString().at(-1) === '.') return input
+  if (Number.isNaN(+input) || input === '') return input
+  return +input
 }
 
 const removeEmptyPoints = (updatedPlot: Point[]) => {
@@ -87,7 +89,7 @@ const removeEmptyPoints = (updatedPlot: Point[]) => {
 
     if (!currentPoint) throw new Error('Expected currentPoint to be present')
 
-    if (!currentPoint.coords.every((c) => c === '')) {
+    if (!currentPoint.coords.every((c) => c === '') || i === 0) {
       if (currentPoint.coords.every((c) => c)) idsToRemove.pop()
 
       break
