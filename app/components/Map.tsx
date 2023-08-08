@@ -16,7 +16,7 @@ import {
   Rectangle,
   TileLayer,
 } from 'react-leaflet'
-import { usePhase } from '@/app/store/draftPlot/draftPlotStore'
+import { useDraftPlot, usePhase } from '@/app/store/draftPlot/draftPlotStore'
 
 type Point = [number, number]
 
@@ -82,6 +82,11 @@ const redOptions = { color: 'red' }
 
 export default function Map() {
   const phase = usePhase()
+  const draftPlot = useDraftPlot()
+    .filter(
+      ({ lat, lng }) => typeof lat === 'number' && typeof lng === 'number',
+    )
+    .map(({ lat, lng }) => [lat, lng] as Point)
 
   return (
     <div
@@ -110,12 +115,12 @@ export default function Map() {
         {/* <Polyline pathOptions={orangeOptions} positions={multiPolyline} /> */}
         <Polygon
           pathOptions={purpleOptions}
-          positions={polygon.points}
+          positions={draftPlot}
           eventHandlers={{
             add: (e) => {
               const layer = e.target
               // Directly manipulate the DOM to set a custom data attribute
-              layer._path.setAttribute('data-id', polygon.id)
+              layer._path.setAttribute('data-id', crypto.randomUUID())
             },
             // mouseover: (e) => {
             //   console.log(e);
