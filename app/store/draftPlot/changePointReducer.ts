@@ -4,7 +4,7 @@ import {
   PointFromTextInput,
   State,
 } from '@/app/store/draftPlot/common'
-import { isValidCoordinate } from '@/app/store/draftPlot/isValidCoordinate'
+import isValidCoordinate from '@/app/store/draftPlot/isValidCoordinate'
 
 const endsWithDecimal = (input: string | number): input is `${number}.` =>
   input.toString().at(-1) === '.'
@@ -61,7 +61,7 @@ const updatePoints = (
 const plotWithMaybeNewPoint = (plot: Point[]): Point[] => {
   const lastPoint = plot.at(-1)
   if (!lastPoint) {
-    console.error('Expected last point to be found.') //TODO: Send log to server
+    console.error('Expected last point to be found.') // TODO: Send log to server
     return plot
   }
 
@@ -84,8 +84,8 @@ const isValidPoint = ({ lat, lng }: PointFromTextInput) => {
   return isValidLatitude && isValidLongitude
 }
 
-export const changePointReducer = (updatedPoint: PointFromTextInput) => {
-  return (state: State) => {
+const changePointReducer =
+  (updatedPoint: PointFromTextInput) => (state: State) => {
     if (!isValidPoint(updatedPoint)) return state
 
     const updatedPlot = updatePoints(state.plot, updatedPoint)
@@ -94,4 +94,5 @@ export const changePointReducer = (updatedPoint: PointFromTextInput) => {
 
     return { plot: plotWithMaybeNewPoint(updatedPlot) }
   }
-}
+
+export default changePointReducer

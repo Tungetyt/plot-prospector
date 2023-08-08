@@ -13,8 +13,6 @@ export type PointFromTextInput = Pick<Point, 'id'> & {
 
 export type Phase = '' | 'PLOT_CREATION' | 'INFORMATION_FORM'
 
-export type State = Readonly<Omit<Store, 'actions'>>
-
 export interface Store {
   plot: ReadonlyArray<Point>
   phase: Phase
@@ -24,6 +22,8 @@ export interface Store {
     changePhase: (phase: Phase) => void
   }
 }
+
+export type State = Readonly<Omit<Store, 'actions'>>
 
 export const initialCoord = ''
 

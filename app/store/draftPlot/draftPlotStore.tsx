@@ -1,14 +1,14 @@
 import { create } from 'zustand'
-import { storeActionsSelector } from '@/app/utils/zustand'
-import { changePointReducer } from '@/app/store/draftPlot/changePointReducer'
 import {
   initialState,
   Phase,
   PointFromTextInput,
   Store,
 } from '@/app/store/draftPlot/common'
-import { changePhaseReducer } from '@/app/store/draftPlot/changePhaseReducer'
-import { confirmPlotReducer } from '@/app/store/draftPlot/confirmPlotReducer'
+import changePointReducer from '@/app/store/draftPlot/changePointReducer'
+import storeActionsSelector from '@/app/utils/zustand'
+import confirmPlotReducer from '@/app/store/draftPlot/confirmPlotReducer'
+import changePhaseReducer from '@/app/store/draftPlot/changePhaseReducer'
 
 const useDraftPlotStore = create<Store>((set) => ({
   ...initialState,

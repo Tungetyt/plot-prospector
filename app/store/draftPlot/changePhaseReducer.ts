@@ -1,7 +1,7 @@
 import { Phase } from '@/app/store/draftPlot/common'
 
-export const changePhaseReducer = (phase: Phase) => {
-  return () => ({
-    phase,
-  })
-}
+const changePhaseReducer = (phase: Phase) => () => ({
+  phase,
+})
+
+export default changePhaseReducer

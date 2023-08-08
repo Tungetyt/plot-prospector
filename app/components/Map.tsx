@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use client'
 
 import 'leaflet/dist/leaflet.css'
@@ -20,7 +21,7 @@ import { usePhase } from '@/app/store/draftPlot/draftPlotStore'
 type Point = [number, number]
 
 const center: Point = [51.505, -0.09]
-//[52.0979030011665, 21.03239659105818]
+// [52.0979030011665, 21.03239659105818]
 
 const polyline: Point[] = [
   [51.505, -0.09],
@@ -96,17 +97,17 @@ export default function Map() {
         zoomControl={false}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        {/*<Marker position={center} />*/}
-        {/*<Circle center={center} pathOptions={fillBlueOptions} radius={200} />*/}
-        {/*<CircleMarker*/}
-        {/*  center={[51.51, -0.12]}*/}
-        {/*  pathOptions={redOptions}*/}
-        {/*  radius={20}*/}
-        {/*>*/}
-        {/*  <Popup>Popup in CircleMarker</Popup>*/}
-        {/*</CircleMarker>*/}
-        {/*<Polyline pathOptions={limeOptions} positions={polyline} />*/}
-        {/*<Polyline pathOptions={orangeOptions} positions={multiPolyline} />*/}
+        {/* <Marker position={center} /> */}
+        {/* <Circle center={center} pathOptions={fillBlueOptions} radius={200} /> */}
+        {/* <CircleMarker */}
+        {/*  center={[51.51, -0.12]} */}
+        {/*  pathOptions={redOptions} */}
+        {/*  radius={20} */}
+        {/* > */}
+        {/*  <Popup>Popup in CircleMarker</Popup> */}
+        {/* </CircleMarker> */}
+        {/* <Polyline pathOptions={limeOptions} positions={polyline} /> */}
+        {/* <Polyline pathOptions={orangeOptions} positions={multiPolyline} /> */}
         <Polygon
           pathOptions={purpleOptions}
           positions={polygon.points}
@@ -131,8 +132,8 @@ export default function Map() {
             },
           }}
         />
-        {/*<Polygon pathOptions={yellowOptions} positions={multiPolygon} />*/}
-        {/*<Rectangle bounds={rectangle} pathOptions={blackOptions} />*/}
+        {/* <Polygon pathOptions={yellowOptions} positions={multiPolygon} /> */}
+        {/* <Rectangle bounds={rectangle} pathOptions={blackOptions} /> */}
       </MapContainer>
     </div>
   )

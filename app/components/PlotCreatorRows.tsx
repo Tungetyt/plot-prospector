@@ -2,8 +2,8 @@ import {
   useDraftPlot,
   useDraftPlotActions,
 } from '@/app/store/draftPlot/draftPlotStore'
-import { isValidCoordinate } from '@/app/store/draftPlot/isValidCoordinate'
 import { Point } from '@/app/store/draftPlot/common'
+import isValidCoordinate from '@/app/store/draftPlot/isValidCoordinate'
 
 const stopCaretJumpingToTheEnd = (
   target: EventTarget & HTMLInputElement,
@@ -15,12 +15,14 @@ const stopCaretJumpingToTheEnd = (
       : target.selectionStart
 
   window.requestAnimationFrame(() => {
+    // eslint-disable-next-line no-param-reassign
     target.selectionStart = caret
+    // eslint-disable-next-line no-param-reassign
     target.selectionEnd = caret
   })
 }
 
-const PointInput = ({ point, type }: { point: Point; type: 'lat' | 'lng' }) => {
+function PointInput({ point, type }: { point: Point; type: 'lat' | 'lng' }) {
   const { changePoint } = useDraftPlotActions()
 
   return (
@@ -42,7 +44,7 @@ const PointInput = ({ point, type }: { point: Point; type: 'lat' | 'lng' }) => {
   )
 }
 
-const PlotCreatorRows = () => {
+function PlotCreatorRows() {
   const draftPlot = useDraftPlot()
 
   return (

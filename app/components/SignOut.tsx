@@ -3,12 +3,18 @@
 import { signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
-export const SignOut = () => {
+function SignOut() {
   const t = useTranslations('Index')
 
   return (
-    <button onClick={() => signOut()} className="w-max text-center">
+    <button
+      type="button"
+      onClick={() => signOut()}
+      className="w-max text-center"
+    >
       {t('Sign_out')}
     </button>
   )
 }
+
+export default SignOut

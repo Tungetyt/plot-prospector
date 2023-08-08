@@ -1,4 +1,5 @@
 import { z } from 'zod'
+
 const port = z.coerce.number().positive().int().max(65353)
 const url = z.string().url()
 const required = z.string().min(1)
@@ -16,10 +17,12 @@ const envVariables = z.object({
   DATABASE_URL: url,
 })
 
-export const validateEnvVars = () => envVariables.parse(process.env)
-
 declare global {
   namespace NodeJS {
     interface ProcessEnv extends z.infer<typeof envVariables> {}
   }
 }
+
+const validateEnvVars = () => envVariables.parse(process.env)
+
+export default validateEnvVars

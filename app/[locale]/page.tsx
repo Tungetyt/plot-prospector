@@ -1,10 +1,11 @@
 import dynamic from 'next/dynamic'
 import { getServerSession } from 'next-auth'
-import { SignIn } from '@/app/components/SignIn'
-import { Drawer } from '@/app/components/Drawer'
-import { SignOut } from '@/app/components/SignOut'
-import PlotCreationController from '@/app/components/PlotCreationController'
 import { pino } from 'pino'
+import PlotCreationController from '@/app/components/PlotCreationController'
+import SignOut from '@/app/components/SignOut'
+import SignIn from '@/app/components/SignIn'
+import Drawer from '@/app/components/Drawer'
+
 const Map = dynamic(() => import('@/app/components/Map'), { ssr: false })
 
 export default async function Home() {
@@ -16,20 +17,18 @@ export default async function Home() {
     <main className="flex flex-col">
       <Drawer
         sidebar={
-          <>
-            {session ? (
-              <>
-                <PlotCreationController />
-                <li className="mt-auto">
-                  <SignOut />
-                </li>
-              </>
-            ) : (
-              <li>
-                <SignIn />
+          session ? (
+            <>
+              <PlotCreationController />
+              <li className="mt-auto">
+                <SignOut />
               </li>
-            )}
-          </>
+            </>
+          ) : (
+            <li>
+              <SignIn />
+            </li>
+          )
         }
       >
         <Map />

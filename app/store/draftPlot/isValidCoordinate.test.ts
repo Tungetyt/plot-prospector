@@ -1,4 +1,4 @@
-import { isValidCoordinate } from '@/app/store/draftPlot/isValidCoordinate'
+import isValidCoordinate from '@/app/store/draftPlot/isValidCoordinate'
 
 describe('isValidCoordinate', () => {
   const latLngTests = [

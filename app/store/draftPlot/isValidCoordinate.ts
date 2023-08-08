@@ -1,4 +1,4 @@
-export const isValidCoordinate = (
+const isValidCoordinate = (
   value: string | number,
   type: 'lat' | 'lng',
 ): boolean => {
@@ -27,7 +27,7 @@ export const isValidCoordinate = (
   const numValue = Number(stringValue)
 
   // Ensure it's a valid number
-  if (isNaN(numValue)) return false
+  if (Number.isNaN(numValue)) return false
 
   // Special checks for exact 90 or 180
   if (numValue === 90 && type === 'lat' && stringValue.endsWith('.'))
@@ -41,3 +41,5 @@ export const isValidCoordinate = (
 
   return true
 }
+
+export default isValidCoordinate

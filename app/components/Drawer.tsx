@@ -1,13 +1,13 @@
 import { ReactNode, useId } from 'react'
 import { useTranslations } from 'next-intl'
 
-export const Drawer = ({
+function Drawer({
   children,
   sidebar,
 }: {
   children: ReactNode
   sidebar: ReactNode
-}) => {
+}) {
   const drawerId = useId()
   const t = useTranslations('Index')
 
@@ -24,7 +24,8 @@ export const Drawer = ({
         </label>
       </div>
       <div className="drawer-side z-1000">
-        <label htmlFor={drawerId} className="drawer-overlay"></label>
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+        <label htmlFor={drawerId} className="drawer-overlay" />
         <ul className="menu w-60 h-full bg-base-200 text-base-content">
           {sidebar}
         </ul>
@@ -32,3 +33,5 @@ export const Drawer = ({
     </div>
   )
 }
+
+export default Drawer

@@ -13,7 +13,7 @@ export type PlotCreationControllerState =
   | 'PLOT_CREATION'
   | 'INFORMATION_FORM'
 
-const PlotCreationController = () => {
+function PlotCreationController() {
   const t = useTranslations('Index')
 
   const phase = usePhase()
@@ -27,6 +27,7 @@ const PlotCreationController = () => {
         <CancelBtn setState={changePhase} />
         <li className="mb-14">
           <button
+            type="button"
             className="btn  btn-primary"
             onClick={() => changePhase('INFORMATION_FORM')}
             disabled={createdPointsCount < 2}
@@ -56,6 +57,7 @@ const PlotCreationController = () => {
   return (
     <li>
       <button
+        type="button"
         onClick={() => changePhase('PLOT_CREATION')}
         className="btn btn-primary"
       >
