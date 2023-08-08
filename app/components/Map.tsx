@@ -18,19 +18,20 @@ import {
 } from 'react-leaflet'
 import { useDraftPlot, usePhase } from '@/app/store/draftPlot/draftPlotStore'
 import isNumeric from '@/app/utils/common'
+import { Point } from '@/app/store/draftPlot/common'
 
-type Point = [number, number]
+export type LeafPoint = [number, number]
 
-const center: Point = [51.505, -0.09]
+const center: LeafPoint = [51.505, -0.09]
 // [52.0979030011665, 21.03239659105818]
 
-const polyline: Point[] = [
+const polyline: LeafPoint[] = [
   [51.505, -0.09],
   [51.51, -0.1],
   [51.51, -0.12],
 ]
 
-const multiPolyline: Point[][] = [
+const multiPolyline: LeafPoint[][] = [
   [
     [51.5, -0.1],
     [51.5, -0.12],
@@ -44,7 +45,7 @@ const multiPolyline: Point[][] = [
 ]
 
 const polygon: {
-  points: Point[]
+  points: LeafPoint[]
   id: string
 } = {
   id: 'abc',
@@ -55,7 +56,7 @@ const polygon: {
   ],
 }
 
-const multiPolygon: Point[][] = [
+const multiPolygon: LeafPoint[][] = [
   [
     [51.51, -0.12],
     [51.51, -0.13],
@@ -68,7 +69,7 @@ const multiPolygon: Point[][] = [
   ],
 ]
 
-const rectangle: Point[] = [
+const rectangle: LeafPoint[] = [
   [51.49, -0.08],
   [51.5, -0.06],
 ]
@@ -81,11 +82,16 @@ const yellowOptions = { color: 'yellow' }
 const orangeOptions = { color: 'orange' }
 const redOptions = { color: 'red' }
 
+export const formatPlot = (plot: readonly Point[]) =>
+  plot
+    .filter(({ lat, lng }) => isNumeric(lat) && isNumeric(lng))
+    .map(({ lat, lng }) => [lat, lng] as LeafPoint)
+
 export default function Map() {
   const phase = usePhase()
   const draftPlot = useDraftPlot()
-    .filter(({ lat, lng }) => isNumeric(lat) && isNumeric(lng))
-    .map(({ lat, lng }) => [lat, lng] as Point)
+
+  const newPlot = formatPlot(draftPlot)
 
   return (
     <div
@@ -114,7 +120,7 @@ export default function Map() {
         {/* <Polyline pathOptions={orangeOptions} positions={multiPolyline} /> */}
         <Polygon
           pathOptions={purpleOptions}
-          positions={draftPlot}
+          positions={newPlot}
           eventHandlers={{
             add: (e) => {
               const layer = e.target
