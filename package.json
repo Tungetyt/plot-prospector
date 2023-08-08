@@ -8,6 +8,7 @@
     "prisma:migrate": "docker-compose exec next-js npx prisma migrate dev && npx prisma generate",
     "prisma:studio": "docker-compose exec next-js npx prisma studio",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "format": "pnpm exec prettier . --write",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
