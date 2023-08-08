@@ -1,5 +1,6 @@
 import { Point } from '@/app/store/draftPlot/common'
-import { isPolygon } from '@/app/components/PlotCreationController'
+
+import { isPolygon } from '@/app/components/NextButton'
 
 describe('isPolygon', () => {
   it('bad if fewer than 3 points', () => {

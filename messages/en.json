@@ -8,6 +8,7 @@
     "Next": "Next",
     "Longitude": "Longitude",
     "Latitude": "Latitude",
-    "Confirm_point": "Confirm point"
+    "Confirm_point": "Confirm point",
+    "Invalid_plot": "Invalid plot"
   }
 }
