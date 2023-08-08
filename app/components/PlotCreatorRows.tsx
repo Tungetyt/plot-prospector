@@ -1,7 +1,7 @@
 import {
   useDraftPlot,
   useDraftPlotActions,
-} from '@/app/store/draftPlot/draftPlot'
+} from '@/app/store/draftPlot/draftPlotStore'
 import { isValidCoordinate } from '@/app/store/draftPlot/isValidCoordinate'
 import { Point } from '@/app/store/draftPlot/common'
 

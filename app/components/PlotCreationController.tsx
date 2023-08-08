@@ -3,7 +3,10 @@
 import { useTranslations } from 'next-intl'
 import CancelBtn from '@/app/components/CancelBtn'
 import PlotCreatorRows from '@/app/components/PlotCreatorRows'
-import { useDraftPlotActions, usePhase } from '@/app/store/draftPlot/draftPlot'
+import {
+  useDraftPlotActions,
+  usePhase,
+} from '@/app/store/draftPlot/draftPlotStore'
 
 export type PlotCreationControllerState =
   | ''

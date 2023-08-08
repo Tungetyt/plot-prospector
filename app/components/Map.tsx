@@ -15,7 +15,7 @@ import {
   Rectangle,
   TileLayer,
 } from 'react-leaflet'
-import { usePhase } from '@/app/store/draftPlot/draftPlot'
+import { usePhase } from '@/app/store/draftPlot/draftPlotStore'
 
 type Point = [number, number]
 
