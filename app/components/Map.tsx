@@ -87,7 +87,7 @@ export const formatPlot = (plot: readonly Point[]) =>
     .filter(({ lat, lng }) => isNumeric(lat) && isNumeric(lng))
     .map(({ lat, lng }) => [lat, lng] as LeafPoint)
 
-export default function Map() {
+function Map() {
   const phase = usePhase()
   const draftPlot = useDraftPlot()
 
@@ -148,3 +148,5 @@ export default function Map() {
     </div>
   )
 }
+
+export default Map
