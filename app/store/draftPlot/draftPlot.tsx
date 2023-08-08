@@ -1,12 +1,12 @@
 import { create } from 'zustand'
 import { storeActionsSelector } from '@/app/utils/zustand'
+import { changePointReducer } from '@/app/store/draftPlot/changePointReducer'
 import {
-  changePointReducer,
   initialState,
   Phase,
   PointFromTextInput,
   Store,
-} from '@/app/store/draftPlot/changePointReducer'
+} from '@/app/store/draftPlot/common'
 
 const useDraftPlotStore = create<Store>((set) => ({
   ...initialState,

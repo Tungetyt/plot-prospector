@@ -1,8 +1,5 @@
-import {
-  changePointReducer,
-  Point,
-  PointFromTextInput,
-} from './changePointReducer'
+import { Point, PointFromTextInput } from '@/app/store/draftPlot/common'
+import { changePointReducer } from '@/app/store/draftPlot/changePointReducer'
 
 describe('changePointReducer', () => {
   const okInputs: ReadonlyArray<{

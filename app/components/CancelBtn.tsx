@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl'
-import { Store } from '@/app/store/draftPlot/changePointReducer'
+import { Store } from '@/app/store/draftPlot/common'
 
 const CancelBtn = ({
   setState,
