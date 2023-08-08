@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import CancelBtn from '@/app/components/CancelBtn'
 import PlotCreatorRows from '@/app/components/PlotCreatorRows'
+import { useDraftPlotActions, usePhase } from '@/app/store/draftPlot/draftPlot'
 
 export type PlotCreationControllerState =
   | ''
@@ -13,18 +13,19 @@ export type PlotCreationControllerState =
 const PlotCreationController = () => {
   const t = useTranslations('Index')
 
-  const [state, setState] = useState<PlotCreationControllerState>('')
+  const phase = usePhase()
+  const { changePhase } = useDraftPlotActions()
 
   const createdPointsCount = 0
 
-  if (state === 'PLOT_CREATION')
+  if (phase === 'PLOT_CREATION')
     return (
       <>
-        <CancelBtn setState={setState} />
+        <CancelBtn setState={changePhase} />
         <li className="mb-14">
           <button
             className="btn  btn-primary"
-            onClick={() => setState('INFORMATION_FORM')}
+            onClick={() => changePhase('INFORMATION_FORM')}
             disabled={createdPointsCount < 2}
           >
             {t('Next')}
@@ -47,12 +48,12 @@ const PlotCreationController = () => {
       </>
     )
 
-  if (state === 'INFORMATION_FORM') return <CancelBtn setState={setState} />
+  if (phase === 'INFORMATION_FORM') return <CancelBtn setState={changePhase} />
 
   return (
     <li>
       <button
-        onClick={() => setState('PLOT_CREATION')}
+        onClick={() => changePhase('PLOT_CREATION')}
         className="btn btn-primary"
       >
         {t('Create_Plot')}

@@ -1,11 +1,10 @@
-import { Dispatch, SetStateAction } from 'react'
 import { useTranslations } from 'next-intl'
-import { PlotCreationControllerState } from '@/app/components/PlotCreationController'
+import { Store } from '@/app/store/draftPlot/changePointReducer'
 
 const CancelBtn = ({
   setState,
 }: {
-  setState: Dispatch<SetStateAction<PlotCreationControllerState>>
+  setState: Store['actions']['changePhase']
 }) => {
   const t = useTranslations('Index')
   return (

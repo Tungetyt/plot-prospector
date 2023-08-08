@@ -83,6 +83,7 @@ describe('changePointReducer', () => {
             lng: currentPoint.lng,
           },
         ],
+        phase: '',
       }).plot[0]!
 
       expect({ lng, lat }).toEqual(expectedPoint)
@@ -163,6 +164,7 @@ describe('changePointReducer', () => {
             lng: currentAndExpectedPoint.lng,
           },
         ],
+        phase: '',
       }).plot[0]!
       expect({ lng, lat }).toEqual(currentAndExpectedPoint)
     })
@@ -414,6 +416,7 @@ describe('changePointReducer', () => {
         it(`Point adding and removing ${JSON.stringify(updatedPoint)}`, () => {
           const { plot } = changePointReducer(updatedPoint)({
             plot: currentPlot,
+            phase: '',
           })
           expect(plot).toEqual(expectedPlot)
         })

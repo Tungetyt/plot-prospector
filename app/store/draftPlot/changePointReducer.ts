@@ -11,11 +11,15 @@ export type PointFromTextInput = Pick<Point, 'id'> & {
   lng: number | string
 }
 
+export type Phase = '' | 'PLOT_CREATION' | 'INFORMATION_FORM'
+
 export interface Store {
   plot: ReadonlyArray<Point>
+  phase: Phase
   actions: {
     changePoint: (updatedPoint: PointFromTextInput) => void
     confirmPlot: () => void
+    changePhase: (phase: Phase) => void
   }
 }
 
@@ -31,6 +35,7 @@ export const initialState: State = {
       lng: initialCoord,
     },
   ],
+  phase: '',
 } as const
 
 export const isValidCoordinate = (
