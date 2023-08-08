@@ -8,15 +8,13 @@ function CancelBtn({
 }) {
   const t = useTranslations('Index')
   return (
-    <li>
-      <button
-        type="button"
-        className="btn  btn-error text-center"
-        onClick={() => setState('')}
-      >
-        {t('Cancel_Plot')}
-      </button>
-    </li>
+    <button
+      type="button"
+      className="btn  btn-error text-center"
+      onClick={() => setState('')}
+    >
+      {t('Cancel_Plot')}
+    </button>
   )
 }
 

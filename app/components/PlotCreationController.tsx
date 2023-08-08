@@ -78,23 +78,24 @@ function PlotCreationController() {
       <>
         <CancelBtn setState={changePhase} />
 
-        <li className="mb-14">
-          <button
-            type="button"
-            className="btn  btn-primary"
-            onClick={() => {
-              if (isPolygon(draftPoints)) {
-                setShowError(false)
-                changePhase('INFORMATION_FORM')
-                return
-              }
+        <button
+          type="button"
+          className="btn  btn-primary w-full"
+          onClick={() => {
+            if (isPolygon(draftPoints)) {
+              setShowError(false)
+              changePhase('INFORMATION_FORM')
+              return
+            }
 
-              setShowError(true)
-              setTimeout(() => setShowError(false), 1000)
-            }}
-          >
-            {t('Next')}
-          </button>
+            setShowError(true)
+            setTimeout(() => setShowError(false), 1000)
+          }}
+        >
+          {t('Next')}
+        </button>
+
+        <div className="h-20">
           {showError && (
             <div className="alert alert-warning">
               <svg
@@ -113,9 +114,9 @@ function PlotCreationController() {
               <span>Invalid plot</span>
             </div>
           )}
-        </li>
+        </div>
 
-        <li className="overflow-x-auto max-h-96 px-1">
+        <div className="overflow-x-auto max-h-96 px-1">
           <table className="table table-xs table-fixed table-pin-rows">
             <thead>
               <tr>
@@ -127,22 +128,20 @@ function PlotCreationController() {
               <PlotCreatorRows />
             </tbody>
           </table>
-        </li>
+        </div>
       </>
     )
 
   if (phase === 'INFORMATION_FORM') return <CancelBtn setState={changePhase} />
 
   return (
-    <li>
-      <button
-        type="button"
-        onClick={() => changePhase('PLOT_CREATION')}
-        className="btn btn-primary"
-      >
-        {t('Create_Plot')}
-      </button>
-    </li>
+    <button
+      type="button"
+      onClick={() => changePhase('PLOT_CREATION')}
+      className="btn btn-primary w-full"
+    >
+      {t('Create_Plot')}
+    </button>
   )
 }
 
