@@ -5,6 +5,7 @@ import {
   State,
 } from '@/app/store/draftPlot/common'
 import isValidCoordinate from '@/app/store/draftPlot/isValidCoordinate'
+import isNumeric from '@/app/utils/common'
 
 const endsWithDecimal = (input: string | number): input is `${number}.` =>
   input.toString().at(-1) === '.'
@@ -23,8 +24,8 @@ const removeEmptyPoints = (updatedPlot: Point[]) => {
 
     if (!currentPoint) throw new Error('Expected currentPoint to be present')
 
-    const isLatNumeric = typeof currentPoint.lat === 'number'
-    const isLngNumeric = typeof currentPoint.lng === 'number'
+    const isLatNumeric = isNumeric(currentPoint.lat)
+    const isLngNumeric = isNumeric(currentPoint.lng)
     const isFirstRow = i === 0
 
     if (isLatNumeric || isLngNumeric || isFirstRow) {
@@ -65,8 +66,7 @@ const plotWithMaybeNewPoint = (plot: Point[]): Point[] => {
     return plot
   }
 
-  if (typeof lastPoint.lat !== 'number' || typeof lastPoint.lng !== 'number')
-    return plot
+  if (!isNumeric(lastPoint.lat) || !isNumeric(lastPoint.lng)) return plot
 
   return [
     ...plot,

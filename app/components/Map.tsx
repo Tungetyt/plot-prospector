@@ -17,6 +17,7 @@ import {
   TileLayer,
 } from 'react-leaflet'
 import { useDraftPlot, usePhase } from '@/app/store/draftPlot/draftPlotStore'
+import isNumeric from '@/app/utils/common'
 
 type Point = [number, number]
 
@@ -83,9 +84,7 @@ const redOptions = { color: 'red' }
 export default function Map() {
   const phase = usePhase()
   const draftPlot = useDraftPlot()
-    .filter(
-      ({ lat, lng }) => typeof lat === 'number' && typeof lng === 'number',
-    )
+    .filter(({ lat, lng }) => isNumeric(lat) && isNumeric(lng))
     .map(({ lat, lng }) => [lat, lng] as Point)
 
   return (

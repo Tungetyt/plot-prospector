@@ -1,8 +1,10 @@
+import isNumeric from '@/app/utils/common'
+
 const isValidCoordinate = (
   value: string | number,
   type: 'lat' | 'lng',
 ): boolean => {
-  const stringValue = typeof value === 'number' ? value.toString() : value
+  const stringValue = isNumeric(value) ? value.toString() : value
 
   // Special check for standalone minus sign
   if (stringValue === '-') return true
