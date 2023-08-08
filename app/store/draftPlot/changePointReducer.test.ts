@@ -62,6 +62,16 @@ describe('changePointReducer', () => {
       updatedPoint: { lat: '', lng: '-0' },
       expectedPoint: { lat: '', lng: -0 },
     },
+    {
+      currentPoint: { lat: '', lng: '' },
+      updatedPoint: { lat: '', lng: '' },
+      expectedPoint: { lat: '', lng: '' },
+    },
+    {
+      currentPoint: { lat: '', lng: '' },
+      updatedPoint: { lat: '\n\t   - 8 0 \t\n   . 32 \t\n', lng: '' },
+      expectedPoint: { lat: -80.32, lng: '' },
+    },
   ] as const
 
   okInputs.forEach(({ currentPoint, updatedPoint, expectedPoint }) => {
@@ -163,6 +173,7 @@ describe('changePointReducer', () => {
         ],
         phase: '',
       }).plot[0]!
+
       expect({ lng, lat }).toEqual(currentAndExpectedPoint)
     })
   })
@@ -415,6 +426,7 @@ describe('changePointReducer', () => {
             plot: currentPlot,
             phase: '',
           })
+
           expect(plot).toEqual(expectedPlot)
         })
       },

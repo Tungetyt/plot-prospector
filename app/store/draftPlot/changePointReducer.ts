@@ -61,6 +61,7 @@ const updatePoints = (
 
 const plotWithMaybeNewPoint = (plot: Point[]): Point[] => {
   const lastPoint = plot.at(-1)
+
   if (!lastPoint) {
     console.error('Expected last point to be found.') // TODO: Send log to server
     return plot
@@ -84,11 +85,28 @@ const isValidPoint = ({ lat, lng }: PointFromTextInput) => {
   return isValidLatitude && isValidLongitude
 }
 
+const removeWhitespacesFromCoords = (
+  updatedPoint: PointFromTextInput,
+): PointFromTextInput => {
+  const regex = /\s/g
+  return {
+    ...updatedPoint,
+    lat: isNumeric(updatedPoint.lat)
+      ? updatedPoint.lat
+      : updatedPoint.lat.replace(regex, ''),
+    lng: isNumeric(updatedPoint.lng)
+      ? updatedPoint.lng
+      : updatedPoint.lng.replace(regex, ''),
+  }
+}
+
 const changePointReducer =
   (updatedPoint: PointFromTextInput) => (state: State) => {
-    if (!isValidPoint(updatedPoint)) return state
+    const formattedPoint = removeWhitespacesFromCoords(updatedPoint)
 
-    const updatedPlot = updatePoints(state.plot, updatedPoint)
+    if (!isValidPoint(formattedPoint)) return state
+
+    const updatedPlot = updatePoints(state.plot, formattedPoint)
 
     if (removeEmptyPoints(updatedPlot)) return { plot: updatedPlot }
 
