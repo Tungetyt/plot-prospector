@@ -5,7 +5,7 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import 'leaflet-defaulticon-compatibility'
 import { MapContainer, Polygon, TileLayer, useMap } from 'react-leaflet'
 import { useEffect, useRef } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useDraftPlot, usePhase } from '@/app/store/draftPlot/draftPlotStore'
 import isNumeric from '@/app/utils/common'
 import { Point } from '@/app/store/draftPlot/common'
@@ -19,61 +19,73 @@ export const formatPlot = (plot: readonly Point[]) =>
     .filter(({ lat, lng }) => isNumeric(lat) && isNumeric(lng))
     .map(({ lat, lng }) => [lat, lng] as LeafPoint)
 
-function Map() {
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const phase = usePhase()
-  const draftPlot = useDraftPlot()
-  const pathname = usePathname()
-  const newPlot = formatPlot(draftPlot)
+function useMapInitialization(
+  map: ReturnType<typeof useMap>,
+  searchParams: URLSearchParams,
+) {
   const mapInitialized = useRef(false)
 
-  function MapEvents() {
-    const map = useMap()
+  useEffect(() => {
+    if (mapInitialized.current) {
+      return
+    }
 
-    useEffect(() => {
-      // If the map has already been initialized with the URL parameters, don't do it again
-      if (mapInitialized.current) {
-        return
-      }
+    const lat = searchParams.get('lat')
+    const lng = searchParams.get('lng')
+    const zoom = searchParams.get('zoom')
 
-      const lat = searchParams.get('lat')
-      const lng = searchParams.get('lng')
-      const zoom = searchParams.get('zoom')
+    if (lat && lng && zoom) {
+      map.setView(
+        [parseFloat(lat as string), parseFloat(lng as string)],
+        parseInt(zoom as string, 10),
+      )
+      mapInitialized.current = true
+    }
+  }, [searchParams, map])
+}
 
-      if (lat && lng && zoom) {
-        map.setView(
-          [parseFloat(lat as string), parseFloat(lng as string)],
-          parseInt(zoom as string, 10),
-        )
+const searchParams = () => new URLSearchParams(window.location.search)
 
-        // Indicate that the map has been initialized
-        mapInitialized.current = true
-      }
-    }, [map])
+function MapEvents() {
+  const map = useMap()
+  const router = useRouter()
 
-    useEffect(() => {
-      const updateUrl = () => {
-        const center = map.getCenter()
-        const zoom = map.getZoom()
-        const query = new URLSearchParams({
-          ...Object.fromEntries(searchParams.entries()),
-          lat: String(center.lat),
-          lng: String(center.lng),
-          zoom: String(zoom),
-        }).toString()
-        const newRoute = `${pathname}?${query}`
-        router.push(newRoute)
-      }
+  useMapInitialization(map, searchParams())
 
-      map.on('moveend', updateUrl)
-      return () => {
-        map.off('moveend', updateUrl)
-      }
-    }, [map])
+  useEffect(() => {
+    const updateUrl = () => {
+      const center = map.getCenter()
+      const zoom = map.getZoom()
 
-    return null
-  }
+      const queryString = new URLSearchParams({
+        ...Array.from(searchParams().entries()).reduce(
+          (obj, [key, val]) => ({ ...obj, [key]: val }),
+          {},
+        ),
+        lat: center.lat.toString(),
+        lng: center.lng.toString(),
+        zoom: zoom.toString(),
+      }).toString()
+
+      const newPath = `${window.location.pathname}?${queryString}`
+
+      router.push(newPath)
+    }
+
+    map.on('moveend', updateUrl)
+
+    return () => {
+      map.off('moveend', updateUrl)
+    }
+  }, [map, router])
+
+  return null
+}
+
+function Map() {
+  const phase = usePhase()
+  const draftPlot = useDraftPlot()
+  const newPlot = formatPlot(draftPlot)
 
   return (
     <div
