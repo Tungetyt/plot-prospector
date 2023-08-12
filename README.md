@@ -67,8 +67,8 @@ Note: Do not modify these auto-generated ignore files manually. Update the respe
 - Errors in UI: `Unhandled Runtime Error
 ChunkLoadError: Loading chunk app/[locale]/page failed.
 (missing: http://localhost:3000/_next/static/chunks/app/%5Blocale%5D/page.js)`\
-  Solution: Refresh the page
+   Solution: Refresh the page
 
-# Setting up in Production
+# Deployment
 
 // TODO
