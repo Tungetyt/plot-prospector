@@ -5,6 +5,8 @@
     "Sign_out": "Sign out",
     "Create_Plot": "Create Plot",
     "Cancel_Plot": "Cancel Plot",
+    "Cancel_Plot_desc": "Do you really want to cancel plot creation?",
+    "Cancel_Plot_desc2": "All of the current changes will be lost.",
     "Next": "Next",
     "Longitude": "Longitude",
     "Latitude": "Latitude",
