@@ -1,4 +1,4 @@
-import isNumeric from '@/utils/common'
+import { isNumeric } from '@/utils/common'
 
 const isValidCoordinate = (
   value: string | number,

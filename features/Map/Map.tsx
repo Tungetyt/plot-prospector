@@ -5,10 +5,10 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import 'leaflet-defaulticon-compatibility'
 import { MapContainer, Polygon, TileLayer } from 'react-leaflet'
 import { useDraftPlot, usePhase } from '@/store/draftPlot/draftPlotStore'
-import isNumeric from '@/utils/common'
 import { Point } from '@/store/draftPlot/common'
 import { Mutable } from '@/utils/types'
 import MapEvents from '@/features/Map/MapEvents'
+import { isNumeric } from '@/utils/common'
 
 export type LeafPoint = [number, number]
 

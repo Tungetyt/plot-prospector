@@ -5,7 +5,7 @@ import {
   State,
 } from '@/store/draftPlot/common'
 import isValidCoordinate from '@/store/draftPlot/isValidCoordinate'
-import isNumeric from '@/utils/common'
+import { isNumeric } from '@/utils/common'
 
 const endsWithDecimal = (
   input: PointFromTextInput['lng'],

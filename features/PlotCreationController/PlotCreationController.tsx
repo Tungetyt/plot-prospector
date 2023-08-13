@@ -32,8 +32,6 @@ function PlotCreationController() {
       </>
     )
 
-  if (phase === 'INFORMATION_FORM') return <CancelButton />
-
   return (
     <button
       type="button"

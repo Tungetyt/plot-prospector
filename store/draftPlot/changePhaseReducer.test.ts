@@ -10,15 +10,4 @@ describe('changePhaseReducer', () => {
     const result = changePhaseReducer('PLOT_CREATION')
     expect(result()).toEqual({ phase: 'PLOT_CREATION' })
   })
-
-  it('should return an object with phase "INFORMATION_FORM" for an "INFORMATION_FORM" input', () => {
-    const result = changePhaseReducer('INFORMATION_FORM')
-    expect(result()).toEqual({ phase: 'INFORMATION_FORM' })
-  })
-
-  it('should return different phases for different inputs', () => {
-    const result1 = changePhaseReducer('PLOT_CREATION')
-    const result2 = changePhaseReducer('INFORMATION_FORM')
-    expect(result1()).not.toEqual(result2())
-  })
 })

@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
-import {
-  useDraftPlot,
-  useDraftPlotActions,
-} from '@/store/draftPlot/draftPlotStore'
+import { createPortal } from 'react-dom'
+import { useDraftPlot } from '@/store/draftPlot/draftPlotStore'
 import { Point } from '@/store/draftPlot/common'
-import isNumeric from '@/utils/common'
+import { body, displayModal, isNumeric } from '@/utils/common'
 
 const isCollinear = (p1: Point, p2: Point, p3: Point): boolean => {
   if (
@@ -55,11 +53,14 @@ export const isPolygon = (draftPlot: ReadonlyArray<Point>): boolean => {
   return !collinearFound
 }
 
+const dialogId = 'infoFormModal'
+
 function NextButton() {
   const [showError, setShowError] = useState(false)
   const draftPoints = useDraftPlot()
-  const { changePhase } = useDraftPlotActions()
   const t = useTranslations('Index')
+
+  if (!body) throw new Error('Expected body to be in DOM')
 
   return (
     <>
@@ -69,7 +70,7 @@ function NextButton() {
         onClick={() => {
           if (isPolygon(draftPoints)) {
             setShowError(false)
-            changePhase('INFORMATION_FORM')
+            displayModal(dialogId)
             return
           }
 
@@ -99,6 +100,24 @@ function NextButton() {
           </div>
         )}
       </div>
+      {createPortal(
+        <dialog id={dialogId} className="modal">
+          <form method="dialog" className="modal-box">
+            <h3 className="font-bold text-lg">{t('Plot_Info')}</h3>
+            <p className="pt-4">aaaaaaaaaaaa</p>
+            <p>bbbbbbbbbbbbbbb</p>
+            <div className="modal-action">
+              <button className="btn btn-primary" type="submit">
+                {t('Save_Draft')}
+              </button>
+              <button className="btn btn-primary" type="submit">
+                {t('Finish')}
+              </button>
+            </div>
+          </form>
+        </dialog>,
+        body,
+      )}
     </>
   )
 }

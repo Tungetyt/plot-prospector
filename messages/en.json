@@ -12,6 +12,9 @@
     "Longitude": "Longitude",
     "Latitude": "Latitude",
     "Confirm_point": "Confirm point",
-    "Invalid_plot": "Invalid plot"
+    "Invalid_plot": "Invalid plot",
+    "Plot_Info": "Plot Info",
+    "Finish": "Finish",
+    "Save_Draft": "Save Draft"
   }
 }

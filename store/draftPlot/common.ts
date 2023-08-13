@@ -11,7 +11,7 @@ export type PointFromTextInput = Pick<Point, 'id'> & {
   lng: number | string
 }
 
-export type Phase = '' | 'PLOT_CREATION' | 'INFORMATION_FORM'
+export type Phase = '' | 'PLOT_CREATION'
 
 export interface Store {
   plot: ReadonlyArray<Point>

@@ -65,13 +65,15 @@ Note: Do not modify these auto-generated ignore files manually. Update the respe
   Solution: Disable VPN
 - Errors in running container: `Error: P1001: Can't reach database server at db:5432`, or `/bin/sh: pnpm: not found`\
   Solution: It looks like these errors can be ignored
-- Error in UI: `Unhandled Runtime Error
+- Error in Browser DevTools: `Unhandled Runtime Error
 ChunkLoadError: Loading chunk app/[locale]/page failed.
 (missing: http://localhost:3000/_next/static/chunks/app/%5Blocale%5D/page.js)`\
    Solution: Refresh the page
-- Warnings in UI: `The resource http://localhost:3000/_next/static/css/app/[locale]/layout.css?v=1691919891150 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate as value and it is preloaded intentionally.` \
+- Warnings in Browser DevTools: `The resource http://localhost:3000/_next/static/css/app/[locale]/layout.css?v=1691919891150 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate as value and it is preloaded intentionally.` \
   Solution: Ignore
-- Warning in UI after Plot cancellation: `Form submission canceled because the form is not connected` \
+- Warning in Browser DevTools after Plot cancellation: `Form submission canceled because the form is not connected` \
+  Solution: Ignore
+- Warning in Browser DevTools: `[Fast Refresh] performing full reload` \
   Solution: Ignore
 
 # Deployment
