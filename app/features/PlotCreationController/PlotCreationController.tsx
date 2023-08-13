@@ -1,13 +1,13 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import CancelBtn from '@/app/components/PlotCreationController/CancelBtn'
-import PlotCreatorRows from '@/app/components/PlotCreationController/PlotCreatorRows'
+import CancelBtn from '@/app/features/PlotCreationController/CancelBtn'
+import PlotCreatorRows from '@/app/features/PlotCreationController/PlotCreatorRows'
 import {
   useDraftPlotActions,
   usePhase,
 } from '@/app/store/draftPlot/draftPlotStore'
-import NextButton from '@/app/components/PlotCreationController/NextButton'
+import NextButton from '@/app/features/PlotCreationController/NextButton'
 
 function PlotCreationController() {
   const t = useTranslations('Index')

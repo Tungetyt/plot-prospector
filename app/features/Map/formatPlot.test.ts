@@ -1,4 +1,4 @@
-import { formatPlot, LeafPoint } from '@/app/components/Map/Map'
+import { formatPlot, LeafPoint } from '@/app/features/Map/Map'
 import { Point } from '@/app/store/draftPlot/common'
 
 describe('formatPlot', () => {

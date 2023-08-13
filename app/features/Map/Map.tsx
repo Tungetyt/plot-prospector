@@ -8,7 +8,7 @@ import { useDraftPlot, usePhase } from '@/app/store/draftPlot/draftPlotStore'
 import isNumeric from '@/app/utils/common'
 import { Point } from '@/app/store/draftPlot/common'
 import { Mutable } from '@/app/utils/types'
-import MapEvents from '@/app/components/Map/MapEvents'
+import MapEvents from '@/app/features/Map/MapEvents'
 
 export type LeafPoint = [number, number]
 
