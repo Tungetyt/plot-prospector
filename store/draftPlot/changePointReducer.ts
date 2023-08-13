@@ -3,9 +3,9 @@ import {
   Point,
   PointFromTextInput,
   State,
-} from '@/app/store/draftPlot/common'
-import isValidCoordinate from '@/app/store/draftPlot/isValidCoordinate'
-import isNumeric from '@/app/utils/common'
+} from '@/store/draftPlot/common'
+import isValidCoordinate from '@/store/draftPlot/isValidCoordinate'
+import isNumeric from '@/utils/common'
 
 const endsWithDecimal = (input: string | number): input is `${number}.` =>
   input.toString().at(-1) === '.'

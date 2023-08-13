@@ -1,5 +1,5 @@
-import { formatPlot, LeafPoint } from '@/app/features/Map/Map'
-import { Point } from '@/app/store/draftPlot/common'
+import { formatPlot, LeafPoint } from '@/features/Map/Map'
+import { Point } from '@/store/draftPlot/common'
 
 describe('formatPlot', () => {
   it('should format numeric points correctly', () => {

@@ -4,11 +4,11 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import 'leaflet-defaulticon-compatibility'
 import { MapContainer, Polygon, TileLayer } from 'react-leaflet'
-import { useDraftPlot, usePhase } from '@/app/store/draftPlot/draftPlotStore'
-import isNumeric from '@/app/utils/common'
-import { Point } from '@/app/store/draftPlot/common'
-import { Mutable } from '@/app/utils/types'
-import MapEvents from '@/app/features/Map/MapEvents'
+import { useDraftPlot, usePhase } from '@/store/draftPlot/draftPlotStore'
+import isNumeric from '@/utils/common'
+import { Point } from '@/store/draftPlot/common'
+import { Mutable } from '@/utils/types'
+import MapEvents from '@/features/Map/MapEvents'
 
 export type LeafPoint = [number, number]
 

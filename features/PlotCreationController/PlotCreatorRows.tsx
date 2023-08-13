@@ -1,9 +1,9 @@
 import {
   useDraftPlot,
   useDraftPlotActions,
-} from '@/app/store/draftPlot/draftPlotStore'
-import { Point } from '@/app/store/draftPlot/common'
-import isValidCoordinate from '@/app/store/draftPlot/isValidCoordinate'
+} from '@/store/draftPlot/draftPlotStore'
+import { Point } from '@/store/draftPlot/common'
+import isValidCoordinate from '@/store/draftPlot/isValidCoordinate'
 
 const stopCaretJumpingToTheEnd = (
   target: EventTarget & HTMLInputElement,

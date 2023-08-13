@@ -1,4 +1,4 @@
-import { initialState } from '@/app/store/draftPlot/common'
+import { initialState } from '@/store/draftPlot/common'
 
 const confirmPlotReducer = () => () => initialState
 

@@ -31,6 +31,7 @@
 /coverage
 /node_modules
 /out/
+Dockerfile
 localhost_*.report.html
 next-env.d.ts
 npm-debug.log*

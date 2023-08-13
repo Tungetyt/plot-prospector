@@ -1,12 +1,12 @@
 import dynamic from 'next/dynamic'
 import { getServerSession } from 'next-auth'
 import { pino } from 'pino'
-import PlotCreationController from '@/app/features/PlotCreationController/PlotCreationController'
-import SignOut from '@/app/features/Auth/SignOut'
-import SignIn from '@/app/features/Auth/SignIn'
-import Drawer from '@/app/features/Common/Drawer'
+import PlotCreationController from '@/features/PlotCreationController/PlotCreationController'
+import SignOut from '@/features/Auth/SignOut'
+import SignIn from '@/features/Auth/SignIn'
+import Drawer from '@/features/Common/Drawer'
 
-const Map = dynamic(() => import('@/app/features/Map/Map'), { ssr: false })
+const Map = dynamic(() => import('@/features/Map/Map'), { ssr: false })
 
 export default async function Home() {
   const session = await getServerSession()

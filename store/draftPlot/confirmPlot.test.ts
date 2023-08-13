@@ -1,5 +1,5 @@
-import { initialState } from '@/app/store/draftPlot/common'
-import confirmPlotReducer from '@/app/store/draftPlot/confirmPlotReducer'
+import { initialState } from '@/store/draftPlot/common'
+import confirmPlotReducer from '@/store/draftPlot/confirmPlotReducer'
 
 describe('confirmPlotReducer', () => {
   it('should reset the state back to initial state', () => {

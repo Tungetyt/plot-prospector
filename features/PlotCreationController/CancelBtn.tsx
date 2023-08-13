@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl'
-import { Store } from '@/app/store/draftPlot/common'
+import { Store } from '@/store/draftPlot/common'
 
 function CancelBtn({
   setState,

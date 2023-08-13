@@ -1,4 +1,4 @@
-import isNumeric from '@/app/utils/common'
+import isNumeric from '@/utils/common'
 
 describe('isNumeric', () => {
   it('should return true for numbers', () => {

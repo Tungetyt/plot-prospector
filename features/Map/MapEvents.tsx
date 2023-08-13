@@ -2,7 +2,7 @@ import { useMap } from 'react-leaflet'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 import { MapOptions } from 'leaflet'
-import { Point } from '@/app/store/draftPlot/common'
+import { Point } from '@/store/draftPlot/common'
 
 type Lng = keyof Pick<Point, 'lng'>
 type Lat = keyof Pick<Point, 'lat'>

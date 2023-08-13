@@ -2,7 +2,7 @@ import NextAuth, { AuthOptions, Profile } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import prisma from '@/app/prismaClient'
+import prisma from '@/prismaClient'
 
 type GoogleProfile = Omit<
   {

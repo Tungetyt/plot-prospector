@@ -3,9 +3,9 @@ import { useTranslations } from 'next-intl'
 import {
   useDraftPlot,
   useDraftPlotActions,
-} from '@/app/store/draftPlot/draftPlotStore'
-import { Point } from '@/app/store/draftPlot/common'
-import isNumeric from '@/app/utils/common'
+} from '@/store/draftPlot/draftPlotStore'
+import { Point } from '@/store/draftPlot/common'
+import isNumeric from '@/utils/common'
 
 const isCollinear = (p1: Point, p2: Point, p3: Point): boolean => {
   if (

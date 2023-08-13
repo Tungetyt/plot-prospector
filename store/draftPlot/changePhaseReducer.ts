@@ -1,4 +1,4 @@
-import { Phase } from '@/app/store/draftPlot/common'
+import { Phase } from '@/store/draftPlot/common'
 
 const changePhaseReducer = (phase: Phase) => () => ({
   phase,
