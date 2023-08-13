@@ -64,10 +64,12 @@ Note: Do not modify these auto-generated ignore files manually. Update the respe
   Solution: Disable VPN
 - Errors in running container: `Error: P1001: Can't reach database server at db:5432`, or `/bin/sh: pnpm: not found`\
   Solution: It looks like these errors can be ignored
-- Errors in UI: `Unhandled Runtime Error
+- Error in UI: `Unhandled Runtime Error
 ChunkLoadError: Loading chunk app/[locale]/page failed.
 (missing: http://localhost:3000/_next/static/chunks/app/%5Blocale%5D/page.js)`\
    Solution: Refresh the page
+- Warnings in UI: `The resource http://localhost:3000/_next/static/css/app/[locale]/layout.css?v=1691919891150 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate as value and it is preloaded intentionally.` \
+  Solution: Ignore
 
 # Deployment
 
