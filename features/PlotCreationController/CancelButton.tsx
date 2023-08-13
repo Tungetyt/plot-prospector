@@ -5,7 +5,7 @@ import { useDraftPlotActions } from '@/store/draftPlot/draftPlotStore'
 const dialogId = 'cancelPlotModal'
 const body = document.getElementsByTagName('body')[0]
 
-function CancelBtn() {
+function CancelButton() {
   const t = useTranslations('Index')
   const { changePhase, clearPlot } = useDraftPlotActions()
 
@@ -58,4 +58,4 @@ function CancelBtn() {
   )
 }
 
-export default CancelBtn
+export default CancelButton

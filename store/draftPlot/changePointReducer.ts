@@ -7,10 +7,11 @@ import {
 import isValidCoordinate from '@/store/draftPlot/isValidCoordinate'
 import isNumeric from '@/utils/common'
 
-const endsWithDecimal = (input: string | number): input is `${number}.` =>
-  input.toString().at(-1) === '.'
+const endsWithDecimal = (
+  input: PointFromTextInput['lng'],
+): input is `${number}.` => input.toString().at(-1) === '.'
 
-const tryConvertToNum = (input: string | number) => {
+const tryConvertToNum = (input: PointFromTextInput['lng']) => {
   if (endsWithDecimal(input)) return input
   if (input === '-') return '-'
   if (input === '') return ''
@@ -45,7 +46,7 @@ const removeEmptyPoints = (updatedPlot: Point[]) => {
   return Boolean(idsToRemove.length)
 }
 
-const updatePoints = (
+const updatePlot = (
   plot: ReadonlyArray<Point>,
   updatedPoint: PointFromTextInput,
 ): Point[] =>
@@ -85,28 +86,24 @@ const isValidPoint = ({ lat, lng }: PointFromTextInput) => {
   return isValidLatitude && isValidLongitude
 }
 
-const removeWhitespacesFromCoords = (
+const removeWhitespacesFromCoordinate = (coord: PointFromTextInput['lng']) =>
+  isNumeric(coord) ? coord : coord.replace(/\s/g, '')
+
+const removeWhitespacesFromPoint = (
   updatedPoint: PointFromTextInput,
-): PointFromTextInput => {
-  const regex = /\s/g
-  return {
-    ...updatedPoint,
-    lat: isNumeric(updatedPoint.lat)
-      ? updatedPoint.lat
-      : updatedPoint.lat.replace(regex, ''),
-    lng: isNumeric(updatedPoint.lng)
-      ? updatedPoint.lng
-      : updatedPoint.lng.replace(regex, ''),
-  }
-}
+): PointFromTextInput => ({
+  ...updatedPoint,
+  lat: removeWhitespacesFromCoordinate(updatedPoint.lat),
+  lng: removeWhitespacesFromCoordinate(updatedPoint.lng),
+})
 
 const changePointReducer =
   (updatedPoint: PointFromTextInput) => (state: State) => {
-    const formattedPoint = removeWhitespacesFromCoords(updatedPoint)
+    const formattedPoint = removeWhitespacesFromPoint(updatedPoint)
 
     if (!isValidPoint(formattedPoint)) return state
 
-    const updatedPlot = updatePoints(state.plot, formattedPoint)
+    const updatedPlot = updatePlot(state.plot, formattedPoint)
 
     if (removeEmptyPoints(updatedPlot)) return { plot: updatedPlot }
 

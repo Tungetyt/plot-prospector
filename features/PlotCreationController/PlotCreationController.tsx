@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import CancelBtn from '@/features/PlotCreationController/CancelBtn'
+import CancelButton from '@/features/PlotCreationController/CancelButton'
 import PlotCreatorRows from '@/features/PlotCreationController/PlotCreatorRows'
 import { useDraftPlotActions, usePhase } from '@/store/draftPlot/draftPlotStore'
 import NextButton from '@/features/PlotCreationController/NextButton'
@@ -14,7 +14,7 @@ function PlotCreationController() {
   if (phase === 'PLOT_CREATION')
     return (
       <>
-        <CancelBtn />
+        <CancelButton />
         <NextButton />
         <div className="overflow-x-auto max-h-96 px-1">
           <table className="table table-xs table-fixed table-pin-rows">
@@ -32,7 +32,7 @@ function PlotCreationController() {
       </>
     )
 
-  if (phase === 'INFORMATION_FORM') return <CancelBtn />
+  if (phase === 'INFORMATION_FORM') return <CancelButton />
 
   return (
     <button
