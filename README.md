@@ -1,6 +1,7 @@
 # Prerequisites
 
 - docker
+- git
 
 # Getting started
 
@@ -69,6 +70,8 @@ ChunkLoadError: Loading chunk app/[locale]/page failed.
 (missing: http://localhost:3000/_next/static/chunks/app/%5Blocale%5D/page.js)`\
    Solution: Refresh the page
 - Warnings in UI: `The resource http://localhost:3000/_next/static/css/app/[locale]/layout.css?v=1691919891150 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate as value and it is preloaded intentionally.` \
+  Solution: Ignore
+- Warning in UI after Plot cancellation: `Form submission canceled because the form is not connected` \
   Solution: Ignore
 
 # Deployment

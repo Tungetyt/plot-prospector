@@ -18,7 +18,7 @@ export interface Store {
   phase: Phase
   actions: {
     changePoint: (updatedPoint: PointFromTextInput) => void
-    confirmPlot: () => void
+    clearPlot: () => void
     changePhase: (phase: Phase) => void
   }
 }

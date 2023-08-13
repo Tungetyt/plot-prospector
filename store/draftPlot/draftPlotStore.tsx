@@ -7,7 +7,7 @@ import {
 } from '@/store/draftPlot/common'
 import changePointReducer from '@/store/draftPlot/changePointReducer'
 import storeActionsSelector from '@/utils/zustand'
-import confirmPlotReducer from '@/store/draftPlot/confirmPlotReducer'
+import clearPlotReducer from '@/store/draftPlot/clearPlotReducer'
 import changePhaseReducer from '@/store/draftPlot/changePhaseReducer'
 
 const useDraftPlotStore = create<Store>((set) => ({
@@ -15,7 +15,7 @@ const useDraftPlotStore = create<Store>((set) => ({
   actions: {
     changePoint: (updatedPoint: PointFromTextInput) =>
       set(changePointReducer(updatedPoint)),
-    confirmPlot: () => set(confirmPlotReducer()),
+    clearPlot: () => set(clearPlotReducer()),
     changePhase: (phase: Phase) => set(changePhaseReducer(phase)),
   },
 }))

@@ -14,7 +14,7 @@ function PlotCreationController() {
   if (phase === 'PLOT_CREATION')
     return (
       <>
-        <CancelBtn setState={changePhase} />
+        <CancelBtn />
         <NextButton />
         <div className="overflow-x-auto max-h-96 px-1">
           <table className="table table-xs table-fixed table-pin-rows">
@@ -32,7 +32,7 @@ function PlotCreationController() {
       </>
     )
 
-  if (phase === 'INFORMATION_FORM') return <CancelBtn setState={changePhase} />
+  if (phase === 'INFORMATION_FORM') return <CancelBtn />
 
   return (
     <button
