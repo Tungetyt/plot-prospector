@@ -55,6 +55,9 @@ dependencies:
   postcss:
     specifier: 8.4.27
     version: 8.4.27
+  prisma:
+    specifier: ^5.1.1
+    version: 5.1.1
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -147,9 +150,6 @@ devDependencies:
   prettier:
     specifier: ^3.0.0
     version: 3.0.0
-  prisma:
-    specifier: ^5.1.1
-    version: 5.1.1
   typescript:
     specifier: 5.1.6
     version: 5.1.6
@@ -1003,6 +1003,7 @@ packages:
   /@prisma/engines@5.1.1:
     resolution: {integrity: sha512-NV/4nVNWFZSJCCIA3HIFJbbDKO/NARc9ej0tX5S9k2EVbkrFJC4Xt9b0u4rNZWL4V+F5LAjvta8vzEUw0rw+HA==}
     requiresBuild: true
+    dev: false
 
   /@react-leaflet/core@2.1.0(leaflet@1.9.4)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-Qk7Pfu8BSarKGqILj4x7bCSZ1pjuAPZ+qmRwH5S7mDS91VSbVVsJSrW4qA+GPrro8t69gFYVMWb1Zc4yFmPiVg==}
@@ -4073,6 +4074,7 @@ packages:
     requiresBuild: true
     dependencies:
       '@prisma/engines': 5.1.1
+    dev: false
 
   /process-warning@2.2.0:
     resolution: {integrity: sha512-/1WZ8+VQjR6avWOgHeEPd7SDQmFQ1B5mC1eRXsCm5TarlNmx/wCsa5GEaxGm05BORRtyG/Ex/3xq3TuRvq57qg==}

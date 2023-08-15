@@ -9,7 +9,9 @@ import PhoneInput from 'react-phone-number-input/react-hook-form-input'
 import { isValidPhoneNumber } from 'react-phone-number-input'
 import { Point } from '@/store/draftPlot/common'
 import { useDraftPlot } from '@/store/draftPlot/draftPlotStore'
-import { body, displayModal, isNumeric } from '@/utils/common'
+import { displayModal, isNumeric } from '@/utils/common'
+import { Email, Tel } from '@/utils/types'
+import body from '@/utils/clientCommon'
 
 const isCollinear = (p1: Point, p2: Point, p3: Point): boolean => {
   if (
@@ -66,22 +68,41 @@ const priceId = 'priceInput'
 const emailId = 'emailInput'
 const telId = 'telInput'
 
-const formSchema = z.object({
+const DTOSchema = z.object({
   description: z.string(),
   address: z.string(),
   price: z.coerce.number().positive(),
-  email: z.string().email(),
-  tel: z.string().refine(isValidPhoneNumber),
+  email: z
+    .string()
+    .email()
+    .transform((x) => x as Email),
+  tel: z
+    .string()
+    .refine(isValidPhoneNumber)
+    .transform((x) => x as Tel),
 })
 
-type FormData = z.infer<typeof formSchema>
+type DTO = z.infer<typeof DTOSchema>
 
-function NextButton() {
+type FormData = Pick<z.infer<typeof DTOSchema>, 'description' | 'address'> &
+  Record<keyof Pick<DTO, 'price'>, string> &
+  Record<keyof Pick<DTO, 'email'>, string> &
+  Record<keyof Pick<DTO, 'tel'>, string>
+
+function NextButton({ email }: { email: Email | null }) {
   if (!body) throw new Error('Expected body to be in DOM')
 
   const [showError, setShowError] = useState(false)
   const draftPoints = useDraftPlot()
   const t = useTranslations('Index')
+
+  const defaultValues = {
+    tel: '',
+    price: '',
+    email: email ?? '',
+    address: '',
+    description: '',
+  } as const satisfies FormData
 
   const {
     register,
@@ -89,7 +110,8 @@ function NextButton() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(DTOSchema),
+    defaultValues,
   })
 
   const onSubmit = handleSubmit((data: FormData) => console.log(data))

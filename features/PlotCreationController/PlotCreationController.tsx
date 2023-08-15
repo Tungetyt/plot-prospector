@@ -5,8 +5,9 @@ import CancelButton from '@/features/PlotCreationController/CancelButton'
 import PlotCreatorRows from '@/features/PlotCreationController/PlotCreatorRows'
 import { useDraftPlotActions, usePhase } from '@/store/draftPlot/draftPlotStore'
 import NextButton from '@/features/PlotCreationController/NextButton'
+import { Email } from '@/utils/types'
 
-function PlotCreationController() {
+function PlotCreationController({ email }: { email: Email | null }) {
   const t = useTranslations('Index')
   const phase = usePhase()
   const { changePhase } = useDraftPlotActions()
@@ -15,7 +16,7 @@ function PlotCreationController() {
     return (
       <>
         <CancelButton />
-        <NextButton />
+        <NextButton email={email} />
         <div className="overflow-x-auto max-h-96 px-1">
           <table className="table table-xs table-fixed table-pin-rows">
             <thead>

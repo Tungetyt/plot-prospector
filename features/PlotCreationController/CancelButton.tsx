@@ -1,7 +1,8 @@
 import { useTranslations } from 'next-intl'
 import { createPortal } from 'react-dom'
 import { useDraftPlotActions } from '@/store/draftPlot/draftPlotStore'
-import { body, displayModal } from '@/utils/common'
+import { displayModal } from '@/utils/common'
+import body from '@/utils/clientCommon'
 
 const dialogId = 'cancelPlotModal'
 

@@ -5,6 +5,7 @@ import PlotCreationController from '@/features/PlotCreationController/PlotCreati
 import SignOut from '@/features/Auth/SignOut'
 import SignIn from '@/features/Auth/SignIn'
 import Drawer from '@/features/Common/Drawer'
+import { isEmail } from '@/utils/common'
 
 const Map = dynamic(() => import('@/features/Map/Map'), { ssr: false })
 
@@ -13,13 +14,15 @@ export default async function Home() {
   pino().info('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
   pino().error('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
 
+  const email = session?.user?.email
+
   return (
     <main className="flex flex-col">
       <Drawer
         sidebar={
           session ? (
             <>
-              <PlotCreationController />
+              <PlotCreationController email={isEmail(email) ? email : null} />
               <li className="mt-auto">
                 <SignOut />
               </li>

@@ -1,3 +1,2 @@
-export type Mutable<T> = {
-  -readonly [K in keyof T]: T[K]
-}
+export type Email = `${string}@${string}.${string}`
+export type Tel = `+${string}`

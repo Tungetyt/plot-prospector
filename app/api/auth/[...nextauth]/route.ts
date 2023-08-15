@@ -3,6 +3,7 @@ import GoogleProvider from 'next-auth/providers/google'
 
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import prisma from '@/prismaClient'
+import { Email } from '@/utils/types'
 
 type GoogleProfile = Omit<
   {
@@ -11,7 +12,7 @@ type GoogleProfile = Omit<
     aud: string
     sub: `${number}`
     hd: string
-    email: `${string}@${string}.${string}`
+    email: Email
     email_verified: boolean
     at_hash: string
     picture: string
