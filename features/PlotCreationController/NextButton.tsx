@@ -1,8 +1,14 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { createPortal } from 'react-dom'
-import { useDraftPlot } from '@/store/draftPlot/draftPlotStore'
+import { useForm } from 'react-hook-form'
+import { DevTool } from '@hookform/devtools'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import PhoneInput from 'react-phone-number-input/react-hook-form-input'
+import { isValidPhoneNumber } from 'react-phone-number-input'
 import { Point } from '@/store/draftPlot/common'
+import { useDraftPlot } from '@/store/draftPlot/draftPlotStore'
 import { body, displayModal, isNumeric } from '@/utils/common'
 
 const isCollinear = (p1: Point, p2: Point, p3: Point): boolean => {
@@ -24,7 +30,7 @@ const isCollinear = (p1: Point, p2: Point, p3: Point): boolean => {
   return false
 }
 
-const isEmptyPoint = (point: Point): boolean => !point.lat && !point.lng
+const isEmptyPoint = ({ lat, lng }: Point): boolean => !lat && !lng
 
 export const isPolygon = (draftPlot: ReadonlyArray<Point>): boolean => {
   if (draftPlot.length < 3) return false // Can't form a polygon with less than 3 points
@@ -54,13 +60,39 @@ export const isPolygon = (draftPlot: ReadonlyArray<Point>): boolean => {
 }
 
 const dialogId = 'infoFormModal'
+const descriptionId = 'descriptionInput'
+const addressId = 'addressInput'
+const priceId = 'priceInput'
+const emailId = 'emailInput'
+const telId = 'telInput'
+
+const formSchema = z.object({
+  description: z.string(),
+  address: z.string(),
+  price: z.coerce.number().positive(),
+  email: z.string().email(),
+  tel: z.string().refine(isValidPhoneNumber),
+})
+
+type FormData = z.infer<typeof formSchema>
 
 function NextButton() {
+  if (!body) throw new Error('Expected body to be in DOM')
+
   const [showError, setShowError] = useState(false)
   const draftPoints = useDraftPlot()
   const t = useTranslations('Index')
 
-  if (!body) throw new Error('Expected body to be in DOM')
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+  })
+
+  const onSubmit = handleSubmit((data: FormData) => console.log(data))
 
   return (
     <>
@@ -102,19 +134,84 @@ function NextButton() {
       </div>
       {createPortal(
         <dialog id={dialogId} className="modal">
-          <form method="dialog" className="modal-box">
+          <form method="dialog" className="modal-box" onSubmit={onSubmit}>
             <h3 className="font-bold text-lg">{t('Plot_Info')}</h3>
-            <p className="pt-4">aaaaaaaaaaaa</p>
-            <p>bbbbbbbbbbbbbbb</p>
+            <div className="form-control pt-4">
+              <label htmlFor={descriptionId} className="label">
+                <span className="label-text">{t('Plot_Description')}</span>
+              </label>
+              <textarea
+                {...register('description')}
+                id={descriptionId}
+                className="textarea textarea-bordered textarea-lg min-h-[7rem]"
+              />
+            </div>
+            <div className="form-control">
+              <label htmlFor={addressId} className="label">
+                <span className="label-text">{t('Plot_Address')}</span>
+              </label>
+              <input
+                {...register('address')}
+                id={addressId}
+                type="text"
+                className="input input-bordered"
+              />
+            </div>
+            <div className="grid grid-cols-2">
+              <div className="form-control">
+                <label htmlFor={priceId} className="label">
+                  <span className="label-text">{t('Plot_Price')}</span>
+                </label>
+                <input
+                  {...register('price')}
+                  id={priceId}
+                  type="text"
+                  className={`input input-bordered ${
+                    errors.price ? 'input-error' : ''
+                  }`}
+                />
+              </div>
+              <div>
+                <span>{t('Price_per_m2')}</span>
+                <div>{null}</div>
+              </div>
+            </div>
+            <div className="form-control">
+              <label htmlFor={emailId} className="label">
+                <span className="label-text">{t('Contact_Email')}</span>
+              </label>
+              <input
+                {...register('email')}
+                id={emailId}
+                type="email"
+                className={`input input-bordered ${
+                  errors.email ? 'input-error' : ''
+                }`}
+              />
+            </div>
+            <div className="form-control">
+              <label htmlFor={telId} className="label">
+                <span className="label-text">{t('Contact_Phone')}</span>
+              </label>
+              <PhoneInput
+                id={telId}
+                name="tel"
+                className={`input input-bordered ${
+                  errors.tel ? 'input-error' : ''
+                }`}
+                control={control}
+              />
+            </div>
             <div className="modal-action">
-              <button className="btn btn-primary" type="submit">
-                {t('Save_Draft')}
+              <button className="btn btn-outline btn-primary" type="submit">
+                {t('Back')}
               </button>
               <button className="btn btn-primary" type="submit">
                 {t('Finish')}
               </button>
             </div>
           </form>
+          <DevTool control={control} />
         </dialog>,
         body,
       )}

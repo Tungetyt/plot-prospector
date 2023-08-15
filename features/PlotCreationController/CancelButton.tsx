@@ -6,10 +6,10 @@ import { body, displayModal } from '@/utils/common'
 const dialogId = 'cancelPlotModal'
 
 function CancelButton() {
+  if (!body) throw new Error('Expected body to be in DOM')
+
   const t = useTranslations('Index')
   const { changePhase, clearPlot } = useDraftPlotActions()
-
-  if (!body) throw new Error('Expected body to be in DOM')
 
   return (
     <>

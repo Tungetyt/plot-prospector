@@ -46,13 +46,11 @@ describe('isNumeric', () => {
 
   it('should be usable in type guards', () => {
     const testFunction = (input: number | string) => {
-      if (isNumeric(input)) {
+      if (isNumeric(input))
         // Type of input is inferred as number in this block
         expect(typeof input).toBe('number')
-      } else {
-        // Type of input is inferred as string in this block
-        expect(typeof input).toBe('string')
-      }
+      // Type of input is inferred as string in this block
+      else expect(typeof input).toBe('string')
     }
 
     testFunction(123)
