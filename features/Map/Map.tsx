@@ -6,7 +6,7 @@ import 'leaflet-defaulticon-compatibility'
 import { MapContainer, Polygon, TileLayer } from 'react-leaflet'
 import { useDraftPlot, usePhase } from '@/store/draftPlot/draftPlotStore'
 import { Point } from '@/store/draftPlot/common'
-import MapEvents from '@/features/Map/MapEvents'
+import MapURLEvents from '@/features/Map/MapURLEvents'
 import { isNumeric } from '@/utils/common'
 import { Mutable } from '@/utils/utilityTypes'
 
@@ -53,11 +53,11 @@ function Map() {
             },
             click: ({ target }) => {
               const id = target._path.getAttribute('data-id')
-              console.log('Polygon with id: ', id, ' clicked')
+              console.log('Polygon with id: ', id, ' clicked', target)
             },
           }}
         />
-        <MapEvents />
+        <MapURLEvents />
       </MapContainer>
     </div>
   )

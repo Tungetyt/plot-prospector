@@ -51,7 +51,7 @@ export const newSearchParams = (
   [urlParams.zoom]: zoom.toString(),
 })
 
-function MapEvents() {
+function MapURLEvents() {
   const map = useMap()
   const router = useRouter()
 
@@ -62,15 +62,6 @@ function MapEvents() {
       const { lng, lat } = map.getCenter()
       const zoom = map.getZoom()
 
-      // const queryString = new URLSearchParams({
-      //   ...Array.from(getSearchParams().entries()).reduce(
-      //     (obj, [key, val]) => ({ ...obj, [key]: val }),
-      //     {},
-      //   ),
-      //   [urlParams.lat]: lat.toString(),
-      //   [urlParams.lng]: lng.toString(),
-      //   [urlParams.zoom]: zoom.toString(),
-      // }).toString()
       const queryString = new URLSearchParams(
         newSearchParams(
           lat,
@@ -95,4 +86,4 @@ function MapEvents() {
   return null
 }
 
-export default MapEvents
+export default MapURLEvents

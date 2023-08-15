@@ -39,7 +39,7 @@ function PlotCreationController({ email }: { email: Email | null }) {
         </div>
         {createPortal(
           <dialog id={plotInfoFormDialogId} className="modal">
-            <PlotInfoForm email={email} />{' '}
+            <PlotInfoForm email={email} />
           </dialog>,
           body,
         )}
