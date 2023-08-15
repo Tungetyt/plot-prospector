@@ -1,13 +1,20 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { createPortal } from 'react-dom'
 import CancelButton from '@/features/PlotCreationController/CancelButton'
 import PlotCreatorRows from '@/features/PlotCreationController/PlotCreatorRows'
 import { useDraftPlotActions, usePhase } from '@/store/draftPlot/draftPlotStore'
-import NextButton from '@/features/PlotCreationController/NextButton'
+import NextButton, {
+  plotInfoFormDialogId,
+} from '@/features/PlotCreationController/NextButton'
 import { Email } from '@/utils/types'
+import PlotInfoForm from '@/features/PlotCreationController/PlotInfoForm'
+import body from '@/utils/clientCommon'
 
 function PlotCreationController({ email }: { email: Email | null }) {
+  if (!body) throw new Error('Expected body to be in DOM')
+
   const t = useTranslations('Index')
   const phase = usePhase()
   const { changePhase } = useDraftPlotActions()
@@ -16,7 +23,7 @@ function PlotCreationController({ email }: { email: Email | null }) {
     return (
       <>
         <CancelButton />
-        <NextButton email={email} />
+        <NextButton />
         <div className="overflow-x-auto max-h-96 px-1">
           <table className="table table-xs table-fixed table-pin-rows">
             <thead>
@@ -30,6 +37,12 @@ function PlotCreationController({ email }: { email: Email | null }) {
             </tbody>
           </table>
         </div>
+        {createPortal(
+          <dialog id={plotInfoFormDialogId} className="modal">
+            <PlotInfoForm email={email} />{' '}
+          </dialog>,
+          body,
+        )}
       </>
     )
 

@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl'
 import { createPortal } from 'react-dom'
 import { useDraftPlotActions } from '@/store/draftPlot/draftPlotStore'
-import { displayModal } from '@/utils/common'
+import { showModal } from '@/utils/common'
 import body from '@/utils/clientCommon'
 
 const dialogId = 'cancelPlotModal'
@@ -17,7 +17,7 @@ function CancelButton() {
       <button
         type="button"
         className="btn btn-error text-center mb-2"
-        onClick={() => displayModal(dialogId)}
+        onClick={() => showModal(dialogId)}
       >
         {t('Cancel_Plot')}
       </button>
