@@ -1,4 +1,6 @@
 import {
+  NumberWithTrailingDecimal,
+  NumberWithDecimalValue,
   initialCoord,
   Point,
   PointFromTextInput,
@@ -9,10 +11,23 @@ import { isNumeric } from '@/utils/common'
 
 const endsWithDecimal = (
   input: PointFromTextInput['lng'],
-): input is `${number}.` => input.toString().at(-1) === '.'
+): input is NumberWithTrailingDecimal => input.toString().at(-1) === '.'
+
+const hasTrailingZeros = (input: string): input is NumberWithDecimalValue => {
+  if (!input.includes('.')) return false // If there's no decimal, return false
+
+  const decimalParts = input.split('.')
+
+  const decimalPart = decimalParts[1]
+
+  if (!decimalPart) throw new Error('Expected decimalPart to be present')
+
+  return /^0+$/.test(decimalPart) // Check if after the decimal it's only zeros
+}
 
 const tryConvertToNum = (input: PointFromTextInput['lng']) => {
   if (endsWithDecimal(input)) return input
+  if (!isNumeric(input) && hasTrailingZeros(input)) return input
   if (input === '-') return '-'
   if (input === '') return ''
   return +input

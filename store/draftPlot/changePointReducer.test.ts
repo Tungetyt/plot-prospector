@@ -48,6 +48,21 @@ describe('changePointReducer', () => {
       expectedPoint: { lat: '89.', lng: '' },
     },
     {
+      currentPoint: { lat: '50.', lng: '' },
+      updatedPoint: { lat: '50.0', lng: '' },
+      expectedPoint: { lat: '50.0', lng: '' },
+    },
+    {
+      currentPoint: { lat: '50.0', lng: '' },
+      updatedPoint: { lat: '50.00', lng: '' },
+      expectedPoint: { lat: '50.00', lng: '' },
+    },
+    {
+      currentPoint: { lat: '50.0', lng: '' },
+      updatedPoint: { lat: '50.06', lng: '' },
+      expectedPoint: { lat: 50.06, lng: '' },
+    },
+    {
       currentPoint: { lat: '', lng: 179 },
       updatedPoint: { lat: '', lng: '179.' },
       expectedPoint: { lat: '', lng: '179.' },

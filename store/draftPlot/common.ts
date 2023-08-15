@@ -1,4 +1,11 @@
-type Coord = number | '' | `${number}.` | '-'
+export type NumberWithTrailingDecimal = `${number}.`
+export type NumberWithDecimalValue = `${number}.${number}`
+type Coord =
+  | number
+  | ''
+  | NumberWithTrailingDecimal
+  | NumberWithDecimalValue
+  | '-'
 
 export interface Point {
   id: string
