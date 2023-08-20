@@ -27,11 +27,11 @@ export const TileLayer = dynamic(
 
 export type LeafPoint = [number, number]
 
-const isCorrectCoord = (coord: Point['lng']) => !(coord === '' || coord === '-')
+const isCorrectCoord = (coord: Point['lng']) => coord !== '' && coord !== '-'
 
 export const formatPlot = (plot: readonly Point[]) =>
   plot
-    .filter(({ lng, lat }) => isCorrectCoord(lng) || isCorrectCoord(lat))
+    .filter(({ lng, lat }) => isCorrectCoord(lng) && isCorrectCoord(lat))
     .map(({ lat, lng }) => [+lat || 0, +lng || 0] as LeafPoint)
 
 const PWJozefoslawObservatoryCoordinates: Readonly<[number, number]> = [
