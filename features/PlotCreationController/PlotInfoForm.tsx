@@ -121,6 +121,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
               className={`input input-bordered ${
                 errors.price ? 'input-error' : ''
               }`}
+              aria-invalid={errors.price ? 'true' : 'false'}
             />
           </div>
           <div>
@@ -139,6 +140,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
             className={`input input-bordered ${
               errors.email ? 'input-error' : ''
             }`}
+            aria-invalid={errors.email ? 'true' : 'false'}
           />
         </div>
         <div className="form-control">
@@ -151,6 +153,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
             className={`input input-bordered ${
               errors.tel ? 'input-error' : ''
             }`}
+            aria-invalid={errors.tel ? 'true' : 'false'}
             control={control}
           />
         </div>
