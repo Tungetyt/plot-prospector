@@ -1,10 +1,10 @@
 export type NumberWithTrailingDecimal = `${number}.`
-export type NumberWithDecimalValue = `${number}.${number}`
+export type NumberWithTrailingZero = `${number}.${number}0` | `${number}.0`
 type Coord =
   | number
   | ''
   | NumberWithTrailingDecimal
-  | NumberWithDecimalValue
+  | NumberWithTrailingZero
   | '-'
 
 export interface Point {

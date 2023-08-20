@@ -2,7 +2,7 @@ version: '3.8'
 services:
   next-js:
     build:
-      context: . #if your Dockerfile is not at the same level change the path here (./frontend)
+      context: . #if Dockerfile is not at the same level change the path here
       target: dev
     restart: always
     command: sh -c "npx prisma db push && yarn next dev"
@@ -29,7 +29,6 @@ services:
       - '${POSTGRES_PORT}:5432'
     volumes:
       - db:/var/lib/postgresql/data
-      #- ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql #Worthless if no ./db/init.sql present.
+
 volumes:
   db:
-    #driver: local

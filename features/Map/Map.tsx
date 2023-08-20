@@ -7,15 +7,12 @@ import { MapContainer, Polygon, TileLayer } from 'react-leaflet'
 import { useDraftPlot, usePhase } from '@/store/draftPlot/draftPlotStore'
 import { Point } from '@/store/draftPlot/common'
 import MapURLEvents from '@/features/Map/MapURLEvents'
-import { isNumeric } from '@/utils/common'
 import { Mutable } from '@/utils/utilityTypes'
 
 export type LeafPoint = [number, number]
 
 export const formatPlot = (plot: readonly Point[]) =>
-  plot
-    .filter(({ lat, lng }) => isNumeric(lat) && isNumeric(lng))
-    .map(({ lat, lng }) => [lat, lng] as LeafPoint)
+  plot.map(({ lat, lng }) => [+lat || 0, +lng || 0] as LeafPoint)
 
 const PWJozefoslawObservatoryCoordinates: Readonly<[number, number]> = [
   52.0979030011665, 21.03239659105818,
