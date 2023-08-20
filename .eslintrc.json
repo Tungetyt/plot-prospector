@@ -19,7 +19,8 @@
     "no-console": "off",
     "react/jsx-filename-extension": "off",
     "no-underscore-dangle": "off",
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-no-useless-fragment": "off"
   },
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],

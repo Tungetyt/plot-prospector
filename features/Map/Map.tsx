@@ -1,13 +1,29 @@
 'use client'
 
-import 'leaflet/dist/leaflet.css'
-import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
-import 'leaflet-defaulticon-compatibility'
-import { MapContainer, Polygon, TileLayer } from 'react-leaflet'
+import dynamic from 'next/dynamic'
 import { useDraftPlot, usePhase } from '@/store/draftPlot/draftPlotStore'
 import { Point } from '@/store/draftPlot/common'
 import MapURLEvents from '@/features/Map/MapURLEvents'
 import { Mutable } from '@/utils/utilityTypes'
+
+export const MapContainer = dynamic(
+  async () => (await import('react-leaflet')).MapContainer,
+  {
+    ssr: false,
+  },
+)
+export const Polygon = dynamic(
+  async () => (await import('react-leaflet')).Polygon,
+  {
+    ssr: false,
+  },
+)
+export const TileLayer = dynamic(
+  async () => (await import('react-leaflet')).TileLayer,
+  {
+    ssr: false,
+  },
+)
 
 export type LeafPoint = [number, number]
 

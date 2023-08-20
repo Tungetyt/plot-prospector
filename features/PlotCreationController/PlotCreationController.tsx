@@ -10,14 +10,13 @@ import NextButton, {
 } from '@/features/PlotCreationController/NextButton'
 import { Email } from '@/utils/types'
 import PlotInfoForm from '@/features/PlotCreationController/PlotInfoForm'
-import body from '@/utils/clientCommon'
+import useBody from '@/utils/useBody'
 
 function PlotCreationController({ email }: { email: Email | null }) {
-  if (!body) throw new Error('Expected body to be in DOM')
-
   const t = useTranslations('Index')
   const phase = usePhase()
   const { changePhase } = useDraftPlotActions()
+  const body = useBody()
 
   if (phase === 'PLOT_CREATION')
     return (
@@ -37,12 +36,13 @@ function PlotCreationController({ email }: { email: Email | null }) {
             </tbody>
           </table>
         </div>
-        {createPortal(
-          <dialog id={plotInfoFormDialogId} className="modal">
-            <PlotInfoForm email={email} />
-          </dialog>,
-          body,
-        )}
+        {body &&
+          createPortal(
+            <dialog id={plotInfoFormDialogId} className="modal">
+              <PlotInfoForm email={email} />
+            </dialog>,
+            body,
+          )}
       </>
     )
 

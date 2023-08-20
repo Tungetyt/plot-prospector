@@ -10,7 +10,7 @@ import { Email, Tel } from '@/utils/types'
 import { closeModal } from '@/utils/common'
 import { plotInfoFormDialogId } from '@/features/PlotCreationController/NextButton'
 import { useDraftPlot } from '@/store/draftPlot/draftPlotStore'
-import { formatPlot } from '@/features/Map/Map'
+import { formatPlot, LeafPoint } from '@/features/Map/Map'
 
 const descriptionId = 'descriptionInput'
 const addressId = 'addressInput'
@@ -39,7 +39,7 @@ type FormData = Pick<z.infer<typeof DTOSchema>, 'description' | 'address'> &
   Record<keyof Pick<DTO, 'email'>, string> &
   Record<keyof Pick<DTO, 'tel'>, string>
 
-export const polygonArea = (coords: [number, number][]): number => {
+export const polygonArea = (coords: LeafPoint[]): number => {
   const WGS84 = 'EPSG:4326'
   const Mercator = 'EPSG:3857'
 
@@ -50,8 +50,8 @@ export const polygonArea = (coords: [number, number][]): number => {
   const numPoints = projectedCoords.length
 
   for (let i = 0; i < numPoints; i++) {
-    const [x1, y1] = projectedCoords[i] as [number, number]
-    const [x2, y2] = projectedCoords[(i + 1) % numPoints] as [number, number] // Wrap around for the last point
+    const [x1, y1] = projectedCoords[i] as LeafPoint
+    const [x2, y2] = projectedCoords[(i + 1) % numPoints] as LeafPoint // Wrap around for the last point
 
     area += x1 * y2 - x2 * y1
   }
