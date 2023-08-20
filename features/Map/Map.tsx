@@ -11,8 +11,12 @@ import { Mutable } from '@/utils/utilityTypes'
 
 export type LeafPoint = [number, number]
 
+const isCorrectCoord = (coord: Point['lng']) => !(coord === '' || coord === '-')
+
 export const formatPlot = (plot: readonly Point[]) =>
-  plot.map(({ lat, lng }) => [+lat || 0, +lng || 0] as LeafPoint)
+  plot
+    .filter(({ lng, lat }) => isCorrectCoord(lng) || isCorrectCoord(lat))
+    .map(({ lat, lng }) => [+lat || 0, +lng || 0] as LeafPoint)
 
 const PWJozefoslawObservatoryCoordinates: Readonly<[number, number]> = [
   52.0979030011665, 21.03239659105818,

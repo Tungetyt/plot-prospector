@@ -62,7 +62,6 @@ describe('formatPlot', () => {
     const input: Point[] = [
       { id: '1', lat: '10.', lng: '20.' },
       { id: '2', lat: '-', lng: '-30.' },
-      { id: '3', lat: '', lng: '' },
     ]
 
     expect(formatPlot(input)).toMatchInlineSnapshot(`
@@ -74,10 +73,6 @@ describe('formatPlot', () => {
         [
           0,
           -30,
-        ],
-        [
-          0,
-          0,
         ],
       ]
     `)
@@ -92,5 +87,29 @@ describe('formatPlot', () => {
     const originalInput = [...input]
     formatPlot(input)
     expect(input).toEqual(originalInput)
+  })
+
+  it('filter empty and minus', () => {
+    const input: Point[] = [
+      { id: 'abc', lat: '', lng: '' },
+      { id: 'def', lat: '-', lng: '' },
+      { id: 'ghi', lat: '', lng: '-' },
+      { id: 'jkl', lat: '-', lng: '-' },
+    ]
+
+    expect(formatPlot(input)).toEqual([])
+  })
+
+  it('not filter', () => {
+    const input: Point[] = [{ id: 'abc', lat: -33, lng: '' }]
+
+    expect(formatPlot(input)).toMatchInlineSnapshot(`
+      [
+        [
+          -33,
+          0,
+        ],
+      ]
+    `)
   })
 })
