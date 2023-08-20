@@ -22,9 +22,6 @@ const isValidCoordinate = (
   // Ensure no leading zeros unless the value is '0' or a fraction < 1 (e.g., '0.123')
   if (/^0[0-9]+/.test(stringValue)) return false
 
-  // Precision Control: Ensure no more than 6 decimal places
-  if ((stringValue.split('.')[1] || '').length > 6) return false
-
   // Convert back to number for range checks
   const numValue = Number(stringValue)
 

@@ -94,20 +94,32 @@ const isValidPoint = ({ lat, lng }: PointFromTextInput) => {
   return isValidLatitude && isValidLongitude
 }
 
-const removeWhitespacesFromCoordinate = (coord: PointFromTextInput['lng']) =>
-  isNumeric(coord) ? coord : coord.replace(/\s/g, '')
+const formatCoord = (coord: PointFromTextInput['lng']) => {
+  const cleanedCoord = coord.toString().replace(/\s/g, '') // remove whitespace
 
-const removeWhitespacesFromPoint = (
-  updatedPoint: PointFromTextInput,
-): PointFromTextInput => ({
+  const parts = cleanedCoord.split('.')
+  let decimal = parts[1]
+
+  if (!decimal) return cleanedCoord
+
+  if (decimal.length > 6) {
+    // limit decimal to 6 places
+    decimal = decimal.substring(0, 6)
+    return `${parts[0]}.${decimal}`
+  }
+
+  return cleanedCoord
+}
+
+const formatPoint = (updatedPoint: PointFromTextInput): PointFromTextInput => ({
   ...updatedPoint,
-  lat: removeWhitespacesFromCoordinate(updatedPoint.lat),
-  lng: removeWhitespacesFromCoordinate(updatedPoint.lng),
+  lat: formatCoord(updatedPoint.lat),
+  lng: formatCoord(updatedPoint.lng),
 })
 
 const changePointReducer =
   (updatedPoint: PointFromTextInput) => (state: State) => {
-    const formattedPoint = removeWhitespacesFromPoint(updatedPoint)
+    const formattedPoint = formatPoint(updatedPoint)
 
     if (!isValidPoint(formattedPoint)) return state
 
