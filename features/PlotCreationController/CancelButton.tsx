@@ -10,7 +10,7 @@ function CancelButton() {
   const body = useBody()
 
   const t = useTranslations('Index')
-  const { changePhase, clearPlot } = useDraftPlotActions()
+  const { clearPlot } = useDraftPlotActions()
 
   return (
     <>
@@ -33,10 +33,7 @@ function CancelButton() {
                   <button
                     className="btn btn-error"
                     type="submit"
-                    onClick={() => {
-                      changePhase('')
-                      clearPlot()
-                    }}
+                    onClick={clearPlot}
                   >
                     {t('Proceed')}
                   </button>

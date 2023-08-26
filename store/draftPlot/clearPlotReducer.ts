@@ -1,5 +1,8 @@
-import { initialState } from '@/store/draftPlot/common'
+import { initialState, State } from '@/store/draftPlot/common'
 
-const clearPlotReducer = () => () => initialState
+const clearPlotReducer = () => (): State => ({
+  ...initialState,
+  phase: '',
+})
 
 export default clearPlotReducer

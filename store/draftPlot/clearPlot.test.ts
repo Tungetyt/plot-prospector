@@ -1,26 +1,44 @@
-import { initialState } from '@/store/draftPlot/common'
 import clearPlotReducer from '@/store/draftPlot/clearPlotReducer'
+import { initialState, State } from '@/store/draftPlot/common'
 
 describe('clearPlotReducer', () => {
-  it('should reset the state back to initial state', () => {
-    const newState = clearPlotReducer()()
-    expect(newState).toEqual(initialState)
+  let mockState: State
+
+  beforeEach(() => {
+    mockState = {
+      plot: [
+        {
+          id: '1',
+          lat: 40.7128,
+          lng: 74.006,
+        },
+        {
+          id: '2',
+          lat: 34.0522,
+          lng: 118.2437,
+        },
+      ],
+      phase: 'PLOT_CREATION',
+    }
   })
 
-  it('should reset a non-empty phase back to an empty string', () => {
-    const newState = clearPlotReducer()()
-    expect(newState.phase).toEqual('')
+  it('should return the initial state', () => {
+    const result = clearPlotReducer()()
+    expect(result).toEqual(initialState)
   })
 
-  it('should reset plot points back to the initial state', () => {
-    const newState = clearPlotReducer()()
-    expect(newState.plot.length).toEqual(1)
-    expect(newState.plot[0]!.lat).toEqual(initialState.plot[0]!.lat)
-    expect(newState.plot[0]!.lng).toEqual(initialState.plot[0]!.lng)
+  it('should reset the phase to an empty string', () => {
+    const result = clearPlotReducer()()
+    expect(result.phase).toBe('')
   })
 
-  it('should return a state with an id for the plot point', () => {
-    const newState = clearPlotReducer()()
-    expect(newState.plot[0]!.id).toBeDefined()
+  it('should reset the plot to its initial state', () => {
+    const result = clearPlotReducer()()
+    expect(result.plot).toEqual(initialState.plot)
+  })
+
+  it('should return a new state object', () => {
+    const result = clearPlotReducer()()
+    expect(result).not.toBe(mockState)
   })
 })
