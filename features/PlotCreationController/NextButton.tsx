@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Point } from '@/store/draftPlot/common'
 import { useDraftPlot } from '@/store/draftPlot/draftPlotStore'
@@ -58,6 +58,7 @@ function NextButton() {
   const [showError, setShowError] = useState(false)
   const draftPoints = useDraftPlot()
   const t = useTranslations('Index')
+  const timerId = useRef<NodeJS.Timeout | undefined>(undefined)
 
   return (
     <>
@@ -72,7 +73,8 @@ function NextButton() {
           }
 
           setShowError(true)
-          setTimeout(() => setShowError(false), 1000)
+          clearTimeout(timerId.current)
+          timerId.current = setTimeout(() => setShowError(false), 1000)
         }}
       >
         {t('Next')}

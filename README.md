@@ -26,8 +26,10 @@
    ```
 
    XXXXXXXXXXXXXXXXXXXXXXXXXXXXX - specific secret key\
-   xxxxxxxxxxxxxxxxxxxxxxxxxxxxx - whatever secret key\
-   Get GOOGLE_CLIENT from https://console.cloud.google.com/apis/credentials
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxx - whatever secret key\
+    Get GOOGLE_CLIENT from https://console.cloud.google.com/apis/credentials \
+    For non docker development use (Slower):
+   `DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${POSTGRES_PORT}/${POSTGRES_DB}` instead
 
 2. Run `docker:build`
 3. Open up http://localhost:3000/ in a web browser
