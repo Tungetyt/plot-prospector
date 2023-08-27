@@ -22,14 +22,15 @@
    POSTGRES_PASSWORD=xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
    POSTGRES_DB=plot_prospector
    POSTGRES_PORT=5432
-   DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:${POSTGRES_PORT}/${POSTGRES_DB}
+   DATABASE_HOSTNAME=db#localhost
+   DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DATABASE_HOSTNAME}:${POSTGRES_PORT}/${POSTGRES_DB}
    ```
 
    XXXXXXXXXXXXXXXXXXXXXXXXXXXXX - specific secret key\
     xxxxxxxxxxxxxxxxxxxxxxxxxxxxx - whatever secret key\
     Get GOOGLE_CLIENT from https://console.cloud.google.com/apis/credentials \
-    For non docker development use (Slower):
-   `DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${POSTGRES_PORT}/${POSTGRES_DB}` instead
+    For non docker development (slower) use:
+   `DATABASE_HOSTNAME=localhost` instead
 
 2. Run `docker:build`
 3. Open up http://localhost:3000/ in a web browser

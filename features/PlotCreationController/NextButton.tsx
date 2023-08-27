@@ -55,7 +55,7 @@ export const isPolygon = (draftPlot: ReadonlyArray<Point>): boolean => {
 export const plotInfoFormDialogId = 'infoFormModal'
 
 function NextButton() {
-  const [showError, setShowError] = useState(false)
+  const [showWarning, setShowWarning] = useState(false)
   const draftPoints = useDraftPlot()
   const t = useTranslations('Index')
   const timerId = useRef<NodeJS.Timeout | undefined>(undefined)
@@ -67,20 +67,20 @@ function NextButton() {
         className="btn btn-primary w-full"
         onClick={() => {
           if (isPolygon(draftPoints)) {
-            setShowError(false)
+            setShowWarning(false)
             showModal(plotInfoFormDialogId)
             return
           }
 
-          setShowError(true)
+          setShowWarning(true)
           clearTimeout(timerId.current)
-          timerId.current = setTimeout(() => setShowError(false), 1000)
+          timerId.current = setTimeout(() => setShowWarning(false), 1000)
         }}
       >
         {t('Next')}
       </button>
       <div className="h-20">
-        {showError && (
+        {showWarning && (
           <div className="alert alert-warning">
             <svg
               xmlns="http://www.w3.org/2000/svg"
