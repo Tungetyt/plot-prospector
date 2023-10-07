@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 const port = z.coerce.number().positive().int().max(65353)
 const url = z.string().url()
-const required = z.string().min(1)
+const required = z.string().nonempty()
 
 const envVariables = z.object({
   GOOGLE_CLIENT_ID: required,
