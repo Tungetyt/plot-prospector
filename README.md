@@ -1,11 +1,14 @@
 # Prerequisites
 
-- docker
 - git
+- docker
+- pnpm (for development)
 
 # Getting started
 
-1. Create .env file in root folder with the content below:
+All operations and commands should be done/run in root folder
+
+1. Create .env file with the content below:
 
    ```
    #Google
@@ -22,7 +25,7 @@
    POSTGRES_PASSWORD=xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
    POSTGRES_DB=plot_prospector
    POSTGRES_PORT=5432
-   DATABASE_HOSTNAME=db#localhost
+   DATABASE_HOSTNAME=db
    DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DATABASE_HOSTNAME}:${POSTGRES_PORT}/${POSTGRES_DB}
    ```
 
@@ -32,14 +35,16 @@
     For non docker development (slower) use:
    `DATABASE_HOSTNAME=localhost` instead
 
-2. Run `docker:build`
-3. Open up http://localhost:3000/ in a web browser
+2. Run `pnpm run docker:build`
+3. Open up http://localhost:3000 in a web browser. The application should be fully functional at this point
+4. Run `pnpm install`
+5. Run `pnpm run prisma:local:generate-types`
 
 # DB migrations
 
 1. Make desired changes in `schema.prisma` file
 2. Make sure containers are running
-3. Run `prisma:migrate`
+3. Run `pnpm run prisma:migrate`
 4. Restart Typescript Service in your IDE, or IDE itself, in order to see updated prisma types
 
 # DB GUI
