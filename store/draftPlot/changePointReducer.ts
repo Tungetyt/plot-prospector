@@ -31,7 +31,7 @@ const removeEmptyPoints = (updatedPlot: Point[]) => {
   for (let i = updatedPlot.length - 1; i >= 0; i--) {
     const currentPoint = updatedPlot[i]
 
-    if (!currentPoint) throw new Error('Expected currentPoint to be present')
+    if (!currentPoint) throw new Error('Expected currentPoint to be defined')
 
     const isLatNumeric = isNumeric(currentPoint.lat)
     const isLngNumeric = isNumeric(currentPoint.lng)
