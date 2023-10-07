@@ -1,15 +1,26 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+start_time=$(date +%s)
+echo "Running pre-commit hook..."
+
 generate_ignore() {
-  echo "# WARNING: Do not modify this file manually. It is auto-generated during commit phase." > "$1"
-  cat "$2" "$3" | sort | uniq >> "$1" || { echo "Error! Failed to update $1"; exit 1; }
-  git add "$1"
+  TARGET="$1"
+  SPECIFIC="$2"
+  GENERAL="$3"
+
+  if git diff --cached --name-only | grep -Eq "$TARGET|$SPECIFIC|$GENERAL"; then
+    echo "# WARNING: Do not modify this file manually. It is auto-generated during commit phase." > "$TARGET"
+    cat "$SPECIFIC" "$GENERAL" | grep -v '^#' | sort | uniq >> "$TARGET" || { echo "Error! Failed to update $TARGET"; exit 42; }
+    git add "$TARGET" || { echo "Error! Failed to add $TARGET to commit"; exit 43; }
+    echo "$TARGET has been updated"
+  else
+    echo "No changes in $TARGET, $SPECIFIC or $GENERAL, skipping update of $TARGET"
+  fi
 }
 
 GITIGNORE=".gitignore"
 PRETTIERIGNORE=".prettierignore"
-
 generate_ignore ".dockerignore" ".dockerignore.specific" "$GITIGNORE"
 generate_ignore "$PRETTIERIGNORE" ".prettierignore.specific" "$GITIGNORE"
 generate_ignore ".eslintignore" ".eslintignore.specific" "$PRETTIERIGNORE"
@@ -17,3 +28,16 @@ generate_ignore ".eslintignore" ".eslintignore.specific" "$PRETTIERIGNORE"
 npx lint-staged || { echo "Error! Code formatting or linting failed"; exit 42; }
 tsc --noEmit || { echo "Error! TypeScript compilation failed"; exit 43; }
 pnpm exec vitest run || { echo "Error! Tests failed"; exit 44; }
+
+SCHEMA_FILE='schema.prisma'
+if git diff --cached --name-only | grep -q "$SCHEMA_FILE"; then
+  npx prisma format || { echo "Error! Prisma format failed"; exit 46; }
+  git add "$SCHEMA_FILE" || { echo "Error! Failed to add Prisma schema to commit"; exit 47; }
+  echo "$SCHEMA_FILE has been formatted"
+else
+  echo "No changes in $SCHEMA_FILE, skipping prisma format"
+fi
+
+end_time=$(date +%s)
+time_taken=$((end_time - start_time))
+echo "Pre-commit hook took $time_taken seconds."
