@@ -1,5 +1,5 @@
-import { LeafPoint } from '@/features/Map/Map'
 import proj4 from 'proj4'
+import { LeafPoint } from '@/features/PlotCreationController/PlotInfoForm/formatPlot'
 
 const polygonArea = (coords: ReadonlyArray<LeafPoint>): number => {
   const WGS84 = 'EPSG:4326'

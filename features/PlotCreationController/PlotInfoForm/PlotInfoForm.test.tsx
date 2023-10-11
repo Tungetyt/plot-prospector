@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event'
 import customRender from '@/utils/customRender'
-import en from '../../messages/en.json'
+import en from '../../../messages/en.json'
 import PlotInfoForm from './PlotInfoForm'
 
 test('should update currency input', async () => {

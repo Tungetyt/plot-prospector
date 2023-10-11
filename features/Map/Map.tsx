@@ -2,9 +2,9 @@
 
 import dynamic from 'next/dynamic'
 import { useDraftPlot, usePhase } from '@/store/draftPlot/draftPlotStore'
-import { Point } from '@/store/draftPlot/common'
-import MapURLEvents from '@/features/Map/MapURLEvents'
+import MapURLEvents from '@/features/Map/MapURLEvents/MapURLEvents'
 import { Mutable } from '@/utils/utilityTypes'
+import formatPlot from '@/features/PlotCreationController/PlotInfoForm/formatPlot'
 
 export const MapContainer = dynamic(
   async () => (await import('react-leaflet')).MapContainer,
@@ -24,15 +24,6 @@ export const TileLayer = dynamic(
     ssr: false,
   },
 )
-
-export type LeafPoint = [number, number]
-
-const isCorrectCoord = (coord: Point['lng']) => coord !== '' && coord !== '-'
-
-export const formatPlot = (plot: ReadonlyArray<Point>) =>
-  plot
-    .filter(({ lng, lat }) => isCorrectCoord(lng) && isCorrectCoord(lat))
-    .map(({ lat, lng }) => [+lat || 0, +lng || 0] as LeafPoint)
 
 const PWJozefoslawObservatoryCoordinates: Readonly<[number, number]> = [
   52.0979030011665, 21.03239659105818,

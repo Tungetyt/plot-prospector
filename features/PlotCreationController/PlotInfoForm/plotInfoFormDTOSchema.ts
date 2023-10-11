@@ -1,4 +1,4 @@
-import { currencies } from '@/features/PlotCreationController/sortedCurrencies'
+import { currencies } from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
 import { Email, Tel } from '@/utils/types'
 import { isValidPhoneNumber } from 'react-phone-number-input'
 import { z } from 'zod'

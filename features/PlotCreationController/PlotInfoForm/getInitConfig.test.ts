@@ -1,8 +1,8 @@
-import getIntlConfig from '@/features/PlotCreationController/getInitConfig'
+import getIntlConfig from '@/features/PlotCreationController/PlotInfoForm/getInitConfig'
 import {
   Currency,
   intlConfigs,
-} from '@/features/PlotCreationController/sortedCurrencies'
+} from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
 
 describe('getIntlConfig', () => {
   it('should return the correct intlConfig for each currency', () => {

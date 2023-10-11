@@ -3,7 +3,7 @@ import {
   intlConfigs,
   OTHER,
   sortedCurrencies,
-} from '@/features/PlotCreationController/sortedCurrencies'
+} from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
 
 describe('sortedCurrencies', () => {
   it('should sort currencies based on default currency', () => {

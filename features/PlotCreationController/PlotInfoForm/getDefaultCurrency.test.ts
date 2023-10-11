@@ -1,8 +1,8 @@
-import getDefaultCurrency from '@/features/PlotCreationController/defaultCurrency'
+import getDefaultCurrency from '@/features/PlotCreationController/PlotInfoForm/getDefaultCurrency'
 import {
   intlConfigs,
   OTHER,
-} from '@/features/PlotCreationController/sortedCurrencies'
+} from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
 
 describe('getDefaultCurrency', () => {
   it('should return the correct currency for a given locale', () => {

@@ -1,5 +1,7 @@
 /* eslint-disable dot-notation */
-import { newSearchParams, urlParams } from '@/features/Map/MapURLEvents'
+import newSearchParams, {
+  urlParams,
+} from '@/features/Map/MapURLEvents/newSearchParams'
 
 describe('newSearchParams', () => {
   // Standard Test Cases

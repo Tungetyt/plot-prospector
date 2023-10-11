@@ -1,4 +1,4 @@
-import plotInfoFormDTOSchema from '@/features/PlotCreationController/plotInfoFormDTOSchema'
+import plotInfoFormDTOSchema from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
 
 describe('plotInfoFormSchema', () => {
   it('should validate correct data', () => {

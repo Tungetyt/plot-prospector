@@ -7,9 +7,9 @@ import PlotCreatorRows from '@/features/PlotCreationController/PlotCreatorRows'
 import { useDraftPlotActions, usePhase } from '@/store/draftPlot/draftPlotStore'
 import NextButton, {
   plotInfoFormDialogId,
-} from '@/features/PlotCreationController/NextButton'
+} from '@/features/PlotCreationController/NextButton/NextButton'
 import { Email } from '@/utils/types'
-import PlotInfoForm from '@/features/PlotCreationController/PlotInfoForm'
+import PlotInfoForm from '@/features/PlotCreationController/PlotInfoForm/PlotInfoForm'
 import useBody from '@/utils/useBody'
 
 function PlotCreationController({ email }: { email: Email | null }) {

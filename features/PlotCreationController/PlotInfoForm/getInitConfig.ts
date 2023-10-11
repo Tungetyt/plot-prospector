@@ -1,7 +1,7 @@
 import {
   Currency,
   intlConfigs,
-} from '@/features/PlotCreationController/sortedCurrencies'
+} from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
 import invariant from 'tiny-invariant'
 
 const getIntlConfig = (currentCurrency: Currency) => {

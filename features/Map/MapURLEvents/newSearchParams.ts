@@ -1,13 +1,11 @@
-import { useMap } from 'react-leaflet'
-import { useRouter } from 'next/navigation'
-import { useEffect, useRef } from 'react'
-import { MapOptions } from 'leaflet'
 import { Point } from '@/store/draftPlot/common'
+import { MapOptions } from 'leaflet'
+import { useEffect, useRef } from 'react'
+import { useMap } from 'react-leaflet/hooks'
 
 type Lng = keyof Pick<Point, 'lng'>
 type Lat = keyof Pick<Point, 'lat'>
 type Zoom = keyof Pick<MapOptions, 'zoom'>
-
 export const urlParams = {
   lat: 'lat',
   lng: 'lng',
@@ -15,8 +13,7 @@ export const urlParams = {
 } as const satisfies Readonly<
   Record<Lng, Lng> & Record<Lat, Lat> & Record<Zoom, Zoom>
 >
-
-const useMapInitialization = (
+export const useMapInitialization = (
   map: ReturnType<typeof useMap>,
   searchParams: URLSearchParams,
 ) => {
@@ -36,10 +33,7 @@ const useMapInitialization = (
     map.setView([parseFloat(lat), parseFloat(lng)], parseInt(zoom, 10))
   }, [searchParams, map])
 }
-
-const getSearchParams = () => new URLSearchParams(window.location.search)
-
-export const newSearchParams = (
+const newSearchParams = (
   lat: number,
   lng: number,
   zoom: number,
@@ -51,39 +45,4 @@ export const newSearchParams = (
   [urlParams.zoom]: zoom.toString(),
 })
 
-function MapURLEvents() {
-  const map = useMap()
-  const router = useRouter()
-
-  useMapInitialization(map, getSearchParams())
-
-  useEffect(() => {
-    const updateUrl = () => {
-      const { lng, lat } = map.getCenter()
-      const zoom = map.getZoom()
-
-      const queryString = new URLSearchParams(
-        newSearchParams(
-          lat,
-          lng,
-          zoom,
-          Array.from(getSearchParams().entries()),
-        ),
-      ).toString()
-
-      const newPath = `${window.location.pathname}?${queryString}`
-
-      router.push(newPath)
-    }
-
-    map.on('moveend', updateUrl)
-
-    return () => {
-      map.off('moveend', updateUrl)
-    }
-  }, [map, router])
-
-  return null
-}
-
-export default MapURLEvents
+export default newSearchParams
