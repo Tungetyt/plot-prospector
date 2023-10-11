@@ -19,7 +19,8 @@
     "Plot_Description": "Plot Description",
     "Plot_Address": "Plot Address",
     "Plot_Price": "Plot Price",
-    "Price_per_m2": "Price per m2",
+    "Currency": "Currency",
+    "Price_per": "Price per",
     "Contact_Email": "Contact Email",
     "Contact_Phone": "Contact Phone"
   }

@@ -1,4 +1,4 @@
-import { polygonArea } from '@/features/PlotCreationController/PlotInfoForm'
+import polygonArea from '@/features/PlotCreationController/polygonArea'
 
 describe('polygonArea', () => {
   // Basic validations
