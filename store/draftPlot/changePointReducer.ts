@@ -7,6 +7,7 @@ import {
 } from '@/store/draftPlot/common'
 import isValidCoordinate from '@/store/draftPlot/isValidCoordinate'
 import { isNumeric } from '@/utils/common'
+import invariant from 'tiny-invariant'
 
 const endsWithDecimal = (
   input: PointFromTextInput['lng'],
@@ -30,8 +31,7 @@ const removeEmptyPoints = (updatedPlot: Point[]) => {
   const idsToRemove: string[] = []
   for (let i = updatedPlot.length - 1; i >= 0; i--) {
     const currentPoint = updatedPlot[i]
-
-    if (!currentPoint) throw new Error('Expected currentPoint to be defined')
+    invariant(currentPoint, 'Expected currentPoint to be defined')
 
     const isLatNumeric = isNumeric(currentPoint.lat)
     const isLngNumeric = isNumeric(currentPoint.lng)

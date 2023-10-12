@@ -1,5 +1,6 @@
 import { Point } from '@/store/draftPlot/common'
 import { isNumeric } from '@/utils/common'
+import invariant from 'tiny-invariant'
 
 const isCollinear = (p1: Point, p2: Point, p3: Point): boolean => {
   if (
@@ -24,8 +25,7 @@ const isPolygon = (draftPlot: ReadonlyArray<Point>): boolean => {
   if (draftPlot.length < 3) return false // Can't form a polygon with less than 3 points
 
   const lastPoint = draftPlot[draftPlot.length - 1]
-
-  if (!lastPoint) throw new Error('Expected last point to be defined')
+  invariant(lastPoint, 'Expected last point to be defined')
 
   const plot = isEmptyPoint(lastPoint) ? draftPlot.slice(0, -1) : draftPlot
 
@@ -38,8 +38,9 @@ const isPolygon = (draftPlot: ReadonlyArray<Point>): boolean => {
     const p1 = plot[i]
     const p2 = plot[i + 1]
     const p3 = plot[i + 2]
-
-    if (!p1 || !p2 || !p3) throw new Error('Expected points to be defined')
+    invariant(p1, 'Expected p1 to be defined')
+    invariant(p2, 'Expected p2 to be defined')
+    invariant(p3, 'Expected p3 to be defined')
 
     return isCollinear(p1, p2, p3)
   })
