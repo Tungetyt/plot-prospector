@@ -1,9 +1,6 @@
-import {
-  useDraftPlot,
-  useDraftPlotActions,
-} from '@/store/draftPlot/draftPlotStore'
-import { Point } from '@/store/draftPlot/common'
 import isValidCoordinate from '@/store/draftPlot/isValidCoordinate'
+import { Point } from '@/store/draftPlot/common'
+import { useDraftPlotActions } from '@/store/draftPlot/draftPlotStore'
 
 const stopCaretJumpingToTheEnd = (
   target: EventTarget & HTMLInputElement,
@@ -44,19 +41,4 @@ function PointInput({ point, type }: { point: Point; type: 'lat' | 'lng' }) {
   )
 }
 
-function PlotCreatorRows() {
-  const draftPlot = useDraftPlot()
-
-  return (
-    <>
-      {draftPlot.map((point) => (
-        <tr key={point.id}>
-          <PointInput point={point} type="lng" />
-          <PointInput point={point} type="lat" />
-        </tr>
-      ))}
-    </>
-  )
-}
-
-export default PlotCreatorRows
+export default PointInput

@@ -1,28 +1,24 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { createPortal } from 'react-dom'
 import CancelButton from '@/features/PlotCreationController/CancelButton'
-import PlotCreatorRows from '@/features/PlotCreationController/PlotCreatorRows'
+import PlotCreatorRows from '@/features/PlotCreationController/PlotCreatorRows/PlotCreatorRows'
 import { useDraftPlotActions, usePhase } from '@/store/draftPlot/draftPlotStore'
-import NextButton, {
-  plotInfoFormDialogId,
-} from '@/features/PlotCreationController/NextButton/NextButton'
-import { Email } from '@/utils/types'
-import PlotInfoForm from '@/features/PlotCreationController/PlotInfoForm/PlotInfoForm'
-import useBody from '@/utils/useBody'
+import NextButtonWithWarning from '@/features/PlotCreationController/NextButtonWithWarning/NextButtonWithWarning'
+import PlotInfoFormModal, {
+  PlotInfoFormModalProps,
+} from '@/features/PlotCreationController/PlotInfoFormModal'
 
-function PlotCreationController({ email }: { email: Email | null }) {
+function PlotCreationController({ email }: PlotInfoFormModalProps) {
   const t = useTranslations('Index')
   const phase = usePhase()
   const { changePhase } = useDraftPlotActions()
-  const body = useBody()
 
   if (phase === 'PLOT_CREATION')
     return (
       <>
         <CancelButton />
-        <NextButton />
+        <NextButtonWithWarning />
         <div className="overflow-x-auto max-h-96 px-1">
           <table className="table table-xs table-fixed table-pin-rows">
             <thead>
@@ -36,13 +32,7 @@ function PlotCreationController({ email }: { email: Email | null }) {
             </tbody>
           </table>
         </div>
-        {body &&
-          createPortal(
-            <dialog id={plotInfoFormDialogId} className="modal">
-              <PlotInfoForm email={email} />
-            </dialog>,
-            body,
-          )}
+        <PlotInfoFormModal email={email} />
       </>
     )
 

@@ -1,6 +1,4 @@
-import { plotInfoFormDialogId } from '@/features/PlotCreationController/NextButton/NextButton'
 import { useDraftPlot } from '@/store/draftPlot/draftPlotStore'
-import { closeModal } from '@/utils/common'
 import { Email } from '@/utils/types'
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -14,6 +12,8 @@ import polygonArea from '@/features/PlotCreationController/PlotInfoForm/polygonA
 import getDefaultCurrency from '@/features/PlotCreationController/PlotInfoForm/getDefaultCurrency'
 import getIntlConfig from '@/features/PlotCreationController/PlotInfoForm/getInitConfig'
 import plotInfoFormDTOSchema from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
+import { plotInfoFormDialogId } from '@/features/PlotCreationController/NextButtonWithWarning/NextButton'
+import { closeModal } from '@/utils/modal'
 import formatPlot from './formatPlot'
 
 const descriptionId = 'descriptionInput'

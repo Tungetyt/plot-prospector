@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import { AbstractIntlMessages, NextIntlClientProvider } from 'next-intl'
 import { notFound } from 'next/navigation'
 import validateEnvVars from '@/env'
+import { ReactNode } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,7 +19,7 @@ export default async function RootLayout({
   children,
   params,
 }: {
-  children: React.ReactNode
+  children: ReactNode
   params: { [key: string]: string | string[] | undefined } & { locale: string }
 }) {
   let messages: AbstractIntlMessages
