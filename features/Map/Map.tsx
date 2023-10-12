@@ -3,8 +3,8 @@
 import dynamic from 'next/dynamic'
 import { useDraftPlot, usePhase } from '@/store/draftPlot/draftPlotStore'
 import MapURLEvents from '@/features/Map/MapURLEvents/MapURLEvents'
-import { Mutable } from '@/utils/utilityTypes'
 import formatPlot from '@/features/PlotCreationController/PlotInfoForm/formatPlot'
+import type { WritableDeep } from 'type-fest'
 
 export const MapContainer = dynamic(
   async () => (await import('react-leaflet')).MapContainer,
@@ -42,7 +42,7 @@ function Map() {
     >
       <MapContainer
         center={
-          PWJozefoslawObservatoryCoordinates as Mutable<
+          PWJozefoslawObservatoryCoordinates as WritableDeep<
             typeof PWJozefoslawObservatoryCoordinates
           >
         }
