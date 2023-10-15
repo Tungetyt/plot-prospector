@@ -1,19 +1,7 @@
 # WARNING: Do not modify this file manually. It is auto-generated during commit phase.
 
-# debug
-# dependencies
-# local env files
-# misc
-# next.js
-# production
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-# testing
-# typescript
-# vercel
-# WARNING: Do not modify this file manually. It is auto-generated during commit phase.
-#IDE
-#Lighthouse
 *.css
+*.html
 *.ico
 *.md
 *.pem

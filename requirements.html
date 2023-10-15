@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Requirements</title>
+    <style>
+      p {
+        margin: 0;
+      }
+
+      body {
+        font-family: sans-serif;
+        background-color: black;
+        color: white;
+      }
+
+      body > details > summary {
+        font-weight: bold;
+        text-transform: capitalize;
+      }
+
+      details details,
+      p {
+        margin-left: 30px;
+      }
+
+      .done {
+        color: greenyellow;
+      }
+
+      .started {
+        color: aqua;
+      }
+
+      .abandoned {
+        color: lightcoral;
+      }
+    </style>
+  </head>
+  <body>
+    <details open>
+      <summary class="started">landing page</summary>
+      <details open>
+        <summary class="started">map</summary>
+        <details open>
+          <summary class="started">plot</summary>
+          <details open>
+            <summary class="started">create</summary>
+            <p>by adding points manually</p>
+            <p class="done">by coordinates</p>
+            <p>
+              automatically go to the point after providing correct one. Scale
+              so all points visible display all current points and make it
+              changeable
+            </p>
+          </details>
+          <details open>
+            <summary>edit</summary>
+            <p>by moving points manually</p>
+            <p>by adjusting coordinates</p>
+          </details>
+          <details open>
+            <summary class="started">modal</summary>
+            <p>delete plot</p>
+            <details open>
+              <summary class="started">details</summary>
+              <p class="done">description</p>
+              <p class="done">address</p>
+              <p>size (derived)</p>
+              <p class="done">price</p>
+              <p>price per m2 (derived)</p>
+              <p>type of transaction (lease, buy, sell)</p>
+              <p>pictures</p>
+              <p>color of plot</p>
+              <p>show statistics (How many people clicked)</p>
+              <p class="done">contact phone (derived)</p>
+              <p class="done">contact email (derived)</p>
+              <p>description</p>
+            </details>
+          </details>
+          <p>add to favorites</p>
+        </details>
+      </details>
+      <p>description</p>
+      <p class="done">login/logout with Google</p>
+      <p>light/dark mode</p>
+      <p class="started">languages switching</p>
+    </details>
+    <details open>
+      <summary>plot table page</summary>
+      <details open>
+        <summary>sort</summary>
+        <p>by details</p>
+      </details>
+      <details open>
+        <summary>filter</summary>
+        <p>by favorites</p>
+        <p>by details</p>
+      </details>
+    </details>
+    <details open>
+      <summary>User page</summary>
+      <p>change default user description</p>
+      <p>change default contact email</p>
+      <p>change default contact phone</p>
+      <p>delete account</p>
+    </details>
+    <details open>
+      <summary>feedback page/modal</summary>
+      <p>stars</p>
+      <p>description</p>
+    </details>
+    <details open>
+      <summary>admin page</summary>
+      <details open>
+        <summary>users table</summary>
+        <details open>
+          <summary>manage users</summary>
+          <p>change roles</p>
+          <p>block/unblock</p>
+        </details>
+        <details open>
+          <summary>navigate to user details</summary>
+          <p>details</p>
+          <p>chart with activity</p>
+        </details>
+      </details>
+      <details open>
+        <summary>roles table</summary>
+        <p>change permissions</p>
+      </details>
+    </details>
+    <details open>
+      <summary>FE tech</summary>
+      <p class="done">page Inset shadow when creating new plot</p>
+      <p>feature flags</p>
+      <p>error boundaries</p>
+      <p>
+        Google Analytics or not Google -> look at t3 stack recommendation
+        (Plausible?)
+      </p>
+      <p>e2e + purging and seeding db in docker</p>
+      <p>Lighthouse check cicd</p>
+      <p>notifications</p>
+      <p>storybook</p>
+      <p>auto-animate (inputs appearing/disappearing + Next Alert)</p>
+      <p>mobile view - readonly?</p>
+      <p>custom layers and other map staff</p>
+      <p class="done">save position (lat lng, zoom) in URL</p>
+      <p class="abandoned">zocker or zod-fixture</p>
+      <p>Remeda</p>
+    </details>
+    <details open>
+      <summary>BE tech</summary>
+      <p>db seeding script</p>
+      <p>feature flags</p>
+      <p>swagger</p>
+      <p class="started">logging</p>
+      <p>refresh session / tokens ?</p>
+      <p>redis</p>
+      <p class="done">Docker</p>
+      <p>ElasticSearch</p>
+      <details open>
+        <summary>ChatGPT (Content Moderation, )</summary>
+        <p>content moderation</p>
+        <p>generating plot descriptions based on coordinates</p>
+      </details>
+      <details open>
+        <summary>
+          Web sockets for some reason - show how many ppl are online, and show
+          their cursors
+        </summary>
+        <p>show how many ppl are online</p>
+        <p>show ppls cursors</p>
+      </details>
+      <p>Deployment DIFFER TO THE VERY END!</p>
+      <p>Nx</p>
+    </details>
+  </body>
+</html>
