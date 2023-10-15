@@ -3,18 +3,18 @@ import { Email } from '@/utils/types'
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useLocale, useTranslations } from 'next-intl'
-import CurrencyInput from 'react-currency-input-field'
-import { Controller, useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import PhoneInput from 'react-phone-number-input/react-hook-form-input'
 import { sortedCurrencies } from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
 import polygonArea from '@/features/PlotCreationController/PlotInfoForm/polygonArea'
 import getDefaultCurrency from '@/features/PlotCreationController/PlotInfoForm/getDefaultCurrency'
-import getIntlConfig from '@/features/PlotCreationController/PlotInfoForm/getInitConfig'
 import plotInfoFormDTOSchema, {
   PlotInfoFormData,
 } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
 import { plotInfoFormDialogId } from '@/features/PlotCreationController/NextButtonWithWarning/NextButton'
 import { closeModal } from '@/utils/modal'
+import PricePerM2 from '@/features/PlotCreationController/PlotInfoForm/PricePerM2'
+import PriceInput from '@/features/PlotCreationController/PlotInfoForm/PriceInput'
 import formatPlot from './formatPlot'
 
 const descriptionId = 'descriptionInput'
@@ -50,27 +50,24 @@ function PlotInfoForm({ email }: { email: Email | null }) {
     description: '',
   } as const satisfies PlotInfoFormData
 
+  const methods = useForm<typeof defaultValues>({
+    resolver: zodResolver(plotInfoFormDTOSchema),
+    defaultValues,
+  })
+
   const {
     register,
     control,
     handleSubmit,
-    watch,
     formState: { errors },
-  } = useForm<typeof defaultValues>({
-    resolver: zodResolver(plotInfoFormDTOSchema),
-    defaultValues,
-  })
+  } = methods
 
   const onSubmit = handleSubmit((data: PlotInfoFormData) => console.log(data))
 
   const area = polygonArea(formatPlot(draftPlot))
 
-  const intlConfig = getIntlConfig(watch('price.currency'))
-
-  const price = watch('price.value') ?? 0
-
   return (
-    <>
+    <FormProvider {...methods}>
       <form method="dialog" className="modal-box max-w-fit" onSubmit={onSubmit}>
         <div className="flex">
           <h3 className="font-bold text-lg">{t('Plot_Info')}</h3>
@@ -133,28 +130,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
                 </label>
               </div>
               <div className="form-control">
-                <label htmlFor={priceId} className="label">
-                  <span className="label-text">{t('Plot_Price')}</span>
-                </label>
-                <Controller
-                  control={control}
-                  name="price.value"
-                  render={({ field: { onChange, ...rest } }) => (
-                    <CurrencyInput
-                      {...rest}
-                      id={priceId}
-                      {...(intlConfig.currency === 'Other'
-                        ? {}
-                        : { intlConfig })}
-                      allowNegativeValue={false}
-                      className={`input input-bordered max-w-[10rem] ${
-                        errors.price?.value ? 'input-error' : ''
-                      }`}
-                      aria-invalid={errors.price?.value ? 'true' : 'false'}
-                      onValueChange={onChange}
-                    />
-                  )}
-                />
+                <PriceInput />
                 <label className="label" htmlFor={priceId}>
                   <span className="label-text-alt text-red-700">
                     {errors.price?.value?.message}
@@ -166,7 +142,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
                   {t('Price_per')} <M2 />
                 </div>
                 <div className="mb-3">
-                  {Math.round(price / area).toFixed(2)}
+                  <PricePerM2 area={area} />
                 </div>
               </div>
             </div>
@@ -227,7 +203,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
         </div>
       </form>
       <DevTool control={control} />
-    </>
+    </FormProvider>
   )
 }
 
