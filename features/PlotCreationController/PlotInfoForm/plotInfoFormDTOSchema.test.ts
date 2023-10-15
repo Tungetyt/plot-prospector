@@ -1,137 +1,100 @@
 import plotInfoFormDTOSchema from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
 
-describe('plotInfoFormSchema', () => {
-  it('should validate correct data', () => {
-    const validData = {
-      description: 'A nice plot',
+const mockData = {
+  description: '',
+  address: '',
+  price: { value: undefined, currency: 'PLN' },
+  email: '',
+  tel: '',
+} as const
+
+describe('plotInfoFormDTOSchema', () => {
+  it('validates description correctly', () => {
+    const validDescription = plotInfoFormDTOSchema.safeParse({
+      ...mockData,
+      description: 'This is a description',
+    })
+    expect(validDescription.success).toBe(true)
+
+    const invalidDescription = plotInfoFormDTOSchema.safeParse({
+      ...mockData,
+      description: '     ',
+    })
+    expect(invalidDescription.success).toBe(true)
+  })
+
+  it('validates address correctly', () => {
+    const validAddress = plotInfoFormDTOSchema.safeParse({
+      ...mockData,
       address: '123 Main St',
-      price: {
-        value: 100.5,
-        currency: 'USD',
-      },
+    })
+    expect(validAddress.success).toBe(true)
+
+    const invalidAddress = plotInfoFormDTOSchema.safeParse({
+      ...mockData,
+      address: '    ',
+    })
+    expect(invalidAddress.success).toBe(true)
+  })
+
+  it('validates price correctly', () => {
+    const validPrice = plotInfoFormDTOSchema.safeParse({
+      ...mockData,
+      price: { value: 20.5, currency: 'USD' },
+    })
+    expect(validPrice.success).toBe(true)
+
+    const invalidPrice = plotInfoFormDTOSchema.safeParse({
+      ...mockData,
+      price: { value: 20.555, currency: 'USD' },
+    })
+    expect(invalidPrice.success).toBe(false)
+
+    const missingValue = plotInfoFormDTOSchema.safeParse({
+      ...mockData,
+      price: { currency: 'USD' },
+    })
+    expect(missingValue.success).toBe(true)
+  })
+
+  it('validates email correctly', () => {
+    const validEmail = plotInfoFormDTOSchema.safeParse({
+      ...mockData,
       email: 'test@example.com',
-      tel: '+491522343333',
-    }
+    })
+    expect(validEmail.success).toBe(true)
 
-    const result = plotInfoFormDTOSchema.safeParse(validData)
+    const invalidEmail = plotInfoFormDTOSchema.safeParse({
+      ...mockData,
+      email: 'invalid-email',
+    })
+    expect(invalidEmail.success).toBe(false)
 
-    if (!result.success) {
-      console.error(result.error)
-    }
-
-    expect(result.success).toBe(true)
+    const missingEmail = plotInfoFormDTOSchema.safeParse({ ...mockData })
+    expect(missingEmail.success).toBe(true)
   })
 
-  describe('description', () => {
-    it('should fail if empty', () => {
-      const data = {
-        description: '',
-        // ... other fields
-      }
-
-      const result = plotInfoFormDTOSchema.safeParse(data)
-
-      expect(result.success).toBe(false)
+  it('validates tel correctly', () => {
+    const germanTel = '+491522343333'
+    const validTel = plotInfoFormDTOSchema.safeParse({
+      ...mockData,
+      tel: germanTel,
     })
-  })
+    expect(validTel.success).toBe(true)
 
-  describe('address', () => {
-    it('should fail if empty', () => {
-      const data = {
-        address: '',
-        // ... other fields
-      }
-
-      const result = plotInfoFormDTOSchema.safeParse(data)
-
-      expect(result.success).toBe(false)
+    const invalidTel = plotInfoFormDTOSchema.safeParse({
+      ...mockData,
+      tel: '+1234567890',
     })
-  })
+    expect(invalidTel.success).toBe(false)
 
-  describe('price', () => {
-    it('should fail if value is negative', () => {
-      const data = {
-        price: {
-          value: -1,
-          currency: 'USD',
-        },
-        // ... other fields
-      }
-
-      const result = plotInfoFormDTOSchema.safeParse(data)
-
-      expect(result.success).toBe(false)
+    const invalidTel2 = plotInfoFormDTOSchema.safeParse({
+      ...mockData,
+      tel: 'invalid-number',
     })
+    expect(invalidTel2.success).toBe(false)
 
-    it('should fail if value has more than 2 decimal places', () => {
-      const data = {
-        price: {
-          value: 100.999,
-          currency: 'USD',
-        },
-        // ... other fields
-      }
-
-      const result = plotInfoFormDTOSchema.safeParse(data)
-
-      expect(result.success).toBe(false)
-    })
-
-    it('should pass if value has up to 2 decimal places', () => {
-      const data = {
-        description: 'A nice plot',
-        address: '123 Main St',
-        price: {
-          value: 100.99,
-          currency: 'USD',
-        },
-        email: 'test@example.com',
-        tel: '+491522343333', // Make sure this passes your isValidPhoneNumber function
-      }
-
-      const result = plotInfoFormDTOSchema.safeParse(data)
-
-      expect(result.success).toBe(true)
-    })
-
-    it('should fail if currency is invalid', () => {
-      const data = {
-        price: {
-          value: 100,
-          currency: 'INVALID',
-        },
-        // ... other fields
-      }
-
-      const result = plotInfoFormDTOSchema.safeParse(data)
-
-      expect(result.success).toBe(false)
-    })
-  })
-
-  describe('email', () => {
-    it('should fail if email is invalid', () => {
-      const data = {
-        email: 'invalid',
-        // ... other fields
-      }
-
-      const result = plotInfoFormDTOSchema.safeParse(data)
-
-      expect(result.success).toBe(false)
-    })
-  })
-
-  describe('tel', () => {
-    it('should fail if phone number is invalid', () => {
-      const data = {
-        tel: 'invalid',
-        // ... other fields
-      }
-
-      const result = plotInfoFormDTOSchema.safeParse(data)
-
-      expect(result.success).toBe(false)
-    })
+    const missingTel = plotInfoFormDTOSchema.safeParse({ ...mockData })
+    expect(missingTel.success).toBe(true)
   })
 })

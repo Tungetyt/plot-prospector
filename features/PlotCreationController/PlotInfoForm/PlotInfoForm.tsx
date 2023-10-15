@@ -14,6 +14,7 @@ import getIntlConfig from '@/features/PlotCreationController/PlotInfoForm/getIni
 import plotInfoFormDTOSchema from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
 import { plotInfoFormDialogId } from '@/features/PlotCreationController/NextButtonWithWarning/NextButton'
 import { closeModal } from '@/utils/modal'
+import { Simplify } from 'type-fest'
 import formatPlot from './formatPlot'
 
 const descriptionId = 'descriptionInput'
@@ -25,15 +26,18 @@ const telId = 'telInput'
 
 type DTO = z.infer<typeof plotInfoFormDTOSchema>
 
-type FormData = Pick<DTO, 'description' | 'address'> &
+type FormData = Simplify<
   Record<
     keyof Pick<DTO, 'price'>,
     {
-      value: string
+      value: string | undefined
     } & Pick<DTO['price'], 'currency'>
   > &
-  Record<keyof Pick<DTO, 'email'>, string> &
-  Record<keyof Pick<DTO, 'tel'>, string>
+    Record<keyof Pick<DTO, 'description'>, string> &
+    Record<keyof Pick<DTO, 'address'>, string> &
+    Record<keyof Pick<DTO, 'email'>, string> &
+    Record<keyof Pick<DTO, 'tel'>, string>
+>
 
 function M2() {
   return (
@@ -53,7 +57,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
   const defaultValues = {
     tel: '',
     price: {
-      value: '',
+      value: undefined,
       currency: defaultCurrency,
     },
     email: email ?? '',
@@ -80,7 +84,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
 
   return (
     <>
-      <form method="dialog" className="modal-box" onSubmit={onSubmit}>
+      <form method="dialog" className="modal-box max-w-fit" onSubmit={onSubmit}>
         <div className="flex">
           <h3 className="font-bold text-lg">{t('Plot_Info')}</h3>
           <div className="ml-auto">
@@ -96,6 +100,11 @@ function PlotInfoForm({ email }: { email: Email | null }) {
             id={descriptionId}
             className="textarea textarea-bordered textarea-lg min-h-[7rem]"
           />
+          <label htmlFor={descriptionId} className="label">
+            <span className="label-text-alt text-red-700">
+              {errors.description?.message}
+            </span>
+          </label>
         </div>
         <div className="form-control">
           <label htmlFor={addressId} className="label">
@@ -108,10 +117,15 @@ function PlotInfoForm({ email }: { email: Email | null }) {
             className="input input-bordered"
             autoComplete="street-address"
           />
+          <label className="label" htmlFor={addressId}>
+            <span className="label-text-alt text-red-700">
+              {errors.address?.message}
+            </span>
+          </label>
         </div>
         <div className="grid grid-cols-[repeat(2,_minmax(0,_1fr))_auto] gap-3">
           <div className="form-control w-full max-w-xs">
-            <label htmlFor={currencyId} className="label mt-[auto]">
+            <label htmlFor={currencyId} className="label">
               <span className="label-text">{t('Currency')}</span>
             </label>
             <select
@@ -123,9 +137,14 @@ function PlotInfoForm({ email }: { email: Email | null }) {
                 <option key={c}>{c}</option>
               ))}
             </select>
+            <label className="label" htmlFor={currencyId}>
+              <span className="label-text-alt text-red-700">
+                {errors.price?.currency?.message}
+              </span>
+            </label>
           </div>
           <div className="form-control">
-            <label htmlFor={priceId} className="label mt-[auto]">
+            <label htmlFor={priceId} className="label">
               <span className="label-text">{t('Plot_Price')}</span>
             </label>
             <Controller
@@ -145,9 +164,14 @@ function PlotInfoForm({ email }: { email: Email | null }) {
                 />
               )}
             />
+            <label className="label" htmlFor={priceId}>
+              <span className="label-text-alt text-red-700">
+                {errors.price?.value?.message}
+              </span>
+            </label>
           </div>
-          <div className="self-end">
-            <div className="mb-5 label-text select-none">
+          <div>
+            <div className="mt-2 mb-5 label-text select-none">
               {t('Price_per')} <M2 />
             </div>
             <div className="mb-3">{area}</div>
@@ -167,6 +191,11 @@ function PlotInfoForm({ email }: { email: Email | null }) {
             aria-invalid={errors.email ? 'true' : 'false'}
             autoComplete="email"
           />
+          <label className="label" htmlFor={emailId}>
+            <span className="label-text-alt text-red-700">
+              {errors.email?.message}
+            </span>
+          </label>
         </div>
         <div className="form-control">
           <label htmlFor={telId} className="label">
@@ -181,6 +210,11 @@ function PlotInfoForm({ email }: { email: Email | null }) {
             aria-invalid={errors.tel ? 'true' : 'false'}
             control={control}
           />
+          <label className="label" htmlFor={telId}>
+            <span className="label-text-alt text-red-700">
+              {errors.tel?.message}
+            </span>
+          </label>
         </div>
         <div className="modal-action">
           <button
@@ -201,3 +235,5 @@ function PlotInfoForm({ email }: { email: Email | null }) {
 }
 
 export default PlotInfoForm
+
+// TODO: Automatically go to the point after providing correct one. Scale so all points visible
