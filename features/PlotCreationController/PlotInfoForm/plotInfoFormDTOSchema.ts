@@ -51,15 +51,17 @@ export default plotInfoFormDTOSchema
 
 export type PlotInfoFormDTOSchema = z.infer<typeof plotInfoFormDTOSchema>
 
+type PriceKey = keyof Pick<PlotInfoFormDTOSchema, 'price'>
+type PriceValue = Simplify<{
+  value: string | undefined
+}>
+type PriceCurrency = Simplify<Pick<PlotInfoFormDTOSchema['price'], 'currency'>>
+type RestKeys = keyof Pick<
+  PlotInfoFormDTOSchema,
+  'description' | 'address' | 'email' | 'tel'
+>
+
 export type PlotInfoFormData = Simplify<
-  Record<
-    keyof Pick<PlotInfoFormDTOSchema, 'price'>,
-    {
-      value: string | undefined
-    } & Pick<PlotInfoFormDTOSchema['price'], 'currency'>
-  > &
-    Record<keyof Pick<PlotInfoFormDTOSchema, 'description'>, string> &
-    Record<keyof Pick<PlotInfoFormDTOSchema, 'address'>, string> &
-    Record<keyof Pick<PlotInfoFormDTOSchema, 'email'>, string> &
-    Record<keyof Pick<PlotInfoFormDTOSchema, 'tel'>, string>
+  Record<PriceKey, Simplify<PriceValue & PriceCurrency>> &
+    Record<RestKeys, string>
 >
