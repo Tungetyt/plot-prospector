@@ -1,7 +1,5 @@
-import {
-  intlConfigs,
-  OTHER,
-} from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
+import { intlConfigs } from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
+import { OTHER } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
 
 const getDefaultCurrency = (locale: string) =>
   intlConfigs.find((config) => config.locale.startsWith(locale))?.currency ||

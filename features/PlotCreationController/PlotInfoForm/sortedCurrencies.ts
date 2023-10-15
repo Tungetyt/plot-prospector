@@ -1,19 +1,15 @@
-import { CurrencyInputProps } from 'react-currency-input-field'
 import invariant from 'tiny-invariant'
-
-type IntlConfig = Exclude<CurrencyInputProps['intlConfig'], undefined>
-export const OTHER = 'Other'
-export const currencies = [
-  'PLN',
-  'EUR',
-  'USD',
-  'GBP',
+import {
+  currencies,
+  IntlConfig,
   OTHER,
-] as const satisfies ReadonlyArray<Exclude<IntlConfig['currency'], undefined>>
+} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
+
 export type Currency = (typeof currencies)[number]
 type CurrencyKey = keyof Pick<IntlConfig, 'currency'>
-type CurrencyRecord = Record<CurrencyKey, Currency>
-type LocaleRecord = Pick<IntlConfig, 'locale'>
+export type CurrencyRecord = Record<CurrencyKey, Currency>
+export type LocaleRecord = Pick<IntlConfig, 'locale'>
+
 export const intlConfigs = [
   {
     locale: 'pl-PL',
@@ -36,6 +32,7 @@ export const intlConfigs = [
     currency: 'Other',
   },
 ] as const satisfies ReadonlyArray<LocaleRecord & CurrencyRecord>
+
 const isRelatedToLocale = (locale: string, currency: Currency) => {
   const relatedConfig = intlConfigs.find(
     (config) => config.currency === currency,
@@ -43,6 +40,7 @@ const isRelatedToLocale = (locale: string, currency: Currency) => {
   invariant(relatedConfig, 'Expected relatedConfig to be defined')
   return relatedConfig.locale.startsWith(locale)
 }
+
 export const sortedCurrencies = (locale: string, defaultCurrency: Currency) =>
   [...currencies].sort((a, b) => {
     if (a === defaultCurrency) return -1

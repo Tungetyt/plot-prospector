@@ -1,5 +1,5 @@
-import { currencies } from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
 import { Email, Tel } from '@/utils/types'
+import { CurrencyInputProps } from 'react-currency-input-field'
 import { isValidPhoneNumber } from 'react-phone-number-input'
 import { Simplify } from 'type-fest'
 import { z } from 'zod'
@@ -10,6 +10,16 @@ const hasTwoDecimalPlaces = (num: number) => {
   if (decimalIndex === -1) return true // No decimal places
   return numStr.slice(decimalIndex + 1).length <= 2
 }
+
+export type IntlConfig = Exclude<CurrencyInputProps['intlConfig'], undefined>
+export const OTHER = 'Other'
+export const currencies = [
+  'PLN',
+  'EUR',
+  'USD',
+  'GBP',
+  OTHER,
+] as const satisfies ReadonlyArray<Exclude<IntlConfig['currency'], undefined>>
 
 const plotInfoFormDTOSchema = z.strictObject({
   description: z

@@ -1,8 +1,6 @@
 import getDefaultCurrency from '@/features/PlotCreationController/PlotInfoForm/getDefaultCurrency'
-import {
-  intlConfigs,
-  OTHER,
-} from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
+import { intlConfigs } from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
+import { OTHER } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
 
 describe('getDefaultCurrency', () => {
   it('should return the correct currency for a given locale', () => {
