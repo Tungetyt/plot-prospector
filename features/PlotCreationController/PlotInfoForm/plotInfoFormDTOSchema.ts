@@ -1,6 +1,7 @@
 import { currencies } from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
 import { Email, Tel } from '@/utils/types'
 import { isValidPhoneNumber } from 'react-phone-number-input'
+import { Simplify } from 'type-fest'
 import { z } from 'zod'
 
 const hasTwoDecimalPlaces = (num: number) => {
@@ -24,6 +25,7 @@ const plotInfoFormDTOSchema = z.strictObject({
       .number()
       .positive()
       .finite()
+      .max(1_000_000_000_000)
       .refine(hasTwoDecimalPlaces, {
         message: 'Value must have at most 2 digits after the decimal point',
       })
@@ -46,3 +48,18 @@ const plotInfoFormDTOSchema = z.strictObject({
 })
 
 export default plotInfoFormDTOSchema
+
+export type PlotInfoFormDTOSchema = z.infer<typeof plotInfoFormDTOSchema>
+
+export type PlotInfoFormData = Simplify<
+  Record<
+    keyof Pick<PlotInfoFormDTOSchema, 'price'>,
+    {
+      value: string | undefined
+    } & Pick<PlotInfoFormDTOSchema['price'], 'currency'>
+  > &
+    Record<keyof Pick<PlotInfoFormDTOSchema, 'description'>, string> &
+    Record<keyof Pick<PlotInfoFormDTOSchema, 'address'>, string> &
+    Record<keyof Pick<PlotInfoFormDTOSchema, 'email'>, string> &
+    Record<keyof Pick<PlotInfoFormDTOSchema, 'tel'>, string>
+>

@@ -1,100 +1,83 @@
-import plotInfoFormDTOSchema from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
+import plotInfoFormDTOSchema, {
+  PlotInfoFormData,
+} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
 
-const mockData = {
+const model: PlotInfoFormData = {
   description: '',
   address: '',
   price: { value: undefined, currency: 'PLN' },
   email: '',
   tel: '',
-} as const
+}
+
+let mockedData: typeof model
 
 describe('plotInfoFormDTOSchema', () => {
+  beforeEach(() => {
+    mockedData = structuredClone(model)
+  })
+
   it('validates description correctly', () => {
-    const validDescription = plotInfoFormDTOSchema.safeParse({
-      ...mockData,
-      description: 'This is a description',
-    })
+    mockedData.description = 'This is a description'
+    const validDescription = plotInfoFormDTOSchema.safeParse(mockedData)
     expect(validDescription.success).toBe(true)
 
-    const invalidDescription = plotInfoFormDTOSchema.safeParse({
-      ...mockData,
-      description: '     ',
-    })
+    mockedData.description = '     '
+    const invalidDescription = plotInfoFormDTOSchema.safeParse(mockedData)
     expect(invalidDescription.success).toBe(true)
   })
 
   it('validates address correctly', () => {
-    const validAddress = plotInfoFormDTOSchema.safeParse({
-      ...mockData,
-      address: '123 Main St',
-    })
+    mockedData.address = '123 Main St'
+    const validAddress = plotInfoFormDTOSchema.safeParse(mockedData)
     expect(validAddress.success).toBe(true)
 
-    const invalidAddress = plotInfoFormDTOSchema.safeParse({
-      ...mockData,
-      address: '    ',
-    })
+    mockedData.address = '    '
+    const invalidAddress = plotInfoFormDTOSchema.safeParse(mockedData)
     expect(invalidAddress.success).toBe(true)
   })
 
   it('validates price correctly', () => {
-    const validPrice = plotInfoFormDTOSchema.safeParse({
-      ...mockData,
-      price: { value: 20.5, currency: 'USD' },
-    })
+    mockedData.price = { value: '20.5', currency: 'USD' }
+    const validPrice = plotInfoFormDTOSchema.safeParse(mockedData)
     expect(validPrice.success).toBe(true)
 
-    const invalidPrice = plotInfoFormDTOSchema.safeParse({
-      ...mockData,
-      price: { value: 20.555, currency: 'USD' },
-    })
+    mockedData.price = { value: '20.555', currency: 'USD' }
+    const invalidPrice = plotInfoFormDTOSchema.safeParse(mockedData)
     expect(invalidPrice.success).toBe(false)
 
-    const missingValue = plotInfoFormDTOSchema.safeParse({
-      ...mockData,
-      price: { currency: 'USD' },
-    })
-    expect(missingValue.success).toBe(true)
+    mockedData.price = { value: '12345678901234', currency: 'USD' }
+    const tooBigValue = plotInfoFormDTOSchema.safeParse(mockedData)
+    expect(tooBigValue.success).toBe(false)
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    mockedData.price = { value: '20.5', currency: 'NonExistentCurrency' as any }
+    const badCurrencyValue = plotInfoFormDTOSchema.safeParse(mockedData)
+    expect(badCurrencyValue.success).toBe(false)
   })
 
   it('validates email correctly', () => {
-    const validEmail = plotInfoFormDTOSchema.safeParse({
-      ...mockData,
-      email: 'test@example.com',
-    })
+    mockedData.email = 'test@example.com'
+    const validEmail = plotInfoFormDTOSchema.safeParse(mockedData)
     expect(validEmail.success).toBe(true)
 
-    const invalidEmail = plotInfoFormDTOSchema.safeParse({
-      ...mockData,
-      email: 'invalid-email',
-    })
+    mockedData.email = 'invalid-email'
+    const invalidEmail = plotInfoFormDTOSchema.safeParse(mockedData)
     expect(invalidEmail.success).toBe(false)
-
-    const missingEmail = plotInfoFormDTOSchema.safeParse({ ...mockData })
-    expect(missingEmail.success).toBe(true)
   })
 
   it('validates tel correctly', () => {
     const germanTel = '+491522343333'
-    const validTel = plotInfoFormDTOSchema.safeParse({
-      ...mockData,
-      tel: germanTel,
-    })
+    mockedData.tel = germanTel
+    const validTel = plotInfoFormDTOSchema.safeParse(mockedData)
     expect(validTel.success).toBe(true)
 
-    const invalidTel = plotInfoFormDTOSchema.safeParse({
-      ...mockData,
-      tel: '+1234567890',
-    })
+    mockedData.tel = '+1234567890'
+    const invalidTel = plotInfoFormDTOSchema.safeParse(mockedData)
     expect(invalidTel.success).toBe(false)
 
-    const invalidTel2 = plotInfoFormDTOSchema.safeParse({
-      ...mockData,
-      tel: 'invalid-number',
-    })
+    mockedData.tel = 'invalid-number'
+    const invalidTel2 = plotInfoFormDTOSchema.safeParse(mockedData)
     expect(invalidTel2.success).toBe(false)
-
-    const missingTel = plotInfoFormDTOSchema.safeParse({ ...mockData })
-    expect(missingTel.success).toBe(true)
   })
 })
