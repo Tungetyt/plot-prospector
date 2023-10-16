@@ -24,7 +24,9 @@
     "Contact_Email": "Contact Email",
     "Contact_Phone": "Contact Phone",
     "Validation": {
-      "Value_cannot_exceed": "Value cannot exceed"
+      "Value_cannot_exceed": "Value cannot exceed",
+      "Invalid_email": "Invalid email",
+      "Invalid_phone": "Invalid phone"
     }
   }
 }

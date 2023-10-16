@@ -23,7 +23,11 @@ export const currencies = [
 
 export const oneTrillion = 1_000_000_000_000
 
-const plotInfoFormDTOSchema = (errMsg?: { priceValueMax: string }) =>
+const plotInfoFormDTOSchema = (errMsg?: {
+  priceValueMax: string
+  telIsValidPhoneNumber: string
+  emailIsEmail: string
+}) =>
   z.strictObject({
     description: z
       .string()
@@ -51,14 +55,19 @@ const plotInfoFormDTOSchema = (errMsg?: { priceValueMax: string }) =>
     email: z
       .string()
       .trim()
-      .email()
+      .email({
+        message: errMsg?.emailIsEmail ?? ''
+      })
       .or(z.literal(''))
       .transform((x) => (x ? (x as Email) : null)),
     tel: z
       .string()
       .trim()
-      .refine(isValidPhoneNumber)
+      .refine(isValidPhoneNumber, {
+        message: errMsg?.telIsValidPhoneNumber ?? ''
+      })
       .or(z.literal(''))
+      .nullable()
       .transform((x) => (x ? (x as Tel) : null))
   })
 

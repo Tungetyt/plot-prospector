@@ -56,7 +56,9 @@ function PlotInfoForm({ email }: { email: Email | null }) {
       plotInfoFormDTOSchema({
         priceValueMax: `${t(
           'Validation.Value_cannot_exceed'
-        )} ${oneTrillion.toLocaleString(locale)}`
+        )} ${oneTrillion.toLocaleString(locale)}`,
+        telIsValidPhoneNumber: t('Validation.Invalid_phone'),
+        emailIsEmail: t('Validation.Invalid_email')
       })
     ),
     defaultValues
