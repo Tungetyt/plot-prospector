@@ -68,7 +68,11 @@ function PlotInfoForm({ email }: { email: Email | null }) {
 
   return (
     <FormProvider {...methods}>
-      <form method="dialog" className="modal-box max-w-fit" onSubmit={onSubmit}>
+      <form
+        method="dialog"
+        className="modal-box max-w-fit backdrop-blur-md bg-opacity-75"
+        onSubmit={onSubmit}
+      >
         <div className="flex">
           <h3 className="font-bold text-lg">{t('Plot_Info')}</h3>
           <div className="ml-auto">
@@ -192,7 +196,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
         <div className="modal-action">
           <button
             type="button"
-            className="btn btn-outline btn-primary"
+            className="btn btn-outline btn-primary bg-[revert]"
             onClick={() => closeModal(plotInfoFormDialogId)}
           >
             {t('Back')}
