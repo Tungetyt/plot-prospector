@@ -22,6 +22,9 @@
     "Currency": "Currency",
     "Price_per": "Price per",
     "Contact_Email": "Contact Email",
-    "Contact_Phone": "Contact Phone"
+    "Contact_Phone": "Contact Phone",
+    "Validation": {
+      "Value_cannot_exceed": "Value cannot exceed"
+    }
   }
 }

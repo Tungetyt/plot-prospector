@@ -9,7 +9,8 @@ import { sortedCurrencies } from '@/features/PlotCreationController/PlotInfoForm
 import polygonArea from '@/features/PlotCreationController/PlotInfoForm/polygonArea'
 import getDefaultCurrency from '@/features/PlotCreationController/PlotInfoForm/getDefaultCurrency'
 import plotInfoFormDTOSchema, {
-  PlotInfoFormData,
+  oneTrillion,
+  PlotInfoFormData
 } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
 import { plotInfoFormDialogId } from '@/features/PlotCreationController/NextButtonWithWarning/NextButton'
 import { closeModal } from '@/utils/modal'
@@ -43,23 +44,29 @@ function PlotInfoForm({ email }: { email: Email | null }) {
     tel: '',
     price: {
       value: undefined,
-      currency: defaultCurrency,
+      currency: defaultCurrency
     },
     email: email ?? '',
     address: '',
-    description: '',
+    description: ''
   } as const satisfies PlotInfoFormData
 
   const methods = useForm<typeof defaultValues>({
-    resolver: zodResolver(plotInfoFormDTOSchema),
-    defaultValues,
+    resolver: zodResolver(
+      plotInfoFormDTOSchema({
+        priceValueMax: `${t(
+          'Validation.Value_cannot_exceed'
+        )} ${oneTrillion.toLocaleString(locale)}`
+      })
+    ),
+    defaultValues
   })
 
   const {
     register,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = methods
 
   const onSubmit = handleSubmit((data: PlotInfoFormData) => console.log(data))

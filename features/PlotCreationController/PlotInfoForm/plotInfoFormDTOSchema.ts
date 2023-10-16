@@ -18,48 +18,55 @@ export const currencies = [
   'EUR',
   'USD',
   'GBP',
-  OTHER,
+  OTHER
 ] as const satisfies ReadonlyArray<Exclude<IntlConfig['currency'], undefined>>
 
-const plotInfoFormDTOSchema = z.strictObject({
-  description: z
-    .string()
-    .trim()
-    .transform((x) => x || null),
-  address: z
-    .string()
-    .trim()
-    .transform((x) => x || null),
-  price: z.strictObject({
-    value: z.coerce
-      .number()
-      .positive()
-      .finite()
-      .max(1_000_000_000_000)
-      .refine(hasTwoDecimalPlaces, {
-        message: 'Value must have at most 2 digits after the decimal point',
-      })
-      .or(z.undefined())
+export const oneTrillion = 1_000_000_000_000
+
+const plotInfoFormDTOSchema = (errMsg?: { priceValueMax: string }) =>
+  z.strictObject({
+    description: z
+      .string()
+      .trim()
       .transform((x) => x || null),
-    currency: z.enum(currencies),
-  }),
-  email: z
-    .string()
-    .trim()
-    .email()
-    .or(z.literal(''))
-    .transform((x) => (x ? (x as Email) : null)),
-  tel: z
-    .string()
-    .trim()
-    .refine(isValidPhoneNumber)
-    .or(z.literal(''))
-    .transform((x) => (x ? (x as Tel) : null)),
-})
+    address: z
+      .string()
+      .trim()
+      .transform((x) => x || null),
+    price: z.strictObject({
+      value: z.coerce
+        .number()
+        .positive()
+        .finite()
+        .max(oneTrillion, {
+          message: errMsg?.priceValueMax ?? ''
+        })
+        .refine(hasTwoDecimalPlaces, {
+          message: 'Value must have at most 2 digits after the decimal point'
+        })
+        .or(z.undefined())
+        .transform((x) => x || null),
+      currency: z.enum(currencies)
+    }),
+    email: z
+      .string()
+      .trim()
+      .email()
+      .or(z.literal(''))
+      .transform((x) => (x ? (x as Email) : null)),
+    tel: z
+      .string()
+      .trim()
+      .refine(isValidPhoneNumber)
+      .or(z.literal(''))
+      .transform((x) => (x ? (x as Tel) : null))
+  })
 
 export default plotInfoFormDTOSchema
 
-export type PlotInfoFormDTOSchema = z.infer<typeof plotInfoFormDTOSchema>
+export type PlotInfoFormDTOSchema = z.infer<
+  ReturnType<typeof plotInfoFormDTOSchema>
+>
 
 type PriceKey = keyof Pick<PlotInfoFormDTOSchema, 'price'>
 type PriceValue = Simplify<{
