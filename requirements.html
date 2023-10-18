@@ -29,6 +29,7 @@
         color: greenyellow;
       }
 
+      details:has(.done) > summary,
       .started {
         color: aqua;
       }
@@ -40,13 +41,13 @@
   </head>
   <body>
     <details open>
-      <summary class="started">landing page</summary>
+      <summary>landing page</summary>
       <details open>
-        <summary class="started">map</summary>
+        <summary>map</summary>
         <details open>
-          <summary class="started">plot</summary>
+          <summary>plot</summary>
           <details open>
-            <summary class="started">create</summary>
+            <summary>create</summary>
             <p>by adding points manually</p>
             <p class="done">by coordinates</p>
             <p>
@@ -61,22 +62,24 @@
             <p>by adjusting coordinates</p>
           </details>
           <details open>
-            <summary class="started">modal</summary>
+            <summary>modal</summary>
             <p>delete plot</p>
             <details open>
-              <summary class="started">details</summary>
+              <summary>details</summary>
               <p class="done">description</p>
               <p class="done">address</p>
-              <p>size (derived)</p>
+              <p class="done">size (derived)</p>
               <p class="done">price</p>
-              <p>price per m2 (derived)</p>
+              <p class="done">price per m2 (derived)</p>
               <p>type of transaction (lease, buy, sell)</p>
               <p>pictures</p>
-              <p>color of plot</p>
+              <p class="abandoned">
+                color of plot (abandoned - show random color instead)
+              </p>
               <p>show statistics (How many people clicked)</p>
               <p class="done">contact phone (derived)</p>
               <p class="done">contact email (derived)</p>
-              <p>description</p>
+              <p>how many users has added the plot to favorites</p>
             </details>
           </details>
           <p>add to favorites</p>
@@ -162,7 +165,7 @@
       <p class="done">Docker</p>
       <p>ElasticSearch</p>
       <details open>
-        <summary>ChatGPT (Content Moderation, )</summary>
+        <summary>ChatGPT</summary>
         <p>content moderation</p>
         <p>generating plot descriptions based on coordinates</p>
       </details>
