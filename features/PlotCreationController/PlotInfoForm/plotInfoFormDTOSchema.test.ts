@@ -1,13 +1,15 @@
 import plotInfoFormDTOSchema, {
   PlotInfoFormData
 } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
+import { Writable } from 'type-fest'
 
-const model: PlotInfoFormData = {
+const model: Writable<PlotInfoFormData> = {
   description: '',
   address: '',
   price: { value: undefined, currency: 'PLN' },
   email: '',
-  tel: ''
+  tel: '',
+  transactionType: []
 }
 
 let mockedData: typeof model

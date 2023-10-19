@@ -1,7 +1,7 @@
 import { Email, Tel } from '@/utils/types'
 import { CurrencyInputProps } from 'react-currency-input-field'
 import { isValidPhoneNumber } from 'react-phone-number-input'
-import { Simplify } from 'type-fest'
+import { ReadonlyDeep, Simplify } from 'type-fest'
 import { z } from 'zod'
 
 const hasTwoDecimalPlaces = (num: number) => {
@@ -52,6 +52,7 @@ const plotInfoFormDTOSchema = (errMsg?: {
         .transform((x) => x || null),
       currency: z.enum(currencies)
     }),
+    transactionType: z.array(z.enum(['lease', 'buy', 'sell'])),
     email: z
       .string()
       .trim()
@@ -86,8 +87,12 @@ type RestKeys = keyof Pick<
   PlotInfoFormDTOSchema,
   'description' | 'address' | 'email' | 'tel'
 >
+type TransactionType = Pick<PlotInfoFormDTOSchema, 'transactionType'>
 
 export type PlotInfoFormData = Simplify<
-  Record<PriceKey, Simplify<PriceValue & PriceCurrency>> &
-    Record<RestKeys, string>
+  ReadonlyDeep<
+    Record<PriceKey, Simplify<PriceValue & PriceCurrency>> &
+      Record<RestKeys, string> &
+      TransactionType
+  >
 >

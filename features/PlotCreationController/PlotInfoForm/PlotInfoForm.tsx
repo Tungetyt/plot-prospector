@@ -48,7 +48,8 @@ function PlotInfoForm({ email }: { email: Email | null }) {
     },
     email: email ?? '',
     address: '',
-    description: ''
+    description: '',
+    transactionType: []
   } as const satisfies PlotInfoFormData
 
   const methods = useForm<typeof defaultValues>({
