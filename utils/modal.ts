@@ -8,6 +8,7 @@ export const showModal = <T extends string>(dialogId: T) => {
       }
   )[dialogId].showModal()
 }
+
 export const closeModal = <T extends string>(dialogId: T) => {
   ;(
     window as Window &

@@ -2,7 +2,7 @@
 
 - git
 - docker
-- pnpm (for development)
+- pnpm
 
 # Getting started
 

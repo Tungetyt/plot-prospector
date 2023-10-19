@@ -1,8 +1,10 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyFunction = (...args: any) => void
+
 const storeActionsSelector = <
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  T extends { actions: Record<string, (...args: any) => void> },
+  T extends { actions: Record<string, AnyFunction> }
 >({
-  actions,
+  actions
 }: T): T['actions'] => actions
 
 export default storeActionsSelector
