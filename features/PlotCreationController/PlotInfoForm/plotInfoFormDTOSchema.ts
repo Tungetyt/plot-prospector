@@ -23,6 +23,8 @@ export const currencies = [
 
 export const oneTrillion = 1_000_000_000_000
 
+export const transactionTypeOptions = ['buy', 'sell', 'lease'] as const
+
 const plotInfoFormDTOSchema = (errMsg?: {
   priceValueMax: string
   telIsValidPhoneNumber: string
@@ -52,7 +54,7 @@ const plotInfoFormDTOSchema = (errMsg?: {
         .transform((x) => x || null),
       currency: z.enum(currencies)
     }),
-    transactionType: z.array(z.enum(['lease', 'buy', 'sell'])),
+    transactionType: z.array(z.enum(transactionTypeOptions)),
     email: z
       .string()
       .trim()

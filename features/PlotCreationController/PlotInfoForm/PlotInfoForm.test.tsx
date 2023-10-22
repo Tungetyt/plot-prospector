@@ -77,4 +77,33 @@ describe('PlotInfoForm', () => {
       exact: false
     })
   })
+
+  test('can select multiple transaction types', async () => {
+    renderComponent(null)
+
+    const buyCheckbox = screen.getByRole('checkbox', {
+      name: /buy/i
+    }) as HTMLInputElement
+    const sellCheckbox = screen.getByRole('checkbox', {
+      name: /sell/i
+    }) as HTMLInputElement
+    const leaseCheckbox = screen.getByRole('checkbox', {
+      name: /lease/i
+    }) as HTMLInputElement
+
+    await userEvent.click(buyCheckbox)
+    await userEvent.click(sellCheckbox)
+
+    expect(buyCheckbox.checked).toBe(true)
+    expect(sellCheckbox.checked).toBe(true)
+    expect(leaseCheckbox.checked).toBe(false)
+
+    await userEvent.click(leaseCheckbox)
+
+    expect(leaseCheckbox.checked).toBe(true)
+
+    await userEvent.click(sellCheckbox)
+
+    expect(sellCheckbox.checked).toBe(false)
+  })
 })

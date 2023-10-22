@@ -21,6 +21,12 @@
     "Plot_Price": "Plot Price",
     "Currency": "Currency",
     "Price_per": "Price per",
+    "Transaction_Type": {
+      "Title": "Transaction Type",
+      "buy": "Buy",
+      "sell": "Sell",
+      "lease": "Lease"
+    },
     "Contact_Email": "Contact Email",
     "Contact_Phone": "Contact Phone",
     "Validation": {

@@ -84,4 +84,25 @@ describe('plotInfoFormDTOSchema', () => {
     const invalidTel2 = schema.safeParse(mockedData)
     expect(invalidTel2.success).toBe(false)
   })
+
+  describe('validates transactionType correctly', () => {
+    it('accepts valid transaction types', () => {
+      mockedData.transactionType = ['buy', 'sell']
+      const validTransactionType = schema.safeParse(mockedData)
+      expect(validTransactionType.success).toBe(true)
+    })
+
+    it('rejects invalid transaction types', () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      mockedData.transactionType = ['invalidType' as any]
+      const invalidTransactionType = schema.safeParse(mockedData)
+      expect(invalidTransactionType.success).toBe(false)
+    })
+
+    it('accepts empty transaction types', () => {
+      mockedData.transactionType = []
+      const emptyTransactionType = schema.safeParse(mockedData)
+      expect(emptyTransactionType.success).toBe(true)
+    })
+  })
 })

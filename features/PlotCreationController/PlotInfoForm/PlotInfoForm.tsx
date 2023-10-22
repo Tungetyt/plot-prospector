@@ -10,7 +10,8 @@ import polygonArea from '@/features/PlotCreationController/PlotInfoForm/polygonA
 import getDefaultCurrency from '@/features/PlotCreationController/PlotInfoForm/getDefaultCurrency'
 import plotInfoFormDTOSchema, {
   oneTrillion,
-  PlotInfoFormData
+  PlotInfoFormData,
+  transactionTypeOptions
 } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
 import { plotInfoFormDialogId } from '@/features/PlotCreationController/NextButtonWithWarning/NextButton'
 import { closeModal } from '@/utils/modal'
@@ -122,6 +123,21 @@ function PlotInfoForm({ email }: { email: Email | null }) {
                   {errors.address?.message}
                 </span>
               </label>
+            </div>
+            <div className="form-control w-fit">
+              {transactionTypeOptions.map((tt) => (
+                <label className="label cursor-pointer gap-8" key={tt}>
+                  <span className="label-text">
+                    {t(`Transaction_Type.${tt}`)}
+                  </span>
+                  <input
+                    {...register('transactionType')}
+                    type="checkbox"
+                    className="checkbox"
+                    value={tt}
+                  />
+                </label>
+              ))}
             </div>
             <div className="grid grid-cols-[repeat(3,auto)] gap-3">
               <div className="form-control w-full max-w-xs">
