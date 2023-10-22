@@ -1,19 +1,20 @@
 import {
   initialCoord,
   NumberWithTrailingDecimal,
+  NumberWithTrailingZero,
   Point,
   PointFromTextInput,
-  State,
+  State
 } from '@/store/draftPlot/common'
 import isValidCoordinate from '@/store/draftPlot/isValidCoordinate'
 import { isNumeric } from '@/utils/common'
 import invariant from 'tiny-invariant'
 
 const endsWithDecimal = (
-  input: PointFromTextInput['lng'],
+  input: PointFromTextInput['lng']
 ): input is NumberWithTrailingDecimal => input.toString().at(-1) === '.'
 
-const hasTrailingZero = (input: string): input is `${number}.${number}0` => {
+const hasTrailingZero = (input: string): input is NumberWithTrailingZero => {
   if (!input.includes('.')) return false
 
   return input.endsWith('0')
@@ -48,7 +49,7 @@ const removeEmptyPoints = (updatedPlot: Point[]) => {
 
   updatedPlot.splice(
     updatedPlot.length - idsToRemove.length,
-    idsToRemove.length,
+    idsToRemove.length
   )
 
   return Boolean(idsToRemove.length)
@@ -56,16 +57,16 @@ const removeEmptyPoints = (updatedPlot: Point[]) => {
 
 const updatePlot = (
   plot: ReadonlyArray<Point>,
-  updatedPoint: PointFromTextInput,
+  updatedPoint: PointFromTextInput
 ): Point[] =>
   plot.map((point) =>
     point.id === updatedPoint.id
       ? {
           ...updatedPoint,
           lat: tryConvertToNum(updatedPoint.lat),
-          lng: tryConvertToNum(updatedPoint.lng),
+          lng: tryConvertToNum(updatedPoint.lng)
         }
-      : point,
+      : point
   )
 
 const plotWithMaybeNewPoint = (plot: Point[]): Point[] => {
@@ -83,8 +84,8 @@ const plotWithMaybeNewPoint = (plot: Point[]): Point[] => {
     {
       id: crypto.randomUUID(),
       lat: initialCoord,
-      lng: initialCoord,
-    },
+      lng: initialCoord
+    }
   ]
 }
 
@@ -114,7 +115,7 @@ const formatCoord = (coord: PointFromTextInput['lng']) => {
 const formatPoint = (updatedPoint: PointFromTextInput): PointFromTextInput => ({
   ...updatedPoint,
   lat: formatCoord(updatedPoint.lat),
-  lng: formatCoord(updatedPoint.lng),
+  lng: formatCoord(updatedPoint.lng)
 })
 
 const changePointReducer =
