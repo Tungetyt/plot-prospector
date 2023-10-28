@@ -9,24 +9,24 @@ import type { WritableDeep } from 'type-fest'
 export const MapContainer = dynamic(
   async () => (await import('react-leaflet')).MapContainer,
   {
-    ssr: false,
-  },
+    ssr: false
+  }
 )
 export const Polygon = dynamic(
   async () => (await import('react-leaflet')).Polygon,
   {
-    ssr: false,
-  },
+    ssr: false
+  }
 )
 export const TileLayer = dynamic(
   async () => (await import('react-leaflet')).TileLayer,
   {
-    ssr: false,
-  },
+    ssr: false
+  }
 )
 
 const PWJozefoslawObservatoryCoordinates: Readonly<[number, number]> = [
-  52.0979030011665, 21.03239659105818,
+  52.0979030011665, 21.03239659105818
 ] as const
 
 function Map() {
@@ -62,7 +62,7 @@ function Map() {
             click: ({ target }) => {
               const id = target._path.getAttribute('data-id')
               console.log('Polygon with id: ', id, ' clicked', target)
-            },
+            }
           }}
         />
         <MapURLEvents />
