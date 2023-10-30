@@ -53,7 +53,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
     transactionType: []
   } as const satisfies PlotInfoFormData
 
-  const methods = useForm<typeof defaultValues>({
+  const methods = useForm<PlotInfoFormData>({
     resolver: zodResolver(
       plotInfoFormDTOSchema({
         priceValueMax: `${t(

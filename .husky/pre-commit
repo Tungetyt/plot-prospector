@@ -11,8 +11,8 @@ generate_ignore() {
 
   if git diff --cached --name-only | grep -Eq "$TARGET|$SPECIFIC|$GENERAL"; then
     echo "# WARNING: Do not modify this file manually. It is auto-generated during commit phase." > "$TARGET"
-    cat "$SPECIFIC" "$GENERAL" | grep -v '^#' | sort | uniq >> "$TARGET" || { echo "Error! Failed to update $TARGET"; exit 42; }
-    git add "$TARGET" || { echo "Error! Failed to add $TARGET to commit"; exit 43; }
+    cat "$SPECIFIC" "$GENERAL" | grep -v '^#' | sort | uniq >> "$TARGET" || { echo "Error! Failed to update $TARGET"; exit 40; }
+    git add "$TARGET" || { echo "Error! Failed to add $TARGET to commit"; exit 41; }
     echo "$TARGET has been updated"
   else
     echo "No changes in $TARGET, $SPECIFIC or $GENERAL, skipping update of $TARGET"

@@ -30,9 +30,9 @@ All operations and commands should be done/run in root folder
    ```
 
    XXXXXXXXXXXXXXXXXXXXXXXXXXXXX - specific secret key\
-    xxxxxxxxxxxxxxxxxxxxxxxxxxxxx - whatever secret key\
-    Get GOOGLE_CLIENT from https://console.cloud.google.com/apis/credentials \
-    For non docker development (slower) use:
+   xxxxxxxxxxxxxxxxxxxxxxxxxxxxx - whatever secret key\
+   Get GOOGLE_CLIENT from https://console.cloud.google.com/apis/credentials \
+   For non docker development (slower) use:
    `DATABASE_HOSTNAME=localhost` instead
 
 2. Run `pnpm run docker:build`
