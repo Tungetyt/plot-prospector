@@ -22,4 +22,6 @@ const polygonArea = (coords: ReadonlyArray<LeafPoint>): number => {
   return +Math.abs(area / 2).toFixed(0)
 }
 
+export type Area = ReturnType<typeof polygonArea>
+
 export default polygonArea

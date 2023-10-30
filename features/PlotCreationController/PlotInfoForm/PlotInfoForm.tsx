@@ -15,8 +15,9 @@ import plotInfoFormDTOSchema, {
 } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
 import { plotInfoFormDialogId } from '@/features/PlotCreationController/NextButtonWithWarning/NextButton'
 import { closeModal } from '@/utils/modal'
-import PricePerM2 from '@/features/PlotCreationController/PlotInfoForm/PricePerM2'
 import PriceInput from '@/features/PlotCreationController/PlotInfoForm/PriceInput'
+import M2 from '@/features/PlotCreationController/PlotInfoForm/M2'
+import PricePerM2 from '@/features/PlotCreationController/PlotInfoForm/PricePerM2'
 import formatPlot from './formatPlot'
 
 const descriptionId = 'descriptionInput'
@@ -25,14 +26,6 @@ const priceId = 'priceInput'
 const currencyId = 'currencyId'
 const emailId = 'emailInput'
 const telId = 'telInput'
-
-function M2() {
-  return (
-    <>
-      m<sup>2</sup>
-    </>
-  )
-}
 
 function PlotInfoForm({ email }: { email: Email | null }) {
   const t = useTranslations('Index')
