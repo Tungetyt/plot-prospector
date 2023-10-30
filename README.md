@@ -37,7 +37,7 @@ All operations and commands should be done/run in root folder
 
 2. Run `pnpm run docker:build`
 3. Open up http://localhost:3000 in a web browser (preferable Chrome, (Firefox is slow to hot reload)). The application should be fully functional at this point
-4. Run `pnpm install`
+4. Run `pnpm i`
 5. Run `pnpm run prisma:local:generate-types`
 
 # DB migrations
