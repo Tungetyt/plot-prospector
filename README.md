@@ -1,3 +1,5 @@
+All operations and commands should be done/run in root folder
+
 # Prerequisites
 
 - git
@@ -5,8 +7,6 @@
 - pnpm
 
 # Getting started
-
-All operations and commands should be done/run in root folder
 
 1. Create .env file with the content below:
 
@@ -36,9 +36,15 @@ All operations and commands should be done/run in root folder
    `DATABASE_HOSTNAME=localhost` instead
 
 2. Run `pnpm run docker:build`
-3. Open up http://localhost:3000 in a web browser (preferable Chrome, (Firefox is slow to hot reload)). The application should be fully functional at this point
+3. Open up http://localhost:<APP_PORT> in a web browser. The application should be fully functional at this point
 4. Run `pnpm i`
 5. Run `pnpm run prisma:local:generate-types`
+
+# Installing new dependencies
+
+1. Run `pnpm i <new-dependency-name>`
+2. Delete running docker containers
+3. Run `pnpm run docker:build`
 
 # DB migrations
 
@@ -52,9 +58,9 @@ All operations and commands should be done/run in root folder
 1. Make sure containers are running
 2. Run `prisma:studio`
 
-# Useful scripts
+# Web Browser for development
 
-Removing all running containers, images and volumes: `docker rm -f $(docker ps -a -q); docker rmi -f $(docker images -a -q); docker volume rm $(docker volume ls -q)`
+Google Chrome is preferred. Firefox is slow to hot reload.
 
 # ENV
 
@@ -65,6 +71,10 @@ After adding new env variable to .env file, it is recommended to provide corresp
 Our repository employs an automated generation of ignore files: .dockerignore, .prettierignore, and .eslintignore. These are formed by merging specific and general ignore files. The process occurs during the commit phase.
 
 Note: Do not modify these auto-generated ignore files manually. Update the respective .specific file or .gitignore as required. Manual changes to auto-generated files will be overwritten on the next commit.
+
+# Useful scripts
+
+Removing all running containers, images and volumes: `docker rm -f $(docker ps -a -q); docker rmi -f $(docker images -a -q); docker volume rm $(docker volume ls -q)`
 
 # Troubleshooting
 
@@ -83,6 +93,18 @@ ChunkLoadError: Loading chunk app/[locale]/page failed.
   Solution: Ignore
 - Warning in Browser DevTools: `[Fast Refresh] performing full reload` \
   Solution: Ignore
+- Error in Browser DevTools after buliding app with Turbopack:
+
+```Error: failed to receive message
+Caused by:
+- reading packet length
+- timeout while receiving message from process
+- deadline has elapsed
+
+This error happened while generating the page. Any console logs will be displayed in the terminal window.
+```
+
+Solution: Don't use Turbopack
 
 # Deployment
 
