@@ -2,7 +2,7 @@ import { useFormContext, useWatch } from 'react-hook-form'
 import { PlotInfoFormData } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
 import getIntlConfig from '@/features/PlotCreationController/PlotInfoForm/getInitConfig'
 import M2 from '@/features/PlotCreationController/PlotInfoForm/M2'
-import getPricePerM2 from '@/features/PlotCreationController/PlotInfoForm/getPricePerM2'
+import getPricePerM2 from '@/features/PlotCreationController/PlotInfoForm/PricePerM2/getPricePerM2'
 import { Area } from '@/features/PlotCreationController/PlotInfoForm/polygonArea'
 
 function PricePerM2({ area }: { area: Area }) {
@@ -23,7 +23,7 @@ function PricePerM2({ area }: { area: Area }) {
         ''
       ) : (
         <>
-          {currency}/<M2 />{' '}
+          {currency}/<M2 />
         </>
       )}
     </>

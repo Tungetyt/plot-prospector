@@ -17,7 +17,7 @@ import { plotInfoFormDialogId } from '@/features/PlotCreationController/NextButt
 import { closeModal } from '@/utils/modal'
 import PriceInput from '@/features/PlotCreationController/PlotInfoForm/PriceInput'
 import M2 from '@/features/PlotCreationController/PlotInfoForm/M2'
-import PricePerM2 from '@/features/PlotCreationController/PlotInfoForm/PricePerM2'
+import PricePerM2 from '@/features/PlotCreationController/PlotInfoForm/PricePerM2/PricePerM2'
 import formatPlot from './formatPlot'
 
 const descriptionId = 'descriptionInput'
