@@ -68,18 +68,36 @@ After adding new env variable to .env file, it is recommended to provide corresp
 
 # Ignore files
 
-Our repository employs an automated generation of ignore files: .dockerignore, .prettierignore, and .eslintignore. These are formed by merging specific and general ignore files. The process occurs during the commit phase.
+The repository employs an automated generation of ignore files: .dockerignore, .prettierignore, and .eslintignore. These are formed by merging specific and general ignore files. The process occurs during the commit phase.
 
 Note: Do not modify these auto-generated ignore files manually. Update the respective .specific file or .gitignore as required. Manual changes to auto-generated files will be overwritten on the next commit.
 
 # Useful scripts
 
-Removing all running containers, images and volumes: `docker rm -f $(docker ps -a -q); docker rmi -f $(docker images -a -q); docker volume rm $(docker volume ls -q)`
+Deleting all running containers, images and volumes: `docker rm -f $(docker ps -a -q); docker rmi -f $(docker images -a -q); docker volume rm $(docker volume ls -q)`
 
 # Troubleshooting
 
 - Error in running container, or in "Install dependencies based on the preferred package manager" step:\
   `Error: request to https://binaries.prisma.sh/all_commits/6b0aef69b7cdfc787f822ecd7cdc76d5f1991584/linux-musl-openssl-3.0.x/libquery_engine.so.node.sha256 failed, reason: write EPROTO 58CB15ADDF7F0000:error:0A000152:SSL routines:final_renegotiate:unsafe legacy renegotiation disabled:../deps/openssl/openssl/ssl/statem/extensions.c:921:`\
+  Solution: Disable VPN
+- Error in running container, or in "Install dependencies based on the preferred package manager" step:
+  ```[next-js deps 4/4] RUN   if [ -f yarn.lock ]; then yarn --frozen-lockfile;   elif [ -f package-lock.json ]; then npm ci;   elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile;   else echo "Lockfile not found." && exit 1;   fi:
+  0.573 yarn global v1.22.19
+  0.631 [1/4] Resolving packages...
+  2.390 error An unexpected error occurred: "https://registry.yarnpkg.com/pn
+  pm: write EPROTO 58AB52C9A37F0000:error:0A000152:SSL routines:final_renego
+  tiate:unsafe legacy renegotiation disabled:../deps/openssl/openssl/ssl/statem/extensions.c:921:
+  2.390 ".
+  2.390 info If you think this is a bug, please open a bug report with the i
+  nformation provided in "/usr/local/share/.config/yarn/global/yarn-error.log".
+  2.390 info Visit https://yarnpkg.com/en/docs/cli/global for documentation about this command.
+  ------
+  failed to solve: process "/bin/sh -c if [ -f yarn.lock ]; then yarn --froz
+  en-lockfile;   elif [ -f package-lock.json ]; then npm ci;   elif [ -f pnp
+  m-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile;   el
+  se echo \"Lockfile not found.\" && exit 1;   fi" did not complete successfully: exit code: 1
+  ```
   Solution: Disable VPN
 - Errors in running container: `Error: P1001: Can't reach database server at db:5432`, or `/bin/sh: pnpm: not found`\
   Solution: It looks like these errors can be ignored
@@ -93,18 +111,18 @@ ChunkLoadError: Loading chunk app/[locale]/page failed.
   Solution: Ignore
 - Warning in Browser DevTools: `[Fast Refresh] performing full reload` \
   Solution: Ignore
-- Error in Browser DevTools after buliding app with Turbopack:
+- Error in Browser DevTools after building app with Turbopack:
 
-```Error: failed to receive message
-Caused by:
-- reading packet length
-- timeout while receiving message from process
-- deadline has elapsed
+  ```Error: failed to receive message
+  Caused by:
+  - reading packet length
+  - timeout while receiving message from process
+  - deadline has elapsed
 
-This error happened while generating the page. Any console logs will be displayed in the terminal window.
-```
+  This error happened while generating the page. Any console logs will be displayed in the terminal window.
+  ```
 
-Solution: Don't use Turbopack
+  Solution: Unknown
 
 # Deployment
 
