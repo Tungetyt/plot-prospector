@@ -1,5 +1,6 @@
 import { Email, Tel } from '@/utils/types'
 import { CurrencyInputProps } from 'react-currency-input-field'
+import { ImageListType } from 'react-images-uploading'
 import { isValidPhoneNumber } from 'react-phone-number-input'
 import { ReadonlyDeep, Simplify } from 'type-fest'
 import { z } from 'zod'
@@ -71,7 +72,13 @@ const plotInfoFormDTOSchema = (errMsg?: {
       })
       .or(z.literal(''))
       .nullable()
-      .transform((x) => (x ? (x as Tel) : null))
+      .transform((x) => (x ? (x as Tel) : null)),
+    pictures: z.array(
+      z.object({
+        dataURL: z.string(),
+        file: z.instanceof(File).optional()
+      })
+    )
   })
 
 export default plotInfoFormDTOSchema
@@ -90,11 +97,14 @@ type RestKeys = keyof Pick<
   'description' | 'address' | 'email' | 'tel'
 >
 type TransactionType = Pick<PlotInfoFormDTOSchema, 'transactionType'>
+type PicturesKey = keyof Pick<PlotInfoFormDTOSchema, 'pictures'>
+type PicturesType = Record<PicturesKey, ImageListType>
 
 export type PlotInfoFormData = Simplify<
   ReadonlyDeep<
     Record<PriceKey, Simplify<PriceValue & PriceCurrency>> &
       Record<RestKeys, string> &
-      TransactionType
+      TransactionType &
+      PicturesType
   >
 >

@@ -9,7 +9,8 @@ const model: Writable<PlotInfoFormData> = {
   price: { value: undefined, currency: 'PLN' },
   email: '',
   tel: '',
-  transactionType: []
+  transactionType: [],
+  pictures: []
 }
 
 let mockedData: typeof model

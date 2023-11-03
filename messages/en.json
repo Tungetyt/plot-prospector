@@ -21,6 +21,9 @@
     "Plot_Price": "Plot Price",
     "Currency": "Currency",
     "Price_per": "Price per",
+    "Click_or_Drop_here_plot_pictures": "Click or Drop here plot pictures",
+    "A_plot_picture": "A plot picture",
+    "Remove": "Remove",
     "Transaction_Type": {
       "Title": "Transaction Type",
       "buy": "Buy",

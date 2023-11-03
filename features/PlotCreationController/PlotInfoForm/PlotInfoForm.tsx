@@ -18,6 +18,14 @@ import { closeModal } from '@/utils/modal'
 import PriceInput from '@/features/PlotCreationController/PlotInfoForm/PriceInput'
 import M2 from '@/features/PlotCreationController/PlotInfoForm/M2'
 import PricePerM2 from '@/features/PlotCreationController/PlotInfoForm/PricePerM2/PricePerM2'
+import { useState } from 'react'
+import ImageUploading, {
+  ImageListType,
+  ImageType
+} from 'react-images-uploading'
+import { z } from 'zod'
+import Image from 'next/image'
+import invariant from 'tiny-invariant'
 import formatPlot from './formatPlot'
 
 const descriptionId = 'descriptionInput'
@@ -27,10 +35,45 @@ const currencyId = 'currencyId'
 const emailId = 'emailInput'
 const telId = 'telInput'
 
+type DataURLValue = Exclude<ImageType['dataURL'], undefined>
+type DataURLKey = keyof Pick<ImageType, 'dataURL'>
+type ExistingImageType = Omit<ImageType, 'dataURL'> & Record<DataURLKey, string>
+export type ExistingImageListType = Array<ExistingImageType>
+
+const removeDuplicateImages = (
+  imageList: ImageListType
+): ExistingImageListType => {
+  const uniqueDataURLs = new Set<string>()
+
+  const filteredList: ExistingImageListType = []
+
+  imageList.forEach((image) => {
+    const isValid = z.string().safeParse(image.dataURL)
+
+    if (isValid.success) {
+      const { data } = isValid
+
+      if (!uniqueDataURLs.has(data)) {
+        uniqueDataURLs.add(data)
+
+        const existingImage: ExistingImageType = {
+          ...image,
+          dataURL: data // Make dataURL mandatory
+        }
+
+        filteredList.push(existingImage)
+      }
+    }
+  })
+
+  return filteredList
+}
+
 function PlotInfoForm({ email }: { email: Email | null }) {
   const t = useTranslations('Index')
   const draftPlot = useDraftPlot()
   const locale = useLocale()
+  const [images, setImages] = useState<ExistingImageListType>([])
 
   const defaultCurrency = getDefaultCurrency(locale)
 
@@ -43,7 +86,8 @@ function PlotInfoForm({ email }: { email: Email | null }) {
     email: email ?? '',
     address: '',
     description: '',
-    transactionType: []
+    transactionType: [],
+    pictures: []
   } as const satisfies PlotInfoFormData
 
   const methods = useForm<PlotInfoFormData>({
@@ -63,10 +107,13 @@ function PlotInfoForm({ email }: { email: Email | null }) {
     register,
     control,
     handleSubmit,
+    setValue,
     formState: { errors }
   } = methods
 
-  const onSubmit = handleSubmit((data: PlotInfoFormData) => console.log(data))
+  const onSubmit = handleSubmit(({ pictures, ...restData }: PlotInfoFormData) =>
+    console.log({ ...restData, pictures: images.map(({ dataURL }) => dataURL) })
+  )
 
   const area = polygonArea(formatPlot(draftPlot))
 
@@ -169,6 +216,62 @@ function PlotInfoForm({ email }: { email: Email | null }) {
                 </div>
               </div>
             </div>
+            <ImageUploading
+              multiple
+              value={images}
+              onChange={(imageList) =>
+                setImages(removeDuplicateImages(imageList))
+              }
+              maxNumber={10}
+            >
+              {({
+                imageList,
+                onImageUpload,
+                onImageRemove,
+                isDragging,
+                dragProps
+              }) => (
+                <section
+                  className={isDragging ? 'dragNDrop' : undefined}
+                  {...dragProps}
+                >
+                  <button
+                    className="btn mb-2"
+                    type="button"
+                    onClick={onImageUpload}
+                  >
+                    {t('Click_or_Drop_here_plot_pictures')}
+                  </button>
+                  <div className="flex flex-wrap gap-1">
+                    {imageList
+                      .map(({ dataURL }) => dataURL)
+                      .filter((dataURL): dataURL is string => {
+                        invariant(dataURL, 'Expected dataURL to exist')
+                        return true
+                      })
+                      .map((dataURL, index) => (
+                        <div key={dataURL}>
+                          <Image
+                            src={dataURL}
+                            alt={t('A_plot_picture')}
+                            height="100"
+                            width="100"
+                            quality={100}
+                            style={{ height: 100, width: 100 }}
+                          />
+                          <button
+                            type="button"
+                            className="btn btn-xs block mx-auto"
+                            onClick={() => onImageRemove(index)}
+                          >
+                            {t('Remove')}
+                          </button>
+                        </div>
+                      ))}
+                  </div>
+                </section>
+              )}
+            </ImageUploading>
           </section>
           <section className="mt-4 pl-6">
             <div className="form-control">
