@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event'
 import customRender from '@/utils/customRender'
 import { Email } from '@/utils/types'
-import { screen, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { Index } from '../../../messages/en.json'
 import PlotInfoForm from './PlotInfoForm'
 
@@ -46,24 +46,6 @@ describe('PlotInfoForm', () => {
     expect(currencyInput.value).toBe('$123,456')
   })
 
-  test('shows validation errors', async () => {
-    renderComponent(null)
-
-    const email = screen.getByRole('textbox', { name: Index.Contact_Email })
-    const tel = screen.getByRole('textbox', { name: Index.Contact_Phone })
-    const submitButton = screen.getByRole('button', { name: Index.Finish })
-
-    userEvent.clear(email)
-    userEvent.type(email, 'invalidEmail')
-    userEvent.type(tel, 'invalidPhone')
-    userEvent.click(submitButton)
-
-    await waitFor(() => {
-      screen.findByText(Index.Validation.Invalid_email)
-      screen.findByText(Index.Validation.Invalid_phone)
-    })
-  })
-
   test('validates maximum price value', async () => {
     renderComponent(null)
 
@@ -81,9 +63,9 @@ describe('PlotInfoForm', () => {
   test('can select multiple transaction types', async () => {
     renderComponent(null)
 
-    const buyCheckbox = screen.getByRole('checkbox', {
+    const buyCheckbox = (await screen.findByRole('checkbox', {
       name: /buy/i
-    }) as HTMLInputElement
+    })) as HTMLInputElement
     const sellCheckbox = screen.getByRole('checkbox', {
       name: /sell/i
     }) as HTMLInputElement

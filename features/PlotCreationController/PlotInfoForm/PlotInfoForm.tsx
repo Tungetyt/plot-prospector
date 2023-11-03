@@ -19,13 +19,13 @@ import PriceInput from '@/features/PlotCreationController/PlotInfoForm/PriceInpu
 import M2 from '@/features/PlotCreationController/PlotInfoForm/M2'
 import PricePerM2 from '@/features/PlotCreationController/PlotInfoForm/PricePerM2/PricePerM2'
 import { useState } from 'react'
-import ImageUploading, {
-  ImageListType,
-  ImageType
-} from 'react-images-uploading'
-import { z } from 'zod'
+import ImageUploading from 'react-images-uploading'
 import Image from 'next/image'
 import invariant from 'tiny-invariant'
+import {
+  ExistingImageListType,
+  removeDuplicateImages
+} from '@/features/PlotCreationController/PlotInfoForm/removeDuplicateImages'
 import formatPlot from './formatPlot'
 
 const descriptionId = 'descriptionInput'
@@ -34,39 +34,6 @@ const priceId = 'priceInput'
 const currencyId = 'currencyId'
 const emailId = 'emailInput'
 const telId = 'telInput'
-
-type DataURLKey = keyof Pick<ImageType, 'dataURL'>
-type ExistingImageType = Omit<ImageType, 'dataURL'> & Record<DataURLKey, string>
-export type ExistingImageListType = Array<ExistingImageType>
-
-const removeDuplicateImages = (
-  imageList: ImageListType
-): ExistingImageListType => {
-  const uniqueDataURLs = new Set<string>()
-
-  const filteredList: ExistingImageListType = []
-
-  imageList.forEach((image) => {
-    const isValid = z.string().safeParse(image.dataURL)
-
-    if (isValid.success) {
-      const { data } = isValid
-
-      if (!uniqueDataURLs.has(data)) {
-        uniqueDataURLs.add(data)
-
-        const existingImage: ExistingImageType = {
-          ...image,
-          dataURL: data // Make dataURL mandatory
-        }
-
-        filteredList.push(existingImage)
-      }
-    }
-  })
-
-  return filteredList
-}
 
 function PlotInfoForm({ email }: { email: Email | null }) {
   const t = useTranslations('Index')
