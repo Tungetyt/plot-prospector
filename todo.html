@@ -26,7 +26,7 @@
       }
 
       .done {
-        color: greenyellow;
+        color: greenyellow !important;
       }
 
       details:has(.done) > summary,
@@ -38,6 +38,23 @@
         color: lightcoral;
       }
     </style>
+    <script defer>
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('body > details').forEach(checkIfAllDone)
+
+        function checkIfAllDone(details) {
+          const allParagraphs = details.querySelectorAll('p')
+          const allDone = Array.from(allParagraphs).every(
+            ({ classList }) =>
+              classList.contains('done') || classList.contains('abandoned')
+          )
+
+          if (allDone) details.querySelector('summary')?.classList.add('done')
+
+          details.querySelectorAll('details').forEach(checkIfAllDone)
+        }
+      })
+    </script>
   </head>
   <body>
     <details open>
@@ -72,7 +89,7 @@
               <p class="done">price</p>
               <p class="done">price per m2 (derived)</p>
               <p class="done">type of transaction (lease, buy, sell)</p>
-              <p>pictures</p>
+              <p class="done">pictures</p>
               <p class="abandoned">
                 color of plot (abandoned - show random color instead)
               </p>
