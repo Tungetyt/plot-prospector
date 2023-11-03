@@ -130,8 +130,8 @@ function PlotInfoForm({ email }: { email: Email | null }) {
             {area} <M2 />
           </div>
         </div>
-        <div className="flex gap-6 divide-x border-b">
-          <section className="mt-4  mb-6">
+        <div className="flex gap-6">
+          <section className="mt-4 mb-6">
             <div className="form-control">
               <label htmlFor={descriptionId} className="label">
                 <span className="label-text">{t('Plot_Description')}</span>
