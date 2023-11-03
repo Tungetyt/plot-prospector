@@ -8,8 +8,8 @@ function PlotCreatorRows() {
     <>
       {draftPlot.map((point) => (
         <tr key={point.id}>
-          <PointInput point={point} type="lng" />
           <PointInput point={point} type="lat" />
+          <PointInput point={point} type="lng" />
         </tr>
       ))}
     </>

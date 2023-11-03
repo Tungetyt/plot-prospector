@@ -6,8 +6,8 @@ describe('polygonArea', () => {
     expect(
       polygonArea([
         [0, 0],
-        [1, 1],
-      ]),
+        [1, 1]
+      ])
     ).toMatchInlineSnapshot('0')
   })
 
@@ -15,7 +15,7 @@ describe('polygonArea', () => {
     const line: [number, number][] = [
       [0, 0],
       [1, 1],
-      [2, 2],
+      [2, 2]
     ]
     expect(polygonArea(line)).toMatchInlineSnapshot('1888133')
   })
@@ -27,7 +27,7 @@ describe('polygonArea', () => {
       [0, 1],
       [1, 1],
       [1, 0],
-      [0, 0],
+      [0, 0]
     ]
     expect(polygonArea(square)).toMatchInlineSnapshot('12392658216')
   })
@@ -37,7 +37,7 @@ describe('polygonArea', () => {
       [0, 0],
       [0, 2],
       [2, 0],
-      [0, 0],
+      [0, 0]
     ]
     expect(polygonArea(triangle)).toMatchInlineSnapshot('24789092699')
   })
@@ -49,7 +49,7 @@ describe('polygonArea', () => {
       [-1, 1],
       [1, 1],
       [1, -1],
-      [-1, -1],
+      [-1, -1]
     ]
     expect(polygonArea(polygon)).toMatchInlineSnapshot('49570632865')
   })
@@ -60,18 +60,18 @@ describe('polygonArea', () => {
       [1, -1],
       [1, 1],
       [-1, 1],
-      [-1, -1],
+      [-1, -1]
     ]
     expect(polygonArea(polygon)).toMatchInlineSnapshot('49570632865')
   })
 
   it('should handle very large polygons', () => {
     const largePolygon: [number, number][] = [
-      [-180, -85],
-      [180, -85],
-      [180, 85],
-      [-180, 85],
-      [-180, -85],
+      [-85, -180],
+      [-85, 180],
+      [85, 180],
+      [85, -180],
+      [-85, -180]
     ]
     // The exact area will depend on your projection.
     expect(polygonArea(largePolygon)).toMatchInlineSnapshot('1600745957249118')
@@ -83,9 +83,41 @@ describe('polygonArea', () => {
       [0.0001, 0],
       [0.0001, 0.0001],
       [0, 0.0001],
-      [0, 0],
+      [0, 0]
     ]
     // This is nearly a line and should have a very small area.
     expect(polygonArea(narrowPolygon)).toMatchInlineSnapshot('124')
+  })
+
+  it('max lat', () => {
+    expect(polygonArea([[90, 0]])).toMatchInlineSnapshot('0')
+  })
+
+  it('max lng', () => {
+    expect(polygonArea([[0, 180]])).toMatchInlineSnapshot('0')
+  })
+
+  it('over max lng', () => {
+    expect(polygonArea([[10, 181]])).toMatchInlineSnapshot('0')
+  })
+
+  it('over max lat', () => {
+    expect(() => polygonArea([[91, 0]])).toThrowError()
+  })
+
+  it('min lat', () => {
+    expect(polygonArea([[-90, 0]])).toMatchInlineSnapshot('0')
+  })
+
+  it('min lng', () => {
+    expect(polygonArea([[0, -180]])).toMatchInlineSnapshot('0')
+  })
+
+  it('under min lng', () => {
+    expect(polygonArea([[10, -181]])).toMatchInlineSnapshot('0')
+  })
+
+  it('under min lat', () => {
+    expect(() => polygonArea([[-91, 0]])).toThrowError()
   })
 })

@@ -22,8 +22,8 @@ function PlotCreationController({ email }: PlotInfoFormModalProps) {
           <table className="table table-xs table-fixed table-pin-rows">
             <thead>
               <tr>
-                <th className="pl-4">{t('Longitude')}</th>
                 <th className="pl-4">{t('Latitude')}</th>
+                <th className="pl-4">{t('Longitude')}</th>
               </tr>
             </thead>
             <tbody>

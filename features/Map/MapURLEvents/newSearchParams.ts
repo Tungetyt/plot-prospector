@@ -3,8 +3,8 @@ import { MapOptions } from 'leaflet'
 import { useEffect, useRef } from 'react'
 import { useMap } from 'react-leaflet/hooks'
 
-type Lng = keyof Pick<Point, 'lng'>
 type Lat = keyof Pick<Point, 'lat'>
+type Lng = keyof Pick<Point, 'lng'>
 type Zoom = keyof Pick<MapOptions, 'zoom'>
 export const urlParams = {
   lat: 'lat',

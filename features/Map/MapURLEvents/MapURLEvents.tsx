@@ -2,7 +2,7 @@ import { useMap } from 'react-leaflet'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import newSearchParams, {
-  useMapInitialization,
+  useMapInitialization
 } from '@/features/Map/MapURLEvents/newSearchParams'
 
 const getSearchParams = () => new URLSearchParams(window.location.search)
@@ -15,16 +15,11 @@ function MapURLEvents() {
 
   useEffect(() => {
     const updateUrl = () => {
-      const { lng, lat } = map.getCenter()
+      const { lat, lng } = map.getCenter()
       const zoom = map.getZoom()
 
       const queryString = new URLSearchParams(
-        newSearchParams(
-          lat,
-          lng,
-          zoom,
-          Array.from(getSearchParams().entries()),
-        ),
+        newSearchParams(lat, lng, zoom, Array.from(getSearchParams().entries()))
       ).toString()
 
       const newPath = `${window.location.pathname}?${queryString}`
