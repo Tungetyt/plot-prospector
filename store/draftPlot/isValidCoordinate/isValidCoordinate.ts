@@ -2,7 +2,7 @@ import { isNumeric } from '@/utils/common'
 
 const isValidCoordinate = (
   value: string | number,
-  type: 'lat' | 'lng',
+  type: 'lat' | 'lng'
 ): boolean => {
   const stringValue = isNumeric(value) ? value.toString() : value
 

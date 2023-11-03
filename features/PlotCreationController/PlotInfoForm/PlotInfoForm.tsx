@@ -5,14 +5,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useLocale, useTranslations } from 'next-intl'
 import { FormProvider, useForm } from 'react-hook-form'
 import PhoneInput from 'react-phone-number-input/react-hook-form-input'
-import { sortedCurrencies } from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
-import polygonArea from '@/features/PlotCreationController/PlotInfoForm/polygonArea'
-import getDefaultCurrency from '@/features/PlotCreationController/PlotInfoForm/getDefaultCurrency'
+import { sortedCurrencies } from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies/sortedCurrencies'
+import polygonArea from '@/features/PlotCreationController/PlotInfoForm/polygonArea/polygonArea'
+import getDefaultCurrency from '@/features/PlotCreationController/PlotInfoForm/getDefaultCurrency/getDefaultCurrency'
 import plotInfoFormDTOSchema, {
   oneTrillion,
   PlotInfoFormData,
   transactionTypeOptions
-} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
+} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
 import { plotInfoFormDialogId } from '@/features/PlotCreationController/NextButtonWithWarning/NextButton'
 import { closeModal } from '@/utils/modal'
 import PriceInput from '@/features/PlotCreationController/PlotInfoForm/PriceInput'
@@ -25,8 +25,8 @@ import invariant from 'tiny-invariant'
 import {
   ExistingImageListType,
   removeDuplicateImages
-} from '@/features/PlotCreationController/PlotInfoForm/removeDuplicateImages'
-import formatPlot from './formatPlot'
+} from '@/features/PlotCreationController/PlotInfoForm/removeDuplicateImages/removeDuplicateImages'
+import formatPlot from './formatPlot/formatPlot'
 
 const descriptionId = 'descriptionInput'
 const addressId = 'addressInput'

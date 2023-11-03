@@ -6,7 +6,7 @@ import {
   PointFromTextInput,
   State
 } from '@/store/draftPlot/common'
-import isValidCoordinate from '@/store/draftPlot/isValidCoordinate'
+import isValidCoordinate from '@/store/draftPlot/isValidCoordinate/isValidCoordinate'
 import { isNumeric } from '@/utils/common'
 import invariant from 'tiny-invariant'
 

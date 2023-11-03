@@ -1,5 +1,5 @@
 import { useDraftPlot } from '@/store/draftPlot/draftPlotStore'
-import PointInput from '@/features/PlotCreationController/PlotCreatorRows/PointInput'
+import PointInput from '@/features/PlotCreationController/PlotCreatorRows/PointInput/PointInput'
 
 function PlotCreatorRows() {
   const draftPlot = useDraftPlot()

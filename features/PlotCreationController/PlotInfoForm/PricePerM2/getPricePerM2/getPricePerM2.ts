@@ -1,6 +1,6 @@
-import { intlConfigs } from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
-import { PlotInfoFormData } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
-import { Area } from '@/features/PlotCreationController/PlotInfoForm/polygonArea'
+import { intlConfigs } from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies/sortedCurrencies'
+import { PlotInfoFormData } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
+import { Area } from '@/features/PlotCreationController/PlotInfoForm/polygonArea/polygonArea'
 import { z } from 'zod'
 
 type Locale = (typeof intlConfigs)[number]['locale']

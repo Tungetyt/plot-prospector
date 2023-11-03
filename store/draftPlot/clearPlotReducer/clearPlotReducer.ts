@@ -2,7 +2,7 @@ import { initialState, State } from '@/store/draftPlot/common'
 
 const clearPlotReducer = () => (): State => ({
   ...initialState,
-  phase: '',
+  phase: ''
 })
 
 export default clearPlotReducer

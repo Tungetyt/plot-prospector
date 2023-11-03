@@ -3,12 +3,12 @@ import {
   initialState,
   Phase,
   PointFromTextInput,
-  Store,
+  Store
 } from '@/store/draftPlot/common'
-import changePointReducer from '@/store/draftPlot/changePointReducer'
+import changePointReducer from '@/store/draftPlot/changePointReducer/changePointReducer'
 import storeActionsSelector from '@/utils/zustand'
-import clearPlotReducer from '@/store/draftPlot/clearPlotReducer'
-import changePhaseReducer from '@/store/draftPlot/changePhaseReducer'
+import clearPlotReducer from '@/store/draftPlot/clearPlotReducer/clearPlotReducer'
+import changePhaseReducer from '@/store/draftPlot/changePhaseReducer/changePhaseReducer'
 
 const useDraftPlotStore = create<Store>((set) => ({
   ...initialState,
@@ -16,8 +16,8 @@ const useDraftPlotStore = create<Store>((set) => ({
     changePoint: (updatedPoint: PointFromTextInput) =>
       set(changePointReducer(updatedPoint)),
     clearPlot: () => set(clearPlotReducer()),
-    changePhase: (phase: Phase) => set(changePhaseReducer(phase)),
-  },
+    changePhase: (phase: Phase) => set(changePhaseReducer(phase))
+  }
 }))
 
 const draftPlotSelector = ({ plot }: Store) => plot

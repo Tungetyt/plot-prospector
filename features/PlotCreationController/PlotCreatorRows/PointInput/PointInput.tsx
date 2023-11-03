@@ -1,10 +1,10 @@
-import isValidCoordinate from '@/store/draftPlot/isValidCoordinate'
+import isValidCoordinate from '@/store/draftPlot/isValidCoordinate/isValidCoordinate'
 import { Point } from '@/store/draftPlot/common'
 import { useDraftPlotActions } from '@/store/draftPlot/draftPlotStore'
 
 const stopCaretJumpingToTheEnd = (
   target: EventTarget & HTMLInputElement,
-  type: 'lat' | 'lng',
+  type: 'lat' | 'lng'
 ) => {
   const caret =
     target.selectionStart !== null && !isValidCoordinate(target.value, type)
@@ -29,7 +29,7 @@ function PointInput({ point, type }: { point: Point; type: 'lat' | 'lng' }) {
         onChange={({ target }) => {
           changePoint({
             ...point,
-            [type]: target.value,
+            [type]: target.value
           })
 
           stopCaretJumpingToTheEnd(target, type)

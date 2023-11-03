@@ -1,7 +1,7 @@
 /* eslint-disable dot-notation */
 import newSearchParams, {
-  urlParams,
-} from '@/features/Map/MapURLEvents/newSearchParams'
+  urlParams
+} from '@/features/Map/MapURLEvents/newSearchParams/newSearchParams'
 
 describe('newSearchParams', () => {
   // Standard Test Cases
@@ -15,7 +15,7 @@ describe('newSearchParams', () => {
   it('should merge existing parameters with lat, lng, and zoom', () => {
     const existingParams: [string, string][] = [
       ['query1', 'value1'],
-      ['query2', 'value2'],
+      ['query2', 'value2']
     ]
     const result = newSearchParams(40, 50, 10, existingParams)
     expect(result['query1']).toBe('value1')
@@ -39,7 +39,7 @@ describe('newSearchParams', () => {
     const existingParams: any = [
       ['query1', null],
       ['query2', 12345],
-      ['query3', {}],
+      ['query3', {}]
     ]
     const result = newSearchParams(40, 50, 10, existingParams)
     expect(result['query1']).toBe(null)
@@ -50,7 +50,7 @@ describe('newSearchParams', () => {
   it('should handle duplicate keys in searchParams', () => {
     const existingParams: [string, string][] = [
       ['duplicate', 'firstValue'],
-      ['duplicate', 'secondValue'],
+      ['duplicate', 'secondValue']
     ]
     const result = newSearchParams(40, 50, 10, existingParams)
     expect(result['duplicate']).toBe('secondValue')

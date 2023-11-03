@@ -1,4 +1,4 @@
-import changePhaseReducer from '@/store/draftPlot/changePhaseReducer'
+import changePhaseReducer from '@/store/draftPlot/changePhaseReducer/changePhaseReducer'
 
 describe('changePhaseReducer', () => {
   it('should return an object with an empty phase for an empty phase input', () => {

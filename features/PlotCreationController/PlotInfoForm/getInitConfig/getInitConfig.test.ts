@@ -1,8 +1,8 @@
-import getIntlConfig from '@/features/PlotCreationController/PlotInfoForm/getInitConfig'
+import getIntlConfig from '@/features/PlotCreationController/PlotInfoForm/getInitConfig/getInitConfig'
 import {
   Currency,
-  intlConfigs,
-} from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
+  intlConfigs
+} from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies/sortedCurrencies'
 
 describe('getIntlConfig', () => {
   it('should return the correct intlConfig for each currency', () => {
@@ -11,13 +11,13 @@ describe('getIntlConfig', () => {
       'EUR',
       'USD',
       'GBP',
-      'Other',
+      'Other'
     ])
 
     testCases.forEach((currency) => {
       const result = getIntlConfig(currency)
       const expected = intlConfigs.find(
-        (config) => config.currency === currency,
+        (config) => config.currency === currency
       )
       expect(result).toEqual(expected)
     })
@@ -26,7 +26,7 @@ describe('getIntlConfig', () => {
   it('should throw an error for an undefined currency', () => {
     const invalidCurrency = 'INVALID_CURRENCY' as Currency
     expect(() => getIntlConfig(invalidCurrency)).toThrow(
-      'Expected intlConfig to be defined',
+      'Expected intlConfig to be defined'
     )
   })
 })

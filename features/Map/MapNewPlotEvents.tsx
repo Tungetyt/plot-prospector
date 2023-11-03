@@ -1,4 +1,4 @@
-import { LeafPoint } from '@/features/PlotCreationController/PlotInfoForm/formatPlot'
+import { LeafPoint } from '@/features/PlotCreationController/PlotInfoForm/formatPlot/formatPlot'
 import type { WritableDeep } from 'type-fest'
 import L from 'leaflet' // Make sure to import L if it's not already in scope
 import { useEffect, useRef } from 'react'

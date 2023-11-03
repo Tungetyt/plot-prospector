@@ -1,4 +1,4 @@
-import isValidCoordinate from '@/store/draftPlot/isValidCoordinate'
+import isValidCoordinate from '@/store/draftPlot/isValidCoordinate/isValidCoordinate'
 
 describe('isValidCoordinate', () => {
   const latLngTests = [
@@ -32,7 +32,7 @@ describe('isValidCoordinate', () => {
     { value: '123.123.', type: 'lng', result: false },
     { value: '123..123', type: 'lng', result: false },
     { value: '123-.123', type: 'lng', result: false },
-    { value: '123.-123', type: 'lng', result: false },
+    { value: '123.-123', type: 'lng', result: false }
   ] as const
 
   latLngTests.forEach(({ value, type, result }) => {

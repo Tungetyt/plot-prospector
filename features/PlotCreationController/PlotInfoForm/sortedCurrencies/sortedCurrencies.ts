@@ -2,8 +2,8 @@ import invariant from 'tiny-invariant'
 import {
   currencies,
   IntlConfig,
-  OTHER,
-} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
+  OTHER
+} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
 
 export type Currency = (typeof currencies)[number]
 type CurrencyKey = keyof Pick<IntlConfig, 'currency'>
@@ -13,29 +13,29 @@ export type LocaleRecord = Pick<IntlConfig, 'locale'>
 export const intlConfigs = [
   {
     locale: 'pl-PL',
-    currency: 'PLN',
+    currency: 'PLN'
   },
   {
     locale: 'de-DE',
-    currency: 'EUR',
+    currency: 'EUR'
   },
   {
     locale: 'en-US',
-    currency: 'USD',
+    currency: 'USD'
   },
   {
     locale: 'en-GB',
-    currency: 'GBP',
+    currency: 'GBP'
   },
   {
     locale: '',
-    currency: 'Other',
-  },
+    currency: 'Other'
+  }
 ] as const satisfies ReadonlyArray<LocaleRecord & CurrencyRecord>
 
 const isRelatedToLocale = (locale: string, currency: Currency) => {
   const relatedConfig = intlConfigs.find(
-    (config) => config.currency === currency,
+    (config) => config.currency === currency
   )
   invariant(relatedConfig, 'Expected relatedConfig to be defined')
   return relatedConfig.locale.startsWith(locale)

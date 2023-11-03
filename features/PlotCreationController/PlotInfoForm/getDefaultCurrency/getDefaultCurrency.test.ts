@@ -1,6 +1,6 @@
-import getDefaultCurrency from '@/features/PlotCreationController/PlotInfoForm/getDefaultCurrency'
-import { intlConfigs } from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
-import { OTHER } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
+import getDefaultCurrency from '@/features/PlotCreationController/PlotInfoForm/getDefaultCurrency/getDefaultCurrency'
+import { intlConfigs } from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies/sortedCurrencies'
+import { OTHER } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
 
 describe('getDefaultCurrency', () => {
   it('should return the correct currency for a given locale', () => {
@@ -8,7 +8,7 @@ describe('getDefaultCurrency', () => {
       { locale: 'pl', expected: 'PLN' },
       { locale: 'de', expected: 'EUR' },
       { locale: 'en-US', expected: 'USD' },
-      { locale: 'en-GB', expected: 'GBP' },
+      { locale: 'en-GB', expected: 'GBP' }
     ] as const
 
     testCases.forEach(({ locale, expected }) => {
@@ -32,7 +32,7 @@ describe('getDefaultCurrency', () => {
   it('should return the first matching currency if multiple configurations start with the same locale', () => {
     const customIntlConfigs = [
       ...intlConfigs,
-      { locale: 'en-AU', currency: 'AUD' },
+      { locale: 'en-AU', currency: 'AUD' }
     ] as const
 
     const customGetDefaultCurrency = (locale: string) =>

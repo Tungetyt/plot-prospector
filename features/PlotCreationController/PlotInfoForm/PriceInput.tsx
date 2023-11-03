@@ -1,7 +1,7 @@
 import CurrencyInput from 'react-currency-input-field'
-import { PlotInfoFormData } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
+import { PlotInfoFormData } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
 import { useController, useFormContext, useWatch } from 'react-hook-form'
-import getIntlConfig from '@/features/PlotCreationController/PlotInfoForm/getInitConfig'
+import getIntlConfig from '@/features/PlotCreationController/PlotInfoForm/getInitConfig/getInitConfig'
 import { useTranslations } from 'next-intl'
 
 const priceId = 'priceInput'
@@ -12,16 +12,16 @@ function PriceInput() {
 
   const {
     field: { onChange, ...rest },
-    fieldState: { error },
+    fieldState: { error }
   } = useController({
     name: 'price.value',
     control,
-    rules: { required: true },
+    rules: { required: true }
   })
 
   const currency = useWatch({
     control,
-    name: 'price.currency',
+    name: 'price.currency'
   })
 
   const intlConfig = getIntlConfig(currency)

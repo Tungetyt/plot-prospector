@@ -1,7 +1,7 @@
 import { ImageListType, ImageType } from 'react-images-uploading'
 import { z } from 'zod'
 
-import { removeDuplicateImages } from '@/features/PlotCreationController/PlotInfoForm/removeDuplicateImages'
+import { removeDuplicateImages } from '@/features/PlotCreationController/PlotInfoForm/removeDuplicateImages/removeDuplicateImages'
 
 const createMockImage = (
   dataURL: ImageType['dataURL'],

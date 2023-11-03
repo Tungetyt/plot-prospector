@@ -3,7 +3,7 @@ import {
   Lat,
   LeafPoint,
   Lng
-} from '@/features/PlotCreationController/PlotInfoForm/formatPlot'
+} from '@/features/PlotCreationController/PlotInfoForm/formatPlot/formatPlot'
 import { z } from 'zod'
 
 type Proj4Point = [Lng, Lat] & {

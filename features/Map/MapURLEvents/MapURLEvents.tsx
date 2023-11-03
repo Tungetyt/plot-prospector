@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import newSearchParams, {
   useMapInitialization
-} from '@/features/Map/MapURLEvents/newSearchParams'
+} from '@/features/Map/MapURLEvents/newSearchParams/newSearchParams'
 
 const getSearchParams = () => new URLSearchParams(window.location.search)
 

@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic'
 import { useDraftPlot, usePhase } from '@/store/draftPlot/draftPlotStore'
 import MapURLEvents from '@/features/Map/MapURLEvents/MapURLEvents'
-import formatPlot from '@/features/PlotCreationController/PlotInfoForm/formatPlot'
+import formatPlot from '@/features/PlotCreationController/PlotInfoForm/formatPlot/formatPlot'
 import type { WritableDeep } from 'type-fest'
 import MapNewPlotEvents from '@/features/Map/MapNewPlotEvents'
 

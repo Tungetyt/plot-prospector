@@ -1,4 +1,4 @@
-import clearPlotReducer from '@/store/draftPlot/clearPlotReducer'
+import clearPlotReducer from '@/store/draftPlot/clearPlotReducer/clearPlotReducer'
 import { initialState, State } from '@/store/draftPlot/common'
 
 describe('clearPlotReducer', () => {
@@ -10,15 +10,15 @@ describe('clearPlotReducer', () => {
         {
           id: '1',
           lat: 40.7128,
-          lng: 74.006,
+          lng: 74.006
         },
         {
           id: '2',
           lat: 34.0522,
-          lng: 118.2437,
-        },
+          lng: 118.2437
+        }
       ],
-      phase: 'PLOT_CREATION',
+      phase: 'PLOT_CREATION'
     }
   })
 

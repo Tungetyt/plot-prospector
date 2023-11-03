@@ -1,12 +1,12 @@
 import {
   Currency,
-  intlConfigs,
-} from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies'
+  intlConfigs
+} from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies/sortedCurrencies'
 import invariant from 'tiny-invariant'
 
 const getIntlConfig = (currentCurrency: Currency) => {
   const result = intlConfigs.find(
-    ({ currency }) => currency === currentCurrency,
+    ({ currency }) => currency === currentCurrency
   )
   invariant(result, 'Expected intlConfig to be defined')
   return result

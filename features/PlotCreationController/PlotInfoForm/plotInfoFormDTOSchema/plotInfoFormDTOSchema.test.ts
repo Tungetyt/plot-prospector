@@ -1,6 +1,6 @@
 import plotInfoFormDTOSchema, {
   PlotInfoFormData
-} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema'
+} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
 import { Writable } from 'type-fest'
 
 const model: Writable<PlotInfoFormData> = {

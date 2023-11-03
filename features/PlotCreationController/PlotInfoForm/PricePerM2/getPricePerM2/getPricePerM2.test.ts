@@ -1,4 +1,4 @@
-import getPricePerM2 from '@/features/PlotCreationController/PlotInfoForm/PricePerM2/getPricePerM2'
+import getPricePerM2 from '@/features/PlotCreationController/PlotInfoForm/PricePerM2/getPricePerM2/getPricePerM2'
 import { z } from 'zod'
 
 describe('getPricePerM2', () => {
