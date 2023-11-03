@@ -5,6 +5,7 @@ import { useDraftPlot, usePhase } from '@/store/draftPlot/draftPlotStore'
 import MapURLEvents from '@/features/Map/MapURLEvents/MapURLEvents'
 import formatPlot from '@/features/PlotCreationController/PlotInfoForm/formatPlot'
 import type { WritableDeep } from 'type-fest'
+import MapNewPlotEvents from '@/features/Map/MapNewPlotEvents'
 
 export const MapContainer = dynamic(
   async () => (await import('react-leaflet')).MapContainer,
@@ -65,6 +66,7 @@ function Map() {
             }
           }}
         />
+        <MapNewPlotEvents newPlot={newPlot} />
         <MapURLEvents />
       </MapContainer>
     </div>

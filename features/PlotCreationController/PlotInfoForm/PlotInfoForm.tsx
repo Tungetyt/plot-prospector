@@ -35,7 +35,6 @@ const currencyId = 'currencyId'
 const emailId = 'emailInput'
 const telId = 'telInput'
 
-type DataURLValue = Exclude<ImageType['dataURL'], undefined>
 type DataURLKey = keyof Pick<ImageType, 'dataURL'>
 type ExistingImageType = Omit<ImageType, 'dataURL'> & Record<DataURLKey, string>
 export type ExistingImageListType = Array<ExistingImageType>
@@ -107,10 +106,10 @@ function PlotInfoForm({ email }: { email: Email | null }) {
     register,
     control,
     handleSubmit,
-    setValue,
     formState: { errors }
   } = methods
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onSubmit = handleSubmit(({ pictures, ...restData }: PlotInfoFormData) =>
     console.log({ ...restData, pictures: images.map(({ dataURL }) => dataURL) })
   )
@@ -334,5 +333,3 @@ function PlotInfoForm({ email }: { email: Email | null }) {
 }
 
 export default PlotInfoForm
-
-// TODO: Automatically go to the point after providing correct one. Scale so all points visible
