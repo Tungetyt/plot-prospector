@@ -6,7 +6,7 @@ import PlotCreatorRows from '@/features/PlotCreationController/PlotCreatorRows/P
 import { useDraftPlotActions, usePhase } from '@/store/draftPlot/draftPlotStore'
 import NextButtonWithWarning from '@/features/PlotCreationController/NextButtonWithWarning/NextButtonWithWarning'
 import PlotInfoFormModal, {
-  PlotInfoFormModalProps,
+  PlotInfoFormModalProps
 } from '@/features/PlotCreationController/PlotInfoFormModal'
 
 function PlotCreationController({ email }: PlotInfoFormModalProps) {
@@ -18,7 +18,6 @@ function PlotCreationController({ email }: PlotInfoFormModalProps) {
     return (
       <>
         <CancelButton />
-        <NextButtonWithWarning />
         <div className="overflow-x-auto max-h-96 px-1">
           <table className="table table-xs table-fixed table-pin-rows">
             <thead>
@@ -32,6 +31,7 @@ function PlotCreationController({ email }: PlotInfoFormModalProps) {
             </tbody>
           </table>
         </div>
+        <NextButtonWithWarning />
         <PlotInfoFormModal email={email} />
       </>
     )
