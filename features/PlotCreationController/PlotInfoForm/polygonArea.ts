@@ -1,5 +1,9 @@
 import proj4 from 'proj4'
 import { LeafPoint } from '@/features/PlotCreationController/PlotInfoForm/formatPlot'
+import { z } from 'zod'
+
+const throwIfFailedConversion = (projectedCoords: ReadonlyArray<LeafPoint>) =>
+  z.array(z.number()).parse(projectedCoords.flat())
 
 const polygonArea = (coords: ReadonlyArray<LeafPoint>): number => {
   const WGS84 = 'EPSG:4326'
@@ -7,6 +11,8 @@ const polygonArea = (coords: ReadonlyArray<LeafPoint>): number => {
 
   // Project coordinates to Mercator
   const projectedCoords = coords.map((coord) => proj4(WGS84, Mercator, coord))
+
+  throwIfFailedConversion(projectedCoords)
 
   let area = 0
   const numPoints = projectedCoords.length
