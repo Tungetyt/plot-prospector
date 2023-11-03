@@ -46,7 +46,7 @@ describe('PlotInfoForm', () => {
     expect(currencyInput.value).toBe('$123,456')
   })
 
-  test('shows validation errors', () => {
+  test('shows validation errors', async () => {
     renderComponent(null)
 
     const email = screen.getByRole('textbox', { name: Index.Contact_Email })
@@ -58,9 +58,9 @@ describe('PlotInfoForm', () => {
     userEvent.type(tel, 'invalidPhone')
     userEvent.click(submitButton)
 
-    waitFor(() => {
-      screen.getByText(Index.Validation.Invalid_email)
-      screen.getByText(Index.Validation.Invalid_phone)
+    await waitFor(() => {
+      screen.findByText(Index.Validation.Invalid_email)
+      screen.findByText(Index.Validation.Invalid_phone)
     })
   })
 

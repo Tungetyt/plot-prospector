@@ -40,6 +40,25 @@
     </style>
     <script defer>
       document.addEventListener('DOMContentLoaded', () => {
+        function assignIdsAndRestoreState(parent, prefix = '') {
+          const childrenDetails = parent.querySelectorAll(':scope > details')
+          childrenDetails.forEach((details, index) => {
+            const id = `${prefix}${index}`
+            details.dataset.id = id
+
+            const isOpen = localStorage.getItem(id)
+            if (isOpen !== null) details.open = isOpen === 'true'
+
+            details.addEventListener('toggle', ({ target }) => {
+              localStorage.setItem(target.dataset.id, target.open)
+            })
+
+            assignIdsAndRestoreState(details, `${id}-`)
+          })
+        }
+
+        assignIdsAndRestoreState(document.body)
+
         document.querySelectorAll('body > details').forEach(checkIfAllDone)
 
         function checkIfAllDone(details) {
