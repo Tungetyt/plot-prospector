@@ -26,7 +26,9 @@ const polygonArea = (coords: ReadonlyArray<LeafPoint>): number => {
     return proj4(WGS84, Mercator, [lng, lat] as Proj4Point)
   })
 
-  const proj4PointSchema = z.array(z.tuple([z.number(), z.number()]))
+  const proj4PointSchema = z.array(
+    z.tuple([z.number().finite(), z.number().finite()])
+  )
   proj4PointSchema.parse(projectedCoords)
 
   let area = 0
