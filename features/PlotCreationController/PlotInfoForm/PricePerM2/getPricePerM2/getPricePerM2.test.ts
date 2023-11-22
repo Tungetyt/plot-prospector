@@ -2,65 +2,65 @@ import getPricePerM2 from '@/features/PlotCreationController/PlotInfoForm/PriceP
 import { z } from 'zod'
 
 describe('getPricePerM2', () => {
-  it('returns the correct price per square meter for a given locale', () => {
+  it('returns the correct price per square meter when value and area are integers', () => {
     expect(getPricePerM2('en-US', 4, '200')).toEqual('50.00')
   })
 
-  it('returns the correct price for decimal value and whole number area', () => {
+  it('calculates the price per square meter correctly when value is an integer and area is a decimal', () => {
     expect(getPricePerM2('en-US', 4, '200.5')).toEqual('50.13')
   })
 
-  it('returns the correct price for whole number value and decimal area', () => {
+  it('calculates the price per square meter correctly when value is a decimal and area is an integer', () => {
     expect(getPricePerM2('en-US', 4.5, '200')).toEqual('44.44')
   })
 
-  it('returns the correct price for both value and area as decimals', () => {
+  it('calculates the price per square meter correctly when both value and area are decimals', () => {
     expect(getPricePerM2('en-US', 4.5, '200.5')).toEqual('44.56')
   })
 
-  it('returns "Infinity" for decimal value and zero area', () => {
+  it('handles zero area with a non-zero value by returning an empty string', () => {
     expect(getPricePerM2('en-US', 0, '200.5')).toEqual('')
   })
 
-  it('handles empty locale by using the default en-US', () => {
+  it('uses "en-US" as the default locale when an empty string is provided', () => {
     expect(getPricePerM2('', 4, '200')).toEqual('50.00')
   })
 
-  it('returns "Infinity" for area zero', () => {
+  it('handles zero value with non-zero area by returning an empty string', () => {
     expect(getPricePerM2('en-US', 0, '200')).toEqual('')
   })
 
-  it('returns "NaN" for undefined value', () => {
+  it('returns "0.00" when the area is undefined', () => {
     expect(getPricePerM2('en-US', 4, undefined)).toEqual('0.00')
   })
 
-  it('returns "NaN" for empty value', () => {
+  it('returns "0.00" when the area is an empty string', () => {
     expect(getPricePerM2('en-US', 4, '')).toEqual('0.00')
   })
 
-  it('returns "NaN" for incorrect number format in value', () => {
+  it('throws a ZodError when the area has an incorrect number format', () => {
     expect(() => getPricePerM2('en-US', 4, '200abc')).toThrow(z.ZodError)
   })
 
-  it('returns "NaN" for value as "NaN"', () => {
+  it('throws a ZodError when the area is the string "NaN"', () => {
     expect(() => getPricePerM2('en-US', 4, 'NaN')).toThrow(z.ZodError)
   })
 
-  it('returns "NaN" for area as NaN', () => {
+  it('throws a ZodError when the value is NaN', () => {
     expect(() => getPricePerM2('en-US', NaN, '200')).toThrow(z.ZodError)
   })
 
-  it('returns "NaN" for both value and area as "NaN"', () => {
+  it('throws a ZodError when both value and area are NaN', () => {
     expect(() => getPricePerM2('en-US', NaN, 'NaN')).toThrow(z.ZodError)
   })
 
-  it('throws an error for negative area', () => {
+  it('throws a ZodError when the area is negative', () => {
     expect(() => {
       getPricePerM2('en-US', -4, '200')
     }).toThrow(z.ZodError)
   })
 
-  it('throws an error for negative value', () => {
+  it('throws a ZodError when the value is negative', () => {
     expect(() => {
       getPricePerM2('en-US', 4, '-200')
     }).toThrow(z.ZodError)
