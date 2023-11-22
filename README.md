@@ -35,10 +35,11 @@ All operations and commands should be done/run in root folder
    For non docker development (slower) use:
    `DATABASE_HOSTNAME=localhost` instead
 
-2. Run `pnpm run docker:build`
-3. Open up http://localhost:<APP_PORT> in a web browser. The application should be fully functional at this point
-4. Run `pnpm i`
-5. Run `pnpm run prisma:local:generate-types`
+2. Make sure Docker is running and Internet connection is established
+3. Run `pnpm run docker:build`
+4. Open up http://localhost:<APP_PORT> in a web browser. The application should be fully functional at this point
+5. Run `pnpm i`
+6. Run `pnpm run prisma:local:generate-types`
 
 # Installing new dependencies
 
@@ -78,38 +79,49 @@ Deleting all running containers, images and volumes: `docker rm -f $(docker ps -
 
 # Troubleshooting
 
-- Error in running container, or in "Install dependencies based on the preferred package manager" step:\
-  `Error: request to https://binaries.prisma.sh/all_commits/6b0aef69b7cdfc787f822ecd7cdc76d5f1991584/linux-musl-openssl-3.0.x/libquery_engine.so.node.sha256 failed, reason: write EPROTO 58CB15ADDF7F0000:error:0A000152:SSL routines:final_renegotiate:unsafe legacy renegotiation disabled:../deps/openssl/openssl/ssl/statem/extensions.c:921:`\
-  Solution: Disable VPN
-- Error in running container, or in "Install dependencies based on the preferred package manager" step:
-  ```[next-js deps 4/4] RUN   if [ -f yarn.lock ]; then yarn --frozen-lockfile;   elif [ -f package-lock.json ]; then npm ci;   elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile;   else echo "Lockfile not found." && exit 1;   fi:
-  0.573 yarn global v1.22.19
-  0.631 [1/4] Resolving packages...
-  2.390 error An unexpected error occurred: "https://registry.yarnpkg.com/pn
-  pm: write EPROTO 58AB52C9A37F0000:error:0A000152:SSL routines:final_renego
-  tiate:unsafe legacy renegotiation disabled:../deps/openssl/openssl/ssl/statem/extensions.c:921:
-  2.390 ".
-  2.390 info If you think this is a bug, please open a bug report with the i
-  nformation provided in "/usr/local/share/.config/yarn/global/yarn-error.log".
-  2.390 info Visit https://yarnpkg.com/en/docs/cli/global for documentation about this command.
-  ------
-  failed to solve: process "/bin/sh -c if [ -f yarn.lock ]; then yarn --froz
-  en-lockfile;   elif [ -f package-lock.json ]; then npm ci;   elif [ -f pnp
-  m-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile;   el
-  se echo \"Lockfile not found.\" && exit 1;   fi" did not complete successfully: exit code: 1
-  ```
-  Solution: Disable VPN
+- Error in running container, or in "Install dependencies based on the preferred package manager":\
+  - `Error: request to https://binaries.prisma.sh/all_commits/6b0aef69b7cdfc787f822ecd7cdc76d5f1991584/linux-musl-openssl-3.0.x/libquery_engine.so.node.sha256 failed, reason: write EPROTO 58CB15ADDF7F0000:error:0A000152:SSL routines:final_renegotiate:unsafe legacy renegotiation disabled:../deps/openssl/openssl/ssl/statem/extensions.c:921:`\
+    Solution: Disable VPN
+  - ```[next-js deps 4/4] RUN   if [ -f yarn.lock ]; then yarn --frozen-lockfile;   elif [ -f package-lock.json ]; then npm ci;   elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile;   else echo "Lockfile not found." && exit 1;   fi:
+    0.573 yarn global v1.22.19
+    0.631 [1/4] Resolving packages...
+    2.390 error An unexpected error occurred: "https://registry.yarnpkg.com/pn
+    pm: write EPROTO 58AB52C9A37F0000:error:0A000152:SSL routines:final_renego
+    tiate:unsafe legacy renegotiation disabled:../deps/openssl/openssl/ssl/statem/extensions.c:921:
+    2.390 ".
+    2.390 info If you think this is a bug, please open a bug report with the i
+    nformation provided in "/usr/local/share/.config/yarn/global/yarn-error.log".
+    2.390 info Visit https://yarnpkg.com/en/docs/cli/global for documentation about this command.
+    ------
+    failed to solve: process "/bin/sh -c if [ -f yarn.lock ]; then yarn --froz
+    en-lockfile;   elif [ -f package-lock.json ]; then npm ci;   elif [ -f pnp
+    m-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile;   el
+    se echo \"Lockfile not found.\" && exit 1;   fi" did not complete successfully: exit code: 1
+    ```
+    Solution: Disable VPN
 - Errors in running container: `Error: P1001: Can't reach database server at db:5432`, or `/bin/sh: pnpm: not found`\
   Solution: It looks like these errors can be ignored
 - Error in Browser DevTools: `Unhandled Runtime Error
 ChunkLoadError: Loading chunk app/[locale]/page failed.
 (missing: http://localhost:3000/_next/static/chunks/app/%5Blocale%5D/page.js)`\
    Solution: Refresh the page
-- Warnings in Browser DevTools: `The resource http://localhost:3000/_next/static/css/app/[locale]/layout.css?v=1691919891150 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate as value and it is preloaded intentionally.` \
-  Solution: Ignore
+- Warnings in Browser DevTools:
+  - `The resource http://localhost:3000/_next/static/css/app/[locale]/layout.css?v=1691919891150 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate as value and it is preloaded intentionally.` \
+    Solution: Ignore
+  - `[Fast Refresh] performing full reload` \
+    Solution: Ignore
+  - ```
+    Failed to compile
+    ./globals.css.webpack[javascript/auto]!=!./node_modules/.pnpm/next@14.0.3_@babel+core@7.23.3_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[12].oneOf[12].use[2]!./node_modules/.pnpm/next@14.0.3_@babel+core@7.23.3_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[12].oneOf[12].use[3]!./globals.css
+    SyntaxError: Unexpected token, expected ";" (33:9)
+    This error occurred during the build process and can only be dismissed by fixing the error.
+    ```
+    Solution: \
+    1. fix compiling errors in code
+    2. delete running containers
+    3. run `docker:build`
+    4. refresh the page couple of times
 - Warning in Browser DevTools after Plot cancellation: `Form submission canceled because the form is not connected` \
-  Solution: Ignore
-- Warning in Browser DevTools: `[Fast Refresh] performing full reload` \
   Solution: Ignore
 - Error in Browser DevTools after building app with Turbopack:
 
@@ -123,6 +135,15 @@ ChunkLoadError: Loading chunk app/[locale]/page failed.
   ```
 
   Solution: Unknown
+
+- Error in terminal while running `docker:build`:
+  ```
+  request returned Internal Server Error for API route and version
+  http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.24/containers/json?all=1&filters=%7B%22label%22%3A%7B%22com.docker.compose.config-hash%22%3Atrue%2C%22com.docker.compose.project%3Dplot-prospector%22%3Atrue%7D%7D,
+  check if the server supports the requested API version
+   ELIFECYCLE  Command failed with exit code 1.
+  ```
+  Solution: Docker is not running. Start Docker
 
 # Deployment
 
