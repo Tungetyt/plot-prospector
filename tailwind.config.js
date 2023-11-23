@@ -20,12 +20,32 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('daisyui'),
     ({addUtilities}) => {
-      const newUtilities = {
+      addUtilities({
         '.dragNDrop': {
           outline: '2px dashed lightblue'
+        },
+        '.plotImg': {
+          aspectRatio: '1'
+        },
+        '.plotForm': {
+          scrollbarGutter: 'stable'
         }
-      }
-      addUtilities(newUtilities)
+      })
+    },
+    ({addComponents}) => {
+      addComponents({
+        '.highlight::after': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          'pointer-events': 'none',
+          'box-shadow': 'inset 0 0 30px 0 rgba(0, 0, 255, 1)',
+          'z-index': '99999' // Adjust as needed
+        }
+      })
     }
   ]
 }

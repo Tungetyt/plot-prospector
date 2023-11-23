@@ -87,7 +87,7 @@ function PlotInfoForm({email}: {email: Email | null}) {
     <FormProvider {...methods}>
       <form
         method="dialog"
-        className="modal-box max-w-fit backdrop-blur-md bg-opacity-75"
+        className="modal-box max-w-fit backdrop-blur-md bg-opacity-75 plotForm"
         onSubmit={onSubmit}
       >
         <div className="flex">
@@ -223,7 +223,7 @@ function PlotInfoForm({email}: {email: Email | null}) {
                             height="100"
                             width="100"
                             quality={100}
-                            style={{height: 100, width: 100}}
+                            className="plotImg"
                           />
                           <button
                             type="button"
