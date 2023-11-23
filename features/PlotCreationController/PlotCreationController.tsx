@@ -18,7 +18,7 @@ function PlotCreationController({ email }: PlotInfoFormModalProps) {
     return (
       <>
         <CancelButton />
-        <div className="overflow-x-auto max-h-96 px-1">
+        <div className="overflow-x-auto max-h-96 px-1 mb-2">
           <table className="table table-xs table-fixed table-pin-rows">
             <thead>
               <tr>

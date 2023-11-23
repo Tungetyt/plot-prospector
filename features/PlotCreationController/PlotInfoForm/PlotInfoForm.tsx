@@ -177,7 +177,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
                 <div className="mt-2 mb-5 label-text select-none">
                   {t('Price_per')} <M2 />
                 </div>
-                <div className="mb-3">
+                <div className="mb-3 min-w-[12rem]">
                   <PricePerM2 area={area} />
                 </div>
               </div>
