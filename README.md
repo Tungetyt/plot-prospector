@@ -123,6 +123,13 @@ ChunkLoadError: Loading chunk app/[locale]/page failed.
     4. refresh the page couple of times
 - Warning in Browser DevTools after Plot cancellation: `Form submission canceled because the form is not connected` \
   Solution: Ignore
+- Error in Browser DevTools after renaming file:
+  ```
+  Failed to read source code from /app/features/PlotCreationController/PlotInfoForm/action.ts
+  Caused by:
+  No such file or directory (os error 2)
+  ```
+  Solution: Ignore
 - Error in Browser DevTools after building app with Turbopack:
 
   ```Error: failed to receive message
