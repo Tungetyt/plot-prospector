@@ -1,4 +1,4 @@
-import { initialState, State } from '@/store/draftPlot/common'
+import {initialState, State} from '@/store/draftPlot/common'
 
 const clearPlotReducer = () => (): State => ({
   ...initialState,

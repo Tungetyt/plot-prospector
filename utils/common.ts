@@ -1,5 +1,5 @@
-import { z } from 'zod'
-import { Email } from '@/utils/types'
+import {z} from 'zod'
+import {Email} from '@/utils/types'
 
 export const isNumeric = (input: number | string): input is number =>
   typeof input === 'number'

@@ -1,8 +1,8 @@
-import { useTranslations } from 'next-intl'
-import { createPortal } from 'react-dom'
-import { useDraftPlotActions } from '@/store/draftPlot/draftPlotStore'
+import {useTranslations} from 'next-intl'
+import {createPortal} from 'react-dom'
+import {useDraftPlotActions} from '@/store/draftPlot/draftPlotStore'
 import useBody from '@/utils/useBody'
-import { showModal } from '@/utils/modal'
+import {showModal} from '@/utils/modal'
 
 const dialogId = 'cancelPlotModal'
 
@@ -10,7 +10,7 @@ function CancelButton() {
   const body = useBody()
 
   const t = useTranslations('Index')
-  const { clearPlot } = useDraftPlotActions()
+  const {clearPlot} = useDraftPlotActions()
 
   return (
     <>
@@ -43,7 +43,7 @@ function CancelButton() {
                 <button type="submit">close</button>
               </form>
             </dialog>,
-            body,
+            body
           )}
         </>
       )}

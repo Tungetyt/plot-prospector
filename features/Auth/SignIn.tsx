@@ -1,7 +1,7 @@
 'use client'
 
-import { signIn } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
+import {signIn} from 'next-auth/react'
+import {useTranslations} from 'next-intl'
 
 function SignIn() {
   const t = useTranslations('Index')

@@ -1,9 +1,9 @@
-import NextAuth, { AuthOptions, Profile } from 'next-auth'
+import NextAuth, {AuthOptions, Profile} from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 
-import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import {PrismaAdapter} from '@next-auth/prisma-adapter'
 import prisma from '@/prismaClient'
-import { Email } from '@/utils/types'
+import {Email} from '@/utils/types'
 
 type GoogleProfile = Omit<
   {
@@ -36,24 +36,24 @@ const authOptions: AuthOptions = {
         params: {
           prompt: 'consent',
           access_type: 'offline',
-          response_type: 'code',
-        },
-      },
-    }),
+          response_type: 'code'
+        }
+      }
+    })
   ],
   session: {
-    strategy: 'jwt', // See https://next-auth.js.org/configuration/nextjs#caveats, middleware (currently) doesn't support the "database" strategy which is used by default when using an adapter (https://next-auth.js.org/configuration/options#session)
+    strategy: 'jwt' // See https://next-auth.js.org/configuration/nextjs#caveats, middleware (currently) doesn't support the "database" strategy which is used by default when using an adapter (https://next-auth.js.org/configuration/options#session)
   },
   callbacks: {
-    async signIn({ account, profile }) {
+    async signIn({account, profile}) {
       if (account?.provider === 'google')
         return (profile as GoogleProfile)?.email_verified
 
       return true // Do different verification for other providers that don't have `email_verified`
-    },
-  },
+    }
+  }
 }
 
 const handler = NextAuth(authOptions)
 
-export { handler as GET, handler as POST }
+export {handler as GET, handler as POST}

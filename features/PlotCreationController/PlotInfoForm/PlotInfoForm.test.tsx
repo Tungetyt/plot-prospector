@@ -1,8 +1,8 @@
 import userEvent from '@testing-library/user-event'
 import customRender from '@/utils/customRender'
-import { Email } from '@/utils/types'
-import { screen } from '@testing-library/react'
-import { Index } from '../../../messages/en.json'
+import {Email} from '@/utils/types'
+import {screen} from '@testing-library/react'
+import {Index} from '../../../messages/en.json'
 import PlotInfoForm from './PlotInfoForm'
 
 describe('PlotInfoForm', () => {
@@ -11,7 +11,7 @@ describe('PlotInfoForm', () => {
 
   test('renders PlotInfoForm component', () => {
     renderComponent(null)
-    expect(screen.getByRole('heading', { name: Index.Plot_Info })).toBeDefined()
+    expect(screen.getByRole('heading', {name: Index.Plot_Info})).toBeDefined()
   })
 
   test('fills out the form and submits', async () => {
@@ -49,8 +49,8 @@ describe('PlotInfoForm', () => {
   test('validates maximum price value', async () => {
     renderComponent(null)
 
-    const priceInput = screen.getByRole('textbox', { name: Index.Plot_Price })
-    const submitButton = screen.getByRole('button', { name: Index.Finish })
+    const priceInput = screen.getByRole('textbox', {name: Index.Plot_Price})
+    const submitButton = screen.getByRole('button', {name: Index.Finish})
 
     await userEvent.type(priceInput, '1000000000001') // More than one trillion
     userEvent.click(submitButton)

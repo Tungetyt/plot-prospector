@@ -1,8 +1,8 @@
 import userEvent from '@testing-library/user-event'
 import customRender from '@/utils/customRender'
-import { Email } from '@/utils/types'
-import { act, screen, waitFor } from '@testing-library/react'
-import { Index } from '../../../messages/en.json'
+import {Email} from '@/utils/types'
+import {act, screen, waitFor} from '@testing-library/react'
+import {Index} from '../../../messages/en.json'
 import PlotInfoForm from './PlotInfoForm'
 
 describe('PlotInfoForm', () => {
@@ -12,9 +12,9 @@ describe('PlotInfoForm', () => {
   test('shows validation errors', async () => {
     renderComponent(null)
 
-    const email = screen.getByRole('textbox', { name: Index.Contact_Email })
-    const tel = screen.getByRole('textbox', { name: Index.Contact_Phone })
-    const submitButton = screen.getByRole('button', { name: Index.Finish })
+    const email = screen.getByRole('textbox', {name: Index.Contact_Email})
+    const tel = screen.getByRole('textbox', {name: Index.Contact_Phone})
+    const submitButton = screen.getByRole('button', {name: Index.Finish})
 
     await waitFor(async () => {
       await userEvent.clear(email)

@@ -1,10 +1,10 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { useDraftPlot, usePhase } from '@/store/draftPlot/draftPlotStore'
+import {useDraftPlot, usePhase} from '@/store/draftPlot/draftPlotStore'
 import MapURLEvents from '@/features/Map/MapURLEvents/MapURLEvents'
 import formatPlot from '@/features/PlotCreationController/PlotInfoForm/formatPlot/formatPlot'
-import type { WritableDeep } from 'type-fest'
+import type {WritableDeep} from 'type-fest'
 import MapNewPlotEvents from '@/features/Map/MapNewPlotEvents'
 
 export const MapContainer = dynamic(
@@ -54,13 +54,13 @@ function Map() {
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <Polygon
-          pathOptions={{ color: 'blue' }}
+          pathOptions={{color: 'blue'}}
           positions={newPlot}
           eventHandlers={{
-            add: ({ target }) => {
+            add: ({target}) => {
               target._path.setAttribute('data-id', crypto.randomUUID())
             },
-            click: ({ target }) => {
+            click: ({target}) => {
               const id = target._path.getAttribute('data-id')
               console.log('Polygon with id: ', id, ' clicked', target)
             }

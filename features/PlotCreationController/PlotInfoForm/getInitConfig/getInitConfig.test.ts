@@ -14,11 +14,9 @@ describe('getIntlConfig', () => {
       'Other'
     ])
 
-    testCases.forEach((currency) => {
+    testCases.forEach(currency => {
       const result = getIntlConfig(currency)
-      const expected = intlConfigs.find(
-        (config) => config.currency === currency
-      )
+      const expected = intlConfigs.find(config => config.currency === currency)
       expect(result).toEqual(expected)
     })
   })

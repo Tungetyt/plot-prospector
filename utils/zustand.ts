@@ -2,7 +2,7 @@
 type AnyFunction = (...args: any) => void
 
 const storeActionsSelector = <
-  T extends { actions: Record<string, AnyFunction> }
+  T extends {actions: Record<string, AnyFunction>}
 >({
   actions
 }: T): T['actions'] => actions

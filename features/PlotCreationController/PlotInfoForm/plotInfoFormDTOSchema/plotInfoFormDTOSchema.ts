@@ -1,9 +1,9 @@
-import { Email, Tel } from '@/utils/types'
-import { CurrencyInputProps } from 'react-currency-input-field'
-import { ImageListType } from 'react-images-uploading'
-import { isValidPhoneNumber } from 'react-phone-number-input'
-import { ReadonlyDeep, Simplify } from 'type-fest'
-import { z } from 'zod'
+import {Email, Tel} from '@/utils/types'
+import {CurrencyInputProps} from 'react-currency-input-field'
+import {ImageListType} from 'react-images-uploading'
+import {isValidPhoneNumber} from 'react-phone-number-input'
+import {ReadonlyDeep, Simplify} from 'type-fest'
+import {z} from 'zod'
 
 const hasTwoDecimalPlaces = (num: number) => {
   const numStr = num.toString()
@@ -35,11 +35,11 @@ const plotInfoFormDTOSchema = (errMsg?: {
     description: z
       .string()
       .trim()
-      .transform((x) => x || null),
+      .transform(x => x || null),
     address: z
       .string()
       .trim()
-      .transform((x) => x || null),
+      .transform(x => x || null),
     price: z.strictObject({
       value: z.coerce
         .number()
@@ -52,7 +52,7 @@ const plotInfoFormDTOSchema = (errMsg?: {
           message: 'Value must have at most 2 digits after the decimal point'
         })
         .or(z.undefined())
-        .transform((x) => x || null),
+        .transform(x => x || null),
       currency: z.enum(currencies)
     }),
     transactionType: z.array(z.enum(transactionTypeOptions)),
@@ -63,7 +63,7 @@ const plotInfoFormDTOSchema = (errMsg?: {
         message: errMsg?.emailIsEmail ?? ''
       })
       .or(z.literal(''))
-      .transform((x) => (x ? (x as Email) : null)),
+      .transform(x => (x ? (x as Email) : null)),
     tel: z
       .string()
       .trim()
@@ -72,7 +72,7 @@ const plotInfoFormDTOSchema = (errMsg?: {
       })
       .or(z.literal(''))
       .nullable()
-      .transform((x) => (x ? (x as Tel) : null)),
+      .transform(x => (x ? (x as Tel) : null)),
     pictures: z.array(
       z.object({
         dataURL: z.string(),

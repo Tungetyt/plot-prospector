@@ -1,6 +1,6 @@
-import { useMap } from 'react-leaflet'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import {useMap} from 'react-leaflet'
+import {useRouter} from 'next/navigation'
+import {useEffect} from 'react'
 import newSearchParams, {
   useMapInitialization
 } from '@/features/Map/MapURLEvents/newSearchParams/newSearchParams'
@@ -15,7 +15,7 @@ function MapURLEvents() {
 
   useEffect(() => {
     const updateUrl = () => {
-      const { lat, lng } = map.getCenter()
+      const {lat, lng} = map.getCenter()
       const zoom = map.getZoom()
 
       const queryString = new URLSearchParams(

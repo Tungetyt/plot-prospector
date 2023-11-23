@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import {useEffect, useState} from 'react'
 
 const useBody = (): HTMLBodyElement | undefined => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -1,8 +1,8 @@
 import isPolygon from '@/features/PlotCreationController/NextButtonWithWarning/isPolygon/isPolygon'
-import { Dispatch, SetStateAction, useRef } from 'react'
-import { useDraftPlot } from '@/store/draftPlot/draftPlotStore'
-import { useTranslations } from 'next-intl'
-import { showModal } from '@/utils/modal'
+import {Dispatch, SetStateAction, useRef} from 'react'
+import {useDraftPlot} from '@/store/draftPlot/draftPlotStore'
+import {useTranslations} from 'next-intl'
+import {showModal} from '@/utils/modal'
 
 export const plotInfoFormDialogId = 'infoFormModal'
 

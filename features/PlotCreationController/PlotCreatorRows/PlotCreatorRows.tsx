@@ -1,4 +1,4 @@
-import { useDraftPlot } from '@/store/draftPlot/draftPlotStore'
+import {useDraftPlot} from '@/store/draftPlot/draftPlotStore'
 import PointInput from '@/features/PlotCreationController/PlotCreatorRows/PointInput/PointInput'
 
 function PlotCreatorRows() {
@@ -6,7 +6,7 @@ function PlotCreatorRows() {
 
   return (
     <>
-      {draftPlot.map((point) => (
+      {draftPlot.map(point => (
         <tr key={point.id}>
           <PointInput point={point} type="lat" />
           <PointInput point={point} type="lng" />

@@ -1,9 +1,9 @@
-import { ReactNode, useId } from 'react'
-import { useTranslations } from 'next-intl'
+import {ReactNode, useId} from 'react'
+import {useTranslations} from 'next-intl'
 
 function Drawer({
   children,
-  sidebar,
+  sidebar
 }: {
   children: ReactNode
   sidebar: ReactNode

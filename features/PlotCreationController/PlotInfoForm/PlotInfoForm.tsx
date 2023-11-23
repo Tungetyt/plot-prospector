@@ -1,11 +1,11 @@
-import { useDraftPlot } from '@/store/draftPlot/draftPlotStore'
-import { Email } from '@/utils/types'
-import { DevTool } from '@hookform/devtools'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useLocale, useTranslations } from 'next-intl'
-import { FormProvider, useForm } from 'react-hook-form'
+import {useDraftPlot} from '@/store/draftPlot/draftPlotStore'
+import {Email} from '@/utils/types'
+import {DevTool} from '@hookform/devtools'
+import {zodResolver} from '@hookform/resolvers/zod'
+import {useLocale, useTranslations} from 'next-intl'
+import {FormProvider, useForm} from 'react-hook-form'
 import PhoneInput from 'react-phone-number-input/react-hook-form-input'
-import { sortedCurrencies } from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies/sortedCurrencies'
+import {sortedCurrencies} from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies/sortedCurrencies'
 import polygonArea from '@/features/PlotCreationController/PlotInfoForm/polygonArea/polygonArea'
 import getDefaultCurrency from '@/features/PlotCreationController/PlotInfoForm/getDefaultCurrency/getDefaultCurrency'
 import plotInfoFormDTOSchema, {
@@ -13,12 +13,12 @@ import plotInfoFormDTOSchema, {
   PlotInfoFormData,
   transactionTypeOptions
 } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
-import { plotInfoFormDialogId } from '@/features/PlotCreationController/NextButtonWithWarning/NextButton'
-import { closeModal } from '@/utils/modal'
+import {plotInfoFormDialogId} from '@/features/PlotCreationController/NextButtonWithWarning/NextButton'
+import {closeModal} from '@/utils/modal'
 import PriceInput from '@/features/PlotCreationController/PlotInfoForm/PriceInput'
 import M2 from '@/features/PlotCreationController/PlotInfoForm/M2'
 import PricePerM2 from '@/features/PlotCreationController/PlotInfoForm/PricePerM2/PricePerM2'
-import { useState } from 'react'
+import {useState} from 'react'
 import ImageUploading from 'react-images-uploading'
 import Image from 'next/image'
 import invariant from 'tiny-invariant'
@@ -35,7 +35,7 @@ const currencyId = 'currencyId'
 const emailId = 'emailInput'
 const telId = 'telInput'
 
-function PlotInfoForm({ email }: { email: Email | null }) {
+function PlotInfoForm({email}: {email: Email | null}) {
   const t = useTranslations('Index')
   const draftPlot = useDraftPlot()
   const locale = useLocale()
@@ -73,12 +73,12 @@ function PlotInfoForm({ email }: { email: Email | null }) {
     register,
     control,
     handleSubmit,
-    formState: { errors }
+    formState: {errors}
   } = methods
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const onSubmit = handleSubmit(({ pictures, ...restData }: PlotInfoFormData) =>
-    console.log({ ...restData, pictures: images.map(({ dataURL }) => dataURL) })
+  const onSubmit = handleSubmit(({pictures, ...restData}: PlotInfoFormData) =>
+    console.log({...restData, pictures: images.map(({dataURL}) => dataURL)})
   )
 
   const area = polygonArea(formatPlot(draftPlot))
@@ -131,7 +131,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
               </label>
             </div>
             <div className="form-control w-fit">
-              {transactionTypeOptions.map((tt) => (
+              {transactionTypeOptions.map(tt => (
                 <label className="label cursor-pointer gap-8" key={tt}>
                   <span className="label-text">
                     {t(`Transaction_Type.${tt}`)}
@@ -155,7 +155,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
                   id={currencyId}
                   className="select select-bordered"
                 >
-                  {sortedCurrencies(locale, defaultCurrency).map((c) => (
+                  {sortedCurrencies(locale, defaultCurrency).map(c => (
                     <option key={c}>{c}</option>
                   ))}
                 </select>
@@ -185,7 +185,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
             <ImageUploading
               multiple
               value={images}
-              onChange={(imageList) =>
+              onChange={imageList =>
                 setImages(removeDuplicateImages(imageList))
               }
               maxNumber={10}
@@ -210,7 +210,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
                   </button>
                   <div className="flex flex-wrap gap-1">
                     {imageList
-                      .map(({ dataURL }) => dataURL)
+                      .map(({dataURL}) => dataURL)
                       .filter((dataURL): dataURL is string => {
                         invariant(dataURL, 'Expected dataURL to exist')
                         return true
@@ -223,7 +223,7 @@ function PlotInfoForm({ email }: { email: Email | null }) {
                             height="100"
                             width="100"
                             quality={100}
-                            style={{ height: 100, width: 100 }}
+                            style={{height: 100, width: 100}}
                           />
                           <button
                             type="button"

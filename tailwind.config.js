@@ -19,7 +19,7 @@ module.exports = {
   plugins: [
     require('@tailwindcss/typography'),
     require('daisyui'),
-    ({ addUtilities }) => {
+    ({addUtilities}) => {
       const newUtilities = {
         '.dragNDrop': {
           outline: '2px dashed lightblue'

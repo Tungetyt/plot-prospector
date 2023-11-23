@@ -1,5 +1,5 @@
 import getPricePerM2 from '@/features/PlotCreationController/PlotInfoForm/PricePerM2/getPricePerM2/getPricePerM2'
-import { z } from 'zod'
+import {z} from 'zod'
 
 describe('getPricePerM2', () => {
   it('returns the correct price per square meter when value and area are integers', () => {

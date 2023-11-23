@@ -1,6 +1,6 @@
 import isValidCoordinate from '@/store/draftPlot/isValidCoordinate/isValidCoordinate'
-import { Point } from '@/store/draftPlot/common'
-import { useDraftPlotActions } from '@/store/draftPlot/draftPlotStore'
+import {Point} from '@/store/draftPlot/common'
+import {useDraftPlotActions} from '@/store/draftPlot/draftPlotStore'
 
 const stopCaretJumpingToTheEnd = (
   target: EventTarget & HTMLInputElement,
@@ -19,14 +19,15 @@ const stopCaretJumpingToTheEnd = (
   })
 }
 
-function PointInput({ point, type }: { point: Point; type: 'lat' | 'lng' }) {
-  const { changePoint } = useDraftPlotActions()
+function PointInput({point, type}: {point: Point; type: 'lat' | 'lng'}) {
+  const {changePoint} = useDraftPlotActions()
 
   return (
+    // eslint-disable-next-line jsx-a11y/control-has-associated-label
     <td>
       <input
         value={point[type]}
-        onChange={({ target }) => {
+        onChange={({target}) => {
           changePoint({
             ...point,
             [type]: target.value

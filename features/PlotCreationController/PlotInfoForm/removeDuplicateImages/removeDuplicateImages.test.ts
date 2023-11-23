@@ -1,14 +1,14 @@
-import { ImageListType, ImageType } from 'react-images-uploading'
-import { z } from 'zod'
+import {ImageListType, ImageType} from 'react-images-uploading'
+import {z} from 'zod'
 
-import { removeDuplicateImages } from '@/features/PlotCreationController/PlotInfoForm/removeDuplicateImages/removeDuplicateImages'
+import {removeDuplicateImages} from '@/features/PlotCreationController/PlotInfoForm/removeDuplicateImages/removeDuplicateImages'
 
 const createMockImage = (
   dataURL: ImageType['dataURL'],
   id: number
 ): ImageType => ({
-  file: new File([''], `filename${id}.png`, { type: 'image/png' }),
-  ...(dataURL !== undefined && { dataURL })
+  file: new File([''], `filename${id}.png`, {type: 'image/png'}),
+  ...(dataURL !== undefined && {dataURL})
 })
 
 describe('removeDuplicateImages', () => {
@@ -30,10 +30,10 @@ describe('removeDuplicateImages', () => {
     const result = removeDuplicateImages(imageList)
     expect(result).toHaveLength(2)
     expect(
-      result.find((img) => img.dataURL === 'data:image/png;base64,same')
+      result.find(img => img.dataURL === 'data:image/png;base64,same')
     ).toBeTruthy()
     expect(
-      result.find((img) => img.dataURL === 'data:image/png;base64,unique')
+      result.find(img => img.dataURL === 'data:image/png;base64,unique')
     ).toBeTruthy()
   })
 

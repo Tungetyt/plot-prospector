@@ -1,10 +1,10 @@
-import { LeafPoint } from '@/features/PlotCreationController/PlotInfoForm/formatPlot/formatPlot'
-import type { WritableDeep } from 'type-fest'
+import {LeafPoint} from '@/features/PlotCreationController/PlotInfoForm/formatPlot/formatPlot'
+import type {WritableDeep} from 'type-fest'
 import L from 'leaflet' // Make sure to import L if it's not already in scope
-import { useEffect, useRef } from 'react'
-import { useMap } from 'react-leaflet'
+import {useEffect, useRef} from 'react'
+import {useMap} from 'react-leaflet'
 
-function MapNewPlotEvents({ newPlot }: { newPlot: ReadonlyArray<LeafPoint> }) {
+function MapNewPlotEvents({newPlot}: {newPlot: ReadonlyArray<LeafPoint>}) {
   const map = useMap()
   const userHasInteracted = useRef(false)
 
@@ -26,7 +26,7 @@ function MapNewPlotEvents({ newPlot }: { newPlot: ReadonlyArray<LeafPoint> }) {
   useEffect(() => {
     if (newPlot.length > 0 && !userHasInteracted.current) {
       const bounds = L.latLngBounds(newPlot as WritableDeep<typeof newPlot>)
-      map.fitBounds(bounds, { padding: [50, 50] }) // Adjust padding as needed
+      map.fitBounds(bounds, {padding: [50, 50]}) // Adjust padding as needed
     }
   }, [newPlot, map])
 

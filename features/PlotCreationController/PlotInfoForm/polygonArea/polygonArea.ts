@@ -4,7 +4,7 @@ import {
   LeafPoint,
   Lng
 } from '@/features/PlotCreationController/PlotInfoForm/formatPlot/formatPlot'
-import { z } from 'zod'
+import {z} from 'zod'
 
 type Proj4Point = [Lng, Lat] & {
   __brand: 'Proj4Point'
@@ -17,7 +17,7 @@ const polygonArea = (coords: ReadonlyArray<LeafPoint>): number => {
   const Mercator = 'EPSG:3857'
 
   // Project coordinates to Mercator
-  const projectedCoords = coords.map((coord) => {
+  const projectedCoords = coords.map(coord => {
     const lng = coord[1]
     let lat = coord[0]
     z.number().min(-90).max(90).parse(lat)

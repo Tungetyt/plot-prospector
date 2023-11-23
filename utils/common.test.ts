@@ -1,4 +1,4 @@
-import { isEmail, isNumeric } from './common'
+import {isEmail, isNumeric} from './common'
 
 describe('isNumeric', () => {
   it('should return true for numbers', () => {
@@ -63,10 +63,10 @@ describe('isEmail', () => {
     const validEmails = [
       'test@example.com',
       'john.doe@domain.tld',
-      'foo+bar@baz.qux',
+      'foo+bar@baz.qux'
     ]
 
-    validEmails.forEach((email) => {
+    validEmails.forEach(email => {
       expect(isEmail(email)).toBe(true)
     })
   })
@@ -79,10 +79,10 @@ describe('isEmail', () => {
       'username@server.',
       'username@server.c',
       null,
-      undefined,
+      undefined
     ]
 
-    invalidEmails.forEach((email) => {
+    invalidEmails.forEach(email => {
       expect(isEmail(email)).toBe(false)
     })
   })

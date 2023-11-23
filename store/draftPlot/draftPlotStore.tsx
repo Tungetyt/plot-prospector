@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import {create} from 'zustand'
 import {
   initialState,
   Phase,
@@ -10,7 +10,7 @@ import storeActionsSelector from '@/utils/zustand'
 import clearPlotReducer from '@/store/draftPlot/clearPlotReducer/clearPlotReducer'
 import changePhaseReducer from '@/store/draftPlot/changePhaseReducer/changePhaseReducer'
 
-const useDraftPlotStore = create<Store>((set) => ({
+const useDraftPlotStore = create<Store>(set => ({
   ...initialState,
   actions: {
     changePoint: (updatedPoint: PointFromTextInput) =>
@@ -20,8 +20,8 @@ const useDraftPlotStore = create<Store>((set) => ({
   }
 }))
 
-const draftPlotSelector = ({ plot }: Store) => plot
-const phaseSelector = ({ phase }: Store) => phase
+const draftPlotSelector = ({plot}: Store) => plot
+const phaseSelector = ({phase}: Store) => phase
 export const useDraftPlot = () => useDraftPlotStore(draftPlotSelector)
 export const usePhase = () => useDraftPlotStore(phaseSelector)
 export const useDraftPlotActions = () => useDraftPlotStore(storeActionsSelector)

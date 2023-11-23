@@ -1,5 +1,5 @@
-import { Point } from '@/store/draftPlot/common'
-import { isNumeric } from '@/utils/common'
+import {Point} from '@/store/draftPlot/common'
+import {isNumeric} from '@/utils/common'
 import invariant from 'tiny-invariant'
 
 const isCollinear = (p1: Point, p2: Point, p3: Point): boolean => {
@@ -21,7 +21,7 @@ const isCollinear = (p1: Point, p2: Point, p3: Point): boolean => {
   return false
 }
 
-const isEmptyPoint = ({ lat, lng }: Point): boolean => !lat && !lng
+const isEmptyPoint = ({lat, lng}: Point): boolean => !lat && !lng
 
 const isPolygon = (draftPlot: ReadonlyArray<Point>): boolean => {
   if (draftPlot.length < 3) return false // Can't form a polygon with less than 3 points
@@ -32,7 +32,7 @@ const isPolygon = (draftPlot: ReadonlyArray<Point>): boolean => {
   const plot = isEmptyPoint(lastPoint) ? draftPlot.slice(0, -1) : draftPlot
 
   const hasInvalidPoint = plot.some(
-    (point) => !isNumeric(point.lat) || !isNumeric(point.lng)
+    point => !isNumeric(point.lat) || !isNumeric(point.lng)
   )
   if (hasInvalidPoint) return false
 

@@ -39,8 +39,8 @@ export const initialState: State = {
     {
       id: crypto.randomUUID(),
       lat: initialCoord,
-      lng: initialCoord,
-    },
+      lng: initialCoord
+    }
   ],
-  phase: '',
+  phase: ''
 } as const

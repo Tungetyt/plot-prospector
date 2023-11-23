@@ -1,7 +1,7 @@
-import { Point } from '@/store/draftPlot/common'
-import { MapOptions } from 'leaflet'
-import { useEffect, useRef } from 'react'
-import { useMap } from 'react-leaflet/hooks'
+import {Point} from '@/store/draftPlot/common'
+import {MapOptions} from 'leaflet'
+import {useEffect, useRef} from 'react'
+import {useMap} from 'react-leaflet/hooks'
 
 type Lat = keyof Pick<Point, 'lat'>
 type Lng = keyof Pick<Point, 'lng'>
@@ -39,7 +39,7 @@ const newSearchParams = (
   zoom: number,
   searchParams: ReadonlyArray<[string, string]>
 ): Record<string, string> => ({
-  ...searchParams.reduce((obj, [key, val]) => ({ ...obj, [key]: val }), {}),
+  ...searchParams.reduce((obj, [key, val]) => ({...obj, [key]: val}), {}),
   [urlParams.lat]: lat.toString(),
   [urlParams.lng]: lng.toString(),
   [urlParams.zoom]: zoom.toString()

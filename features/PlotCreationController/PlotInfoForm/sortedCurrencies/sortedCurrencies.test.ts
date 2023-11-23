@@ -3,7 +3,7 @@ import {
   intlConfigs,
   sortedCurrencies
 } from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies/sortedCurrencies'
-import { OTHER } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
+import {OTHER} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
 
 describe('sortedCurrencies', () => {
   it('should sort currencies based on default currency', () => {
@@ -37,7 +37,7 @@ describe('sortedCurrencies', () => {
 
     // Find the last currency that is not related to the locale
     const lastUnrelatedConfig = intlConfigs.find(
-      (config) => !config.locale.startsWith(locale)
+      config => !config.locale.startsWith(locale)
     )
     expect(lastUnrelatedCurrency).toBe(lastUnrelatedConfig?.currency)
   })
@@ -55,9 +55,9 @@ describe('sortedCurrencies', () => {
     const locale = 'en-US'
     const defaultCurrency: Currency = 'USD'
     const result = sortedCurrencies(locale, defaultCurrency)
-    const remainingCurrencies = result.slice(1, -1).filter((currency) => {
+    const remainingCurrencies = result.slice(1, -1).filter(currency => {
       const relatedConfig = intlConfigs.find(
-        (config) => config.currency === currency
+        config => config.currency === currency
       )
       return !relatedConfig?.locale.startsWith(locale)
     })

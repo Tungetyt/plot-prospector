@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import {z} from 'zod'
 
 const port = z.coerce.number().positive().int().max(65353)
 const url = z.string().url()
@@ -14,7 +14,7 @@ const envVariables = z.object({
   POSTGRES_PASSWORD: required,
   POSTGRES_DB: required,
   POSTGRES_PORT: port,
-  DATABASE_URL: url,
+  DATABASE_URL: url
 })
 
 declare global {

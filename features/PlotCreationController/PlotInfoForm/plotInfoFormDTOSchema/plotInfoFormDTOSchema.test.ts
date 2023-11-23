@@ -1,12 +1,12 @@
 import plotInfoFormDTOSchema, {
   PlotInfoFormData
 } from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
-import { Writable } from 'type-fest'
+import {Writable} from 'type-fest'
 
 const model: Writable<PlotInfoFormData> = {
   description: '',
   address: '',
-  price: { value: undefined, currency: 'PLN' },
+  price: {value: undefined, currency: 'PLN'},
   email: '',
   tel: '',
   transactionType: [],
@@ -43,20 +43,20 @@ describe('plotInfoFormDTOSchema', () => {
   })
 
   it('validates price correctly', () => {
-    mockedData.price = { value: '20.5', currency: 'USD' }
+    mockedData.price = {value: '20.5', currency: 'USD'}
     const validPrice = schema.safeParse(mockedData)
     expect(validPrice.success).toBe(true)
 
-    mockedData.price = { value: '20.555', currency: 'USD' }
+    mockedData.price = {value: '20.555', currency: 'USD'}
     const invalidPrice = schema.safeParse(mockedData)
     expect(invalidPrice.success).toBe(false)
 
-    mockedData.price = { value: '12345678901234', currency: 'USD' }
+    mockedData.price = {value: '12345678901234', currency: 'USD'}
     const tooBigValue = schema.safeParse(mockedData)
     expect(tooBigValue.success).toBe(false)
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mockedData.price = { value: '20.5', currency: 'NonExistentCurrency' as any }
+    mockedData.price = {value: '20.5', currency: 'NonExistentCurrency' as any}
     const badCurrencyValue = schema.safeParse(mockedData)
     expect(badCurrencyValue.success).toBe(false)
   })

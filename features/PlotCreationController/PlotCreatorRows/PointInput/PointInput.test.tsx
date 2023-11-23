@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { render, fireEvent } from '@testing-library/react'
+import {describe, it, expect, vi, beforeEach, afterEach} from 'vitest'
+import {render, fireEvent} from '@testing-library/react'
 import PointInput from './PointInput'
 
 // Mock store actions
@@ -16,17 +16,17 @@ describe('PointInput', () => {
   })
 
   it('should update the point on change and keep caret position', async () => {
-    const point = { lat: 10, lng: 20, id: 'abc' }
+    const point = {lat: 10, lng: 20, id: 'abc'}
     const type = 'lat'
     const newLatValue = '10.5'
 
-    const { getByRole } = render(<PointInput point={point} type={type} />)
+    const {getByRole} = render(<PointInput point={point} type={type} />)
     const input = getByRole('textbox') as HTMLInputElement
 
     // Set initial caret position to after '1' in '10'
     fireEvent.focus(input)
     fireEvent.change(input, {
-      target: { value: newLatValue, selectionStart: 2, selectionEnd: 2 }
+      target: {value: newLatValue, selectionStart: 2, selectionEnd: 2}
     })
     fireEvent.blur(input)
 

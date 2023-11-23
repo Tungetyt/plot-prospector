@@ -34,9 +34,7 @@ export const intlConfigs = [
 ] as const satisfies ReadonlyArray<LocaleRecord & CurrencyRecord>
 
 const isRelatedToLocale = (locale: string, currency: Currency) => {
-  const relatedConfig = intlConfigs.find(
-    (config) => config.currency === currency
-  )
+  const relatedConfig = intlConfigs.find(config => config.currency === currency)
   invariant(relatedConfig, 'Expected relatedConfig to be defined')
   return relatedConfig.locale.startsWith(locale)
 }

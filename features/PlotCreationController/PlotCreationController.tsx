@@ -1,18 +1,18 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import {useTranslations} from 'next-intl'
 import CancelButton from '@/features/PlotCreationController/CancelButton'
 import PlotCreatorRows from '@/features/PlotCreationController/PlotCreatorRows/PlotCreatorRows'
-import { useDraftPlotActions, usePhase } from '@/store/draftPlot/draftPlotStore'
+import {useDraftPlotActions, usePhase} from '@/store/draftPlot/draftPlotStore'
 import NextButtonWithWarning from '@/features/PlotCreationController/NextButtonWithWarning/NextButtonWithWarning'
 import PlotInfoFormModal, {
   PlotInfoFormModalProps
 } from '@/features/PlotCreationController/PlotInfoFormModal'
 
-function PlotCreationController({ email }: PlotInfoFormModalProps) {
+function PlotCreationController({email}: PlotInfoFormModalProps) {
   const t = useTranslations('Index')
   const phase = usePhase()
-  const { changePhase } = useDraftPlotActions()
+  const {changePhase} = useDraftPlotActions()
 
   if (phase === 'PLOT_CREATION')
     return (

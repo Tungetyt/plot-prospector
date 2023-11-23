@@ -1,5 +1,5 @@
 import clearPlotReducer from '@/store/draftPlot/clearPlotReducer/clearPlotReducer'
-import { initialState, State } from '@/store/draftPlot/common'
+import {initialState, State} from '@/store/draftPlot/common'
 
 describe('clearPlotReducer', () => {
   let mockState: State

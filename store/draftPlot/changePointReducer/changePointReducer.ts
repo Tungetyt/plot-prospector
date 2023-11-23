@@ -7,7 +7,7 @@ import {
   State
 } from '@/store/draftPlot/common'
 import isValidCoordinate from '@/store/draftPlot/isValidCoordinate/isValidCoordinate'
-import { isNumeric } from '@/utils/common'
+import {isNumeric} from '@/utils/common'
 import invariant from 'tiny-invariant'
 
 const endsWithDecimal = (
@@ -59,7 +59,7 @@ const updatePlot = (
   plot: ReadonlyArray<Point>,
   updatedPoint: PointFromTextInput
 ): Point[] =>
-  plot.map((point) =>
+  plot.map(point =>
     point.id === updatedPoint.id
       ? {
           ...updatedPoint,
@@ -89,7 +89,7 @@ const plotWithMaybeNewPoint = (plot: Point[]): Point[] => {
   ]
 }
 
-const isValidPoint = ({ lat, lng }: PointFromTextInput) => {
+const isValidPoint = ({lat, lng}: PointFromTextInput) => {
   const isValidLatitude = isValidCoordinate(lat, 'lat')
   const isValidLongitude = isValidCoordinate(lng, 'lng')
   return isValidLatitude && isValidLongitude
@@ -126,9 +126,9 @@ const changePointReducer =
 
     const updatedPlot = updatePlot(state.plot, formattedPoint)
 
-    if (removeEmptyPoints(updatedPlot)) return { plot: updatedPlot }
+    if (removeEmptyPoints(updatedPlot)) return {plot: updatedPlot}
 
-    return { plot: plotWithMaybeNewPoint(updatedPlot) }
+    return {plot: plotWithMaybeNewPoint(updatedPlot)}
   }
 
 export default changePointReducer

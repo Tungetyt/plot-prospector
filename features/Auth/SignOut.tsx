@@ -1,7 +1,7 @@
 'use client'
 
-import { signOut } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
+import {signOut} from 'next-auth/react'
+import {useTranslations} from 'next-intl'
 
 function SignOut() {
   const t = useTranslations('Index')
