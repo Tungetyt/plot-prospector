@@ -21,13 +21,13 @@ module.exports = {
     require('daisyui'),
     ({addUtilities}) => {
       addUtilities({
-        '.dragNDrop': {
+        '.drag-n-drop': {
           outline: '2px dashed lightblue'
         },
-        '.plotImg': {
+        '.aspect-ratio-1': {
           aspectRatio: '1'
         },
-        '.plotForm': {
+        '.scrollbar-gutter-stable': {
           scrollbarGutter: 'stable'
         }
       })

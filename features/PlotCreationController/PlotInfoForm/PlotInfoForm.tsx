@@ -87,7 +87,7 @@ function PlotInfoForm({email}: {email: Email | null}) {
     <FormProvider {...methods}>
       <form
         method="dialog"
-        className="modal-box max-w-fit backdrop-blur-md bg-opacity-75 plotForm"
+        className="modal-box max-w-fit backdrop-blur-md bg-opacity-75 scrollbar-gutter-stable"
         onSubmit={onSubmit}
       >
         <div className="flex">
@@ -198,7 +198,7 @@ function PlotInfoForm({email}: {email: Email | null}) {
                 dragProps
               }) => (
                 <section
-                  className={isDragging ? 'dragNDrop' : undefined}
+                  className={isDragging ? 'drag-n-drop' : undefined}
                   {...dragProps}
                 >
                   <button
@@ -223,7 +223,7 @@ function PlotInfoForm({email}: {email: Email | null}) {
                             height="100"
                             width="100"
                             quality={100}
-                            className="plotImg"
+                            className="aspect-ratio-1"
                           />
                           <button
                             type="button"
