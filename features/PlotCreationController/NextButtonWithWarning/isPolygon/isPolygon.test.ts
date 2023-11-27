@@ -79,4 +79,36 @@ describe('isPolygon', () => {
 
     expect(isPolygon(nonSequentialCollinear)).toBe(true) // because not all points are collinear
   })
+
+  describe('almost collinear', () => {
+    it('collinear -> false', () => {
+      const nonSequentialCollinear: Point[] = [
+        {id: '1', lat: 32, lng: 2},
+        {id: '2', lat: 43, lng: 3},
+        {id: '3', lat: 21, lng: 1}
+      ]
+
+      expect(isPolygon(nonSequentialCollinear)).toBe(false)
+    })
+
+    it('almost collinear -> true', () => {
+      const nonSequentialCollinear: Point[] = [
+        {id: '1', lat: 32, lng: 2},
+        {id: '2', lat: 43, lng: 3},
+        {id: '3', lat: 21, lng: 1.000001}
+      ]
+
+      expect(isPolygon(nonSequentialCollinear)).toBe(true)
+    })
+
+    it('almost collinear -> true', () => {
+      const nonSequentialCollinear: Point[] = [
+        {id: '1', lat: 32, lng: 2},
+        {id: '2', lat: 43, lng: 3},
+        {id: '3', lat: 21, lng: 0.999999}
+      ]
+
+      expect(isPolygon(nonSequentialCollinear)).toBe(true)
+    })
+  })
 })
