@@ -8,11 +8,10 @@ import PhoneInput from 'react-phone-number-input/react-hook-form-input'
 import {sortedCurrencies} from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies/sortedCurrencies'
 import polygonArea from '@/features/PlotCreationController/PlotInfoForm/polygonArea/polygonArea'
 import getDefaultCurrency from '@/features/PlotCreationController/PlotInfoForm/getDefaultCurrency/getDefaultCurrency'
-import plotInfoFormDTOSchema, {
-  oneTrillion,
+import plotInfoFormSchema, {
   PlotInfoFormData,
-  transactionTypeOptions
-} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
+  PlotInfoFormSchema
+} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormSchema'
 import {plotInfoFormDialogId} from '@/features/PlotCreationController/NextButtonWithWarning/NextButton'
 import {closeModal} from '@/utils/modal'
 import PriceInput from '@/features/PlotCreationController/PlotInfoForm/PriceInput'
@@ -26,6 +25,12 @@ import {
   ExistingImageListType,
   removeDuplicateImages
 } from '@/features/PlotCreationController/PlotInfoForm/removeDuplicateImages/removeDuplicateImages'
+import plotInfoAction from '@/features/PlotCreationController/PlotInfoForm/plotInfoAction'
+import toast from 'react-hot-toast'
+import {
+  oneTrillion,
+  transactionTypeOptions
+} from '@/features/PlotCreationController/PlotInfoForm/common'
 import formatPlot from './formatPlot/formatPlot'
 
 const descriptionId = 'descriptionInput'
@@ -58,7 +63,7 @@ function PlotInfoForm({email}: {email: Email | null}) {
 
   const methods = useForm<PlotInfoFormData>({
     resolver: zodResolver(
-      plotInfoFormDTOSchema({
+      plotInfoFormSchema({
         priceValueMax: `${t(
           'Validation.Value_cannot_exceed'
         )} ${oneTrillion.toLocaleString(locale)}`,
@@ -76,10 +81,18 @@ function PlotInfoForm({email}: {email: Email | null}) {
     formState: {errors}
   } = methods
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const onSubmit = handleSubmit(({pictures, ...restData}: PlotInfoFormData) =>
-    console.log({...restData, pictures: images.map(({dataURL}) => dataURL)})
-  )
+  const onSubmit = handleSubmit(async (formData: PlotInfoFormData) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const {pictures, ...restData} = formData as unknown as PlotInfoFormSchema
+    const data = await plotInfoAction({
+      ...restData,
+      pictures: images.map(({dataURL}) => dataURL)
+    })
+    if (data && data >= 500) toast.error(t('toast.Unexpected_server_error'))
+    else if (data && data >= 400)
+      toast.error(t('toast.Wrong_form_data_provided'))
+    else toast.success(t('toast.The_plot_has_been_created'))
+  })
 
   const area = polygonArea(formatPlot(draftPlot))
 
@@ -215,7 +228,7 @@ function PlotInfoForm({email}: {email: Email | null}) {
                         invariant(dataURL, 'Expected dataURL to exist')
                         return true
                       })
-                      .map((dataURL, index) => (
+                      .map((dataURL, i) => (
                         <div key={dataURL}>
                           <Image
                             src={dataURL}
@@ -228,7 +241,7 @@ function PlotInfoForm({email}: {email: Email | null}) {
                           <button
                             type="button"
                             className="btn btn-xs block mx-auto"
-                            onClick={() => onImageRemove(index)}
+                            onClick={() => onImageRemove(i)}
                           >
                             {t('Remove')}
                           </button>

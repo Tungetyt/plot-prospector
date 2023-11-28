@@ -1,5 +1,5 @@
 import CurrencyInput from 'react-currency-input-field'
-import {PlotInfoFormData} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
+import {PlotInfoFormData} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormSchema'
 import {useController, useFormContext, useWatch} from 'react-hook-form'
 import getIntlConfig from '@/features/PlotCreationController/PlotInfoForm/getInitConfig/getInitConfig'
 import {useTranslations} from 'next-intl'

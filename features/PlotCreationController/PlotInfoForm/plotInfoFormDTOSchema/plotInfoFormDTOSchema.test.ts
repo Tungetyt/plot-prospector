@@ -1,6 +1,6 @@
-import plotInfoFormDTOSchema, {
+import plotInfoFormSchema, {
   PlotInfoFormData
-} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
+} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormSchema'
 import {Writable} from 'type-fest'
 
 const model: Writable<PlotInfoFormData> = {
@@ -15,7 +15,7 @@ const model: Writable<PlotInfoFormData> = {
 
 let mockedData: typeof model
 
-const schema = plotInfoFormDTOSchema()
+const schema = plotInfoFormSchema()
 
 describe('plotInfoFormDTOSchema', () => {
   beforeEach(() => {

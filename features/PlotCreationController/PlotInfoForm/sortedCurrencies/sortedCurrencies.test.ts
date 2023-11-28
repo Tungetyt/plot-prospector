@@ -3,7 +3,7 @@ import {
   intlConfigs,
   sortedCurrencies
 } from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies/sortedCurrencies'
-import {OTHER} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
+import {OTHER} from '@/features/PlotCreationController/PlotInfoForm/common'
 
 describe('sortedCurrencies', () => {
   it('should sort currencies based on default currency', () => {

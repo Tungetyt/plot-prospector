@@ -5,6 +5,7 @@ import {AbstractIntlMessages, NextIntlClientProvider} from 'next-intl'
 import {notFound} from 'next/navigation'
 import validateEnvVars from '@/env'
 import {ReactNode} from 'react'
+import {Toaster} from 'react-hot-toast'
 
 const inter = Inter({subsets: ['latin']})
 
@@ -33,6 +34,7 @@ export default async function RootLayout({
     <html lang={params.locale} suppressHydrationWarning>
       <body className={inter.className}>
         <NextIntlClientProvider locale={params.locale} messages={messages}>
+          <Toaster position="bottom-right" />
           {children}
         </NextIntlClientProvider>
       </body>

@@ -36,6 +36,11 @@
       "Value_cannot_exceed": "Value cannot exceed",
       "Invalid_email": "Invalid email",
       "Invalid_phone": "Invalid phone"
+    },
+    "toast": {
+      "Unexpected_server_error": "Unexpected server error!",
+      "Wrong_form_data_provided": "Wrong form data provided!",
+      "The_plot_has_been_created": "The plot has been created!"
     }
   }
 }

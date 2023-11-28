@@ -3,7 +3,7 @@ import {
   currencies,
   IntlConfig,
   OTHER
-} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
+} from '@/features/PlotCreationController/PlotInfoForm/common'
 
 export type Currency = (typeof currencies)[number]
 type CurrencyKey = keyof Pick<IntlConfig, 'currency'>

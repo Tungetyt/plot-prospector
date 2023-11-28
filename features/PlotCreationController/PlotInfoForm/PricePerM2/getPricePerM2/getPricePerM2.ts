@@ -1,5 +1,5 @@
 import {intlConfigs} from '@/features/PlotCreationController/PlotInfoForm/sortedCurrencies/sortedCurrencies'
-import {PlotInfoFormData} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
+import {PlotInfoFormData} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormSchema'
 import {Area} from '@/features/PlotCreationController/PlotInfoForm/polygonArea/polygonArea'
 import {z} from 'zod'
 

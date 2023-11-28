@@ -1,5 +1,5 @@
 import {useFormContext, useWatch} from 'react-hook-form'
-import {PlotInfoFormData} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormDTOSchema'
+import {PlotInfoFormData} from '@/features/PlotCreationController/PlotInfoForm/plotInfoFormDTOSchema/plotInfoFormSchema'
 import getIntlConfig from '@/features/PlotCreationController/PlotInfoForm/getInitConfig/getInitConfig'
 import M2 from '@/features/PlotCreationController/PlotInfoForm/M2'
 import getPricePerM2 from '@/features/PlotCreationController/PlotInfoForm/PricePerM2/getPricePerM2/getPricePerM2'
