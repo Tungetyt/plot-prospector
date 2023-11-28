@@ -1,3 +1,5 @@
+import {Simplify} from 'type-fest'
+
 export type NumberWithTrailingDecimal = `${number}.`
 export type NumberWithTrailingZero = `${number}.${number}0` | `${number}.0`
 type Coord =
@@ -13,10 +15,12 @@ export interface Point {
   lng: Coord
 }
 
-export type PointFromTextInput = Pick<Point, 'id'> & {
-  lat: number | string
-  lng: number | string
-}
+type LatKey = keyof Pick<Point, 'lat'>
+type LngKey = keyof Pick<Point, 'lng'>
+
+export type PointFromTextInput = Simplify<
+  Pick<Point, 'id'> & Record<LatKey | LngKey, number | string>
+>
 
 export type Phase = '' | 'PLOT_CREATION'
 
