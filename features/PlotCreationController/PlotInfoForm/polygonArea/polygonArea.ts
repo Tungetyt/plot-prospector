@@ -12,6 +12,8 @@ type Proj4Point = [Lng, Lat] & {
 
 const MERCATOR_MAX_LATITUDE = 85.06
 
+export const latSchema = z.number().min(-90).max(90)
+
 const polygonArea = (coords: ReadonlyArray<LeafPoint>): number => {
   const WGS84 = 'EPSG:4326'
   const Mercator = 'EPSG:3857'
@@ -20,7 +22,7 @@ const polygonArea = (coords: ReadonlyArray<LeafPoint>): number => {
   const projectedCoords = coords.map(coord => {
     const lng = coord[1]
     let lat = coord[0]
-    z.number().min(-90).max(90).parse(lat)
+    latSchema.parse(lat)
     if (lat > MERCATOR_MAX_LATITUDE) lat = MERCATOR_MAX_LATITUDE
     if (lat < -MERCATOR_MAX_LATITUDE) lat = -MERCATOR_MAX_LATITUDE
     return proj4(WGS84, Mercator, [lng, lat] as Proj4Point)

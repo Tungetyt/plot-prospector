@@ -86,7 +86,12 @@ function PlotInfoForm({email}: {email: Email | null}) {
     const {pictures, ...restData} = formData as unknown as PlotInfoFormSchema
     const data = await plotInfoAction({
       ...restData,
-      pictures: images.map(({dataURL}) => dataURL)
+      pictures: images.map(({dataURL}) => dataURL),
+      draftPlot: draftPlot.map(({lat, lng, ...rest}) => ({
+        lat: +lat,
+        lng: +lng,
+        ...rest
+      }))
     })
     if (data && data >= 500) toast.error(t('toast.Unexpected_server_error'))
     else if (data && data >= 400)

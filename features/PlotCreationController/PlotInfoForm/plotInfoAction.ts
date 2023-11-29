@@ -2,6 +2,7 @@
 
 import {z} from 'zod'
 import {isValidPhoneNumber} from 'libphonenumber-js'
+import {ReadonlyDeep} from 'type-fest'
 
 import {
   currencySchema,
@@ -15,6 +16,7 @@ import {
   toTel,
   transactionTypeSchema
 } from '@/features/PlotCreationController/PlotInfoForm/common'
+import {latSchema} from '@/features/PlotCreationController/PlotInfoForm/polygonArea/polygonArea'
 
 const schema = z.strictObject({
   description: textSchema.nullable(),
@@ -32,12 +34,19 @@ const schema = z.strictObject({
   transactionType: transactionTypeSchema,
   email: emailSchema().nullable().transform(toEmail),
   tel: telSchema(isValidPhoneNumber).nullable().transform(toTel),
-  pictures: z.array(dataURLSchema)
+  pictures: z.array(dataURLSchema),
+  draftPlot: z.array(
+    z.strictObject({
+      id: z.string().uuid(),
+      lat: latSchema,
+      lng: z.number()
+    })
+  )
 })
 
-type Schema = z.infer<typeof schema>
+type Data = ReadonlyDeep<z.infer<typeof schema>>
 
-const plotInfoAction = async (data: Schema) => {
+const plotInfoAction = async (data: Data) => {
   try {
     const validationResult = schema.safeParse(data)
     if (!validationResult.success) return 400
