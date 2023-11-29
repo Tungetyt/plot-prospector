@@ -25,7 +25,7 @@ import {
   ExistingImageListType,
   removeDuplicateImages
 } from '@/features/PlotCreationController/PlotInfoForm/removeDuplicateImages/removeDuplicateImages'
-import plotInfoAction from '@/features/PlotCreationController/PlotInfoForm/plotInfoAction'
+import plotInfoAction from '@/features/PlotCreationController/PlotInfoForm/server/plotInfoAction'
 import toast from 'react-hot-toast'
 import {
   oneTrillion,

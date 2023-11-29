@@ -1,8 +1,7 @@
-'use server'
-
-import {z, ZodError, ZodType} from 'zod'
-import {isValidPhoneNumber} from 'libphonenumber-js'
-
+import {
+  DraftPoint,
+  DraftPointType
+} from '@/features/PlotCreationController/PlotInfoForm/server/PlotInfo/DraftPoint'
 import {
   currencySchema,
   dataURLSchema,
@@ -15,24 +14,26 @@ import {
   toTel,
   transactionTypeSchema
 } from '@/features/PlotCreationController/PlotInfoForm/common'
-import {latSchema} from '@/features/PlotCreationController/PlotInfoForm/polygonArea/polygonArea'
+import {ZodType, z} from 'zod'
+import {isValidPhoneNumber} from 'libphonenumber-js/min'
+import {ReadonlyDeep} from 'type-fest'
 
-type Data = {
+export type Data = ReadonlyDeep<{
   description: string | null
   address: string | null
   price: {
     value: number | null
     currency: 'PLN' | 'EUR' | 'USD' | 'GBP' | 'Other'
   }
-  transactionType: ('buy' | 'sell' | 'lease')[]
+  transactionType: Array<'buy' | 'sell' | 'lease'>
   email: `${string}@${string}.${string}` | null
   tel: `+${number}` | null
   pictures: string[]
-  draftPlot: {id: string; lat: number; lng: number}[]
-}
+  draftPlot: Array<DraftPointType>
+}>
 // TODO: This should come from Prisma types!
 
-class PlotInfo implements Data {
+export class PlotInfo implements Data {
   private readonly _description: Data['description']
 
   private readonly _address: Data['address']
@@ -47,11 +48,9 @@ class PlotInfo implements Data {
 
   private readonly _pictures: Data['pictures']
 
-  private readonly _draftPlot: Data['draftPlot'] // TODO: To separate class
+  private readonly _draftPlot: Data['draftPlot']
 
   constructor(private readonly data: Data) {
-    PlotInfo.validate(data)
-
     const {
       description,
       tel,
@@ -63,21 +62,17 @@ class PlotInfo implements Data {
       transactionType
     } = data
 
+    this._draftPlot = draftPlot.map(x => new DraftPoint(x))
+
+    PlotInfo.validate(data)
+
     this._description = description
     this._tel = tel
     this._address = address
     this._pictures = pictures
     this._email = email
     this._price = price
-    this._draftPlot = PlotInfo.draftPlotWithRegeneratedIds(draftPlot)
     this._transactionType = transactionType
-  }
-
-  private static draftPlotWithRegeneratedIds(draftPlot: Data['draftPlot']) {
-    return draftPlot.map(x => ({
-      ...x,
-      id: crypto.randomUUID()
-    }))
   }
 
   private static validate(data: Data) {
@@ -98,13 +93,7 @@ class PlotInfo implements Data {
       email: emailSchema().nullable().transform(toEmail),
       tel: telSchema(isValidPhoneNumber).nullable().transform(toTel),
       pictures: z.array(dataURLSchema),
-      draftPlot: z.array(
-        z.strictObject({
-          id: z.string().uuid(),
-          lat: latSchema,
-          lng: z.number()
-        })
-      )
+      draftPlot: z.array(DraftPoint.schema())
     })
 
     schema.parse(data)
@@ -142,17 +131,3 @@ class PlotInfo implements Data {
     return this._draftPlot
   }
 }
-
-const plotInfoAction = async (data: Data) => {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const plotInfo = new PlotInfo(data)
-
-    return 201
-  } catch (err) {
-    if (err instanceof ZodError) return 400
-    return 500
-  }
-}
-
-export default plotInfoAction
