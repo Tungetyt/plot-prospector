@@ -36,22 +36,22 @@ All operations and commands should be done/run in root folder
    `DATABASE_HOSTNAME=localhost` instead
 
 2. Make sure Docker is running and Internet connection is established
-3. Run `pnpm run docker:build`
+3. Run `docker:build`
 4. Open up http://localhost:<APP_PORT> in a web browser. The application should be fully functional at this point
 5. Run `pnpm i`
-6. Run `pnpm run prisma:local:generate-types`
+6. Run `prisma:local:generate-types`
 
 # Installing new dependencies
 
 1. Run `pnpm i <new-dependency-name>`
 2. Delete running docker containers
-3. Run `pnpm run docker:build`
+3. Run `docker:build`
 
 # DB migrations
 
 1. Make desired changes in `schema.prisma` file
 2. Make sure containers are running
-3. Run `pnpm run prisma:migrate`
+3. Run `prisma:migrate`
 4. Restart Typescript Service in your IDE, or IDE itself, in order to see updated prisma types
 
 # DB GUI
@@ -144,13 +144,61 @@ ChunkLoadError: Loading chunk app/[locale]/page failed.
   Solution: Unknown
 
 - Error in terminal while running `docker:build`:
+
   ```
   request returned Internal Server Error for API route and version
   http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.24/containers/json?all=1&filters=%7B%22label%22%3A%7B%22com.docker.compose.config-hash%22%3Atrue%2C%22com.docker.compose.project%3Dplot-prospector%22%3Atrue%7D%7D,
   check if the server supports the requested API version
    ELIFECYCLE  Command failed with exit code 1.
   ```
+
   Solution: Docker is not running. Start Docker
+
+- Error running migration:
+
+  - ```
+    > plot-prospector@0.1.0 prisma:migrate C:\dev\di\plot-prospector
+    > docker-compose exec next-js npx prisma migrate dev && npx prisma generate
+    Environment variables loaded from .env
+    Prisma schema loaded from schema.prisma
+    Datasource "db": PostgreSQL database "plot_prospector", schema "public" at "db:5432"
+
+    Error: P1002
+
+
+    The database server at `db`:`5432` was reached but timed out.
+
+    Please try again.
+
+    Please make sure your database server is running at `db`:`5432`.
+
+    Context: Timed out trying to acquire a postgres advisory lock (SELECT pg_advisory_lock(72707369)). Elapsed: 10000ms. See https://pris.ly/d/migrate-advisory-locking for details.
+
+
+    ELIFECYCLE  Command failed with exit code 1.
+    ```
+
+    Solution: \
+
+    1. Delete running docker containers
+    2. Run `docker:build`
+    3. Run `prisma:migrate` again
+
+  - ```
+    > plot-prospector@0.1.0 prisma:migrate C:\dev\di\plot-prospector
+    > docker-compose exec next-js npx prisma migrate dev && npx prisma generate
+
+    > Downloading Prisma engines for Node-API for linux-musl-openssl-3.0.x [] 0% ELIFECYCLE  Command failed with exit code 137.
+
+    Process finished with exit code 1
+    ```
+
+    Solution: \
+
+    1. Delete running docker containers
+    2. Turn off VPN
+    3. Run `docker:build`
+    4. Run `prisma:migrate` again
 
 # Deployment
 
