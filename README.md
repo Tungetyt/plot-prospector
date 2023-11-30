@@ -125,7 +125,7 @@ ChunkLoadError: Loading chunk app/[locale]/page failed.
   Solution: Ignore
 - Error in Browser DevTools after renaming file:
   ```
-  Failed to read source code from /app/features/PlotCreationController/PlotInfoForm/action.ts
+  Failed to read source code from /app/features/PlotCreationController/PropertyForm/action.ts
   Caused by:
   No such file or directory (os error 2)
   ```

@@ -5,11 +5,11 @@ import CancelButton from '@/features/PlotCreationController/CancelButton'
 import PlotCreatorRows from '@/features/PlotCreationController/PlotCreatorRows/PlotCreatorRows'
 import {useDraftPlotActions, usePhase} from '@/store/draftPlot/draftPlotStore'
 import NextButtonWithWarning from '@/features/PlotCreationController/NextButtonWithWarning/NextButtonWithWarning'
-import PlotInfoFormModal, {
-  PlotInfoFormModalProps
-} from '@/features/PlotCreationController/PlotInfoFormModal'
+import PropertyFormModal, {
+  PropertyFormModalProps
+} from '@/features/PlotCreationController/PropertyFormModal'
 
-function PlotCreationController({email}: PlotInfoFormModalProps) {
+function PlotCreationController({email}: PropertyFormModalProps) {
   const t = useTranslations('Index')
   const phase = usePhase()
   const {changePhase} = useDraftPlotActions()
@@ -32,7 +32,7 @@ function PlotCreationController({email}: PlotInfoFormModalProps) {
           </table>
         </div>
         <NextButtonWithWarning />
-        <PlotInfoFormModal email={email} />
+        <PropertyFormModal email={email} />
       </>
     )
 

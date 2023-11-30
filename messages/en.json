@@ -13,16 +13,16 @@
     "Latitude": "Latitude",
     "Confirm_point": "Confirm point",
     "Invalid_plot": "Invalid plot",
-    "Plot_Info": "Plot Info",
+    "Property": "Property",
     "Finish": "Finish",
     "Back": "Back",
-    "Plot_Description": "Plot Description",
-    "Plot_Address": "Plot Address",
-    "Plot_Price": "Plot Price",
+    "Property_Description": "Property Description",
+    "Property_Address": "Property Address",
+    "Property_Price": "Property Price",
     "Currency": "Currency",
     "Price_per": "Price per",
-    "Click_or_Drop_here_plot_pictures": "Click or Drop here plot pictures",
-    "A_plot_picture": "A plot picture",
+    "Click_or_Drop_here_property_pictures": "Click or Drop here property pictures",
+    "A_property_picture": "A property picture",
     "Remove": "Remove",
     "Transaction_Type": {
       "Title": "Transaction Type",
@@ -40,7 +40,7 @@
     "toast": {
       "Unexpected_server_error": "Unexpected server error!",
       "Wrong_form_data_provided": "Wrong form data provided!",
-      "The_plot_has_been_created": "The plot has been created!"
+      "The_property_has_been_created": "The property has been created!"
     }
   }
 }

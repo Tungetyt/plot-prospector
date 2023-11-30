@@ -1,8 +1,8 @@
-import {LeafPoint} from '@/features/PlotCreationController/PlotInfoForm/formatPlot/formatPlot'
 import type {WritableDeep} from 'type-fest'
 import L from 'leaflet' // Make sure to import L if it's not already in scope
 import {useEffect, useRef} from 'react'
 import {useMap} from 'react-leaflet'
+import {LeafPoint} from '@/features/PlotCreationController/Property/formatPlot/formatPlot'
 
 function MapNewPlotEvents({newPlot}: {newPlot: ReadonlyArray<LeafPoint>}) {
   const map = useMap()

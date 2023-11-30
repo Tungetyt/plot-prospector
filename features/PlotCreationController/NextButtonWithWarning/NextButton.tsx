@@ -4,7 +4,7 @@ import {useDraftPlot} from '@/store/draftPlot/draftPlotStore'
 import {useTranslations} from 'next-intl'
 import {showModal} from '@/utils/modal'
 
-export const plotInfoFormDialogId = 'infoFormModal'
+export const propertyFormDialogId = 'infoFormModal'
 
 function NextButton({
   setShowWarning
@@ -22,7 +22,7 @@ function NextButton({
       onClick={() => {
         if (isPolygon(draftPoints)) {
           setShowWarning(false)
-          showModal(plotInfoFormDialogId)
+          showModal(propertyFormDialogId)
           return
         }
 
