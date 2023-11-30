@@ -157,7 +157,6 @@ ChunkLoadError: Loading chunk app/[locale]/page failed.
 - Error running migration:
 
   - ```
-    > plot-prospector@0.1.0 prisma:migrate C:\dev\di\plot-prospector
     > docker-compose exec next-js npx prisma migrate dev && npx prisma generate
     Environment variables loaded from .env
     Prisma schema loaded from schema.prisma
@@ -185,7 +184,6 @@ ChunkLoadError: Loading chunk app/[locale]/page failed.
     3. Run `prisma:migrate` again
 
   - ```
-    > plot-prospector@0.1.0 prisma:migrate C:\dev\di\plot-prospector
     > docker-compose exec next-js npx prisma migrate dev && npx prisma generate
 
     > Downloading Prisma engines for Node-API for linux-musl-openssl-3.0.x [] 0% ELIFECYCLE  Command failed with exit code 137.
@@ -199,6 +197,25 @@ ChunkLoadError: Loading chunk app/[locale]/page failed.
     2. Turn off VPN
     3. Run `docker:build`
     4. Run `prisma:migrate` again
+
+  - ```
+    Environment variables loaded from .env
+    Prisma schema loaded from schema.prisma
+    Datasource "db": PostgreSQL database "plot_prospector", schema "public" at "db:5432"
+
+    Error: P3015
+
+    Could not find the migration file at /app/migrations/20231130063426_profile_property_point_currency/migration.sql. Please delete the directory or restore the migration file.
+
+    ELIFECYCLE  Command failed with exit code 1.
+    ```
+
+    Solution: \
+    If you have deleted migration file, you need to delete entire directory that used to hold the file as well
+
+- Problem after changing source code: \
+  Endless map png fetching
+  Solution: Refresh the page
 
 # Deployment
 
