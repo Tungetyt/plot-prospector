@@ -37,10 +37,7 @@ module.exports = {
         '.highlight::after': {
           content: '""',
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
+          inset: 0,
           'pointer-events': 'none',
           'box-shadow': 'inset 0 0 30px 0 rgba(0, 0, 255, 1)',
           'z-index': '99999' // Adjust as needed
