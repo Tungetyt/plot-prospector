@@ -103,9 +103,11 @@ const formatCoord = (coord: PointFromTextInput['lng']) => {
 
   if (!decimal) return cleanedCoord
 
-  if (decimal.length > 6) {
+  const maxDecimalPlaces = 6
+
+  if (decimal.length > maxDecimalPlaces) {
     // limit decimal to 6 places
-    decimal = decimal.substring(0, 6)
+    decimal = decimal.substring(0, maxDecimalPlaces)
     return `${parts[0]}.${decimal}`
   }
 
