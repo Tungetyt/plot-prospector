@@ -25,13 +25,16 @@ import {
   oneTrillion,
   transactionTypeOptions
 } from '@/features/PlotCreationController/Property/common'
-import propertyAction from '@/features/PlotCreationController/Property/server/propertyAction'
 import polygonArea from '@/features/PlotCreationController/Property/polygonArea/polygonArea'
 import formatPlot from '@/features/PlotCreationController/Property/formatPlot/formatPlot'
 import M2 from '@/features/PlotCreationController/Property/M2'
 import {sortedCurrencies} from '@/features/PlotCreationController/Property/sortedCurrencies/sortedCurrencies'
 import PriceInput from '@/features/PlotCreationController/Property/PriceInput'
 import PricePerM2 from '@/features/PlotCreationController/Property/PricePerM2/PricePerM2'
+import {StatusCodes} from 'http-status-codes'
+import PropertyController, {
+  propertyAction
+} from '@/entities/Property/PropertyController'
 
 const descriptionId = 'descriptionInput'
 const addressId = 'addressInput'
@@ -87,14 +90,16 @@ function PropertyForm({email}: {email: Email | null}) {
     const data = await propertyAction({
       ...restData,
       pictures: images.map(({dataURL}) => dataURL),
-      draftPlot: draftPlot.map(({lat, lng, ...rest}) => ({
+      plot: draftPlot.map(({lat, lng, ...rest}) => ({
+        ...rest,
         lat: +lat,
-        lng: +lng,
-        ...rest
+        lng: +lng
       }))
     })
-    if (data && data >= 500) toast.error(t('toast.Unexpected_server_error'))
-    else if (data && data >= 400)
+
+    if (data && data >= StatusCodes.INTERNAL_SERVER_ERROR)
+      toast.error(t('toast.Unexpected_server_error'))
+    else if (data && data >= StatusCodes.BAD_REQUEST)
       toast.error(t('toast.Wrong_form_data_provided'))
     else toast.success(t('toast.The_property_has_been_created'))
   })

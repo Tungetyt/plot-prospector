@@ -12,7 +12,6 @@ const Map = dynamic(() => import('@/features/Map/Map'), {ssr: false})
 export default async function Home() {
   const session = await getServerSession()
   pino().info('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
-  pino().error('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
 
   const email = session?.user?.email
 
